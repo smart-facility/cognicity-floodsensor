@@ -3,9 +3,9 @@ var awsIot = require('aws-iot-device-sdk');
 var device = awsIot.device({
    keyPath: '~/awsCerts/private.pem.key',
   certPath: '~/awsCerts/certificate.pem.crt',
-    caPath: '~/awsCerts/root-CA.crt',
-  clientId: 'myAwsClientId',
-    region: 'us-east-1'
+    caPath: '~/rootCA.crt',
+  clientId: 'process.env.CLIENT_ID',
+    region: 'us-west-1'
 });
 
 //
@@ -23,4 +23,3 @@ device
   .on('message', function(topic, payload) {
     console.log('message', topic, payload.toString());
   });
-  

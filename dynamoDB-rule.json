@@ -1,0 +1,14 @@
+{
+  "sql": "SELECT * FROM 'topic/floodsensor'",
+  "ruleDisabled": false,
+  "actions": [{
+      "dynamoDB": {
+        "tableName": "floodsensor",
+        "hashKeyField": "key",
+        "hashKeyValue": "${topic(2)}",
+        "rangeKeyField": "timestamp",
+        "rangeKeyValue": "${timestamp()}",
+        "roleArn": "arn:aws:iam::acct_id_number:role/iot-actions-role"
+      }
+    }]
+}

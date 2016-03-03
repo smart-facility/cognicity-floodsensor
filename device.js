@@ -5,7 +5,7 @@ var device = awsIot.device({
   certPath: '~/awsCerts/certificate.pem.crt',
     caPath: '~/rootCA.crt',
   clientId: 'process.env.CLIENT_ID',
-    region: 'us-west-1'
+    region: 'us-west-2'
 });
 
 //

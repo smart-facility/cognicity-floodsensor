@@ -1,6 +1,8 @@
 # Certs
-
 awsCerts/
+
+# Output json
+*_output.json
 
 # Logs
 logs
@@ -28,7 +30,7 @@ coverage
 build/Release
 
 # Dependency directory
-node_modules
+node_modules/
 
 # Optional npm cache directory
 .npm

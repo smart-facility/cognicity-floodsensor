@@ -16,7 +16,7 @@ var device = awsIot.device({
 //
 
 
-
+const offset = 100; // cm
 
 device
   .on('connect', function() {
@@ -26,9 +26,9 @@ device
             console.log('Error')
         } else {
           var sensor = usonic.createSensor(24, 23, 450);
-          var sensor_reading = sensor();
-          device.publish('topic/floodsensor', JSON.stringify({ test_data: sensor_reading}));
-          console.log('published'+JSON.stringify({ test_data: sensor_reading}));
+          var sensor_reading = sensor().toFixed(2);
+          device.publish('topic/floodsensor', JSON.stringify({ height: offset - sensor_reading}));
+          console.log('published'+JSON.stringify({height: offset - sensor_reading}));
         }
     });
   });

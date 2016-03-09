@@ -4,8 +4,11 @@ var device = awsIot.device({
    keyPath: '~/awsCerts/private.pem.key',
   certPath: '~/awsCerts/certificate.pem.crt',
     caPath: '~/rootCA.crt',
-  clientId: 'process.env.CLIENT_ID',
-    region: 'us-west-2'
+  clientId: process.env.CLIENT_ID,
+    region: 'us-west-2',
+      host: process.env.ENDPOINT,
+  protocol: mqtt,
+      port: 8883
 });
 
 //

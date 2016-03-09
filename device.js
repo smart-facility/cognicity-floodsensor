@@ -18,6 +18,7 @@ var device = awsIot.device({
 
 const offset = 100; // cm, needs calibration
 
+// Need to put the following in a polling sensor loop
 device
   .on('connect', function() {
     console.log('connect');

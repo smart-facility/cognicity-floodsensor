@@ -16,7 +16,7 @@ var device = awsIot.device({
 //
 
 
-const offset = 100; // cm
+const offset = 100; // cm, needs calibration
 
 device
   .on('connect', function() {
@@ -25,7 +25,7 @@ device
         if (error) {
             console.log('Error')
         } else {
-          var sensor = usonic.createSensor(24, 23, 450);
+          var sensor = usonic.createSensor(24, 23, 450); // needs calibration
           var sensor_reading = sensor().toFixed(2);
           device.publish('topic/floodsensor', JSON.stringify({ height: offset - sensor_reading}));
           console.log('published'+JSON.stringify({height: offset - sensor_reading}));

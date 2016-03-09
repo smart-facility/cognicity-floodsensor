@@ -1,14 +1,11 @@
 var awsIot = require('aws-iot-device-sdk');
 
 var device = awsIot.device({
-   keyPath: '~/awsCerts/private.pem.key',
-  certPath: '~/awsCerts/certificate.pem.crt',
-    caPath: '~/rootCA.crt',
+   keyPath: './awsCerts/private.pem.key',
+  certPath: './awsCerts/certificate.pem.crt',
+    caPath: './rootCA.pem',
   clientId: process.env.CLIENT_ID,
-    region: 'us-west-2',
-      host: process.env.ENDPOINT,
-  protocol: mqtt,
-      port: 8883
+    region: 'us-west-2'
 });
 
 //

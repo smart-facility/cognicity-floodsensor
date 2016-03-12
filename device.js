@@ -28,8 +28,8 @@ device
         } else {
           var sensor = usonic.createSensor(24, 23, 450); // needs calibration
           var sensor_reading = sensor().toFixed(2);
-          device.publish('topic/floodsensor', JSON.stringify({ height: offset - sensor_reading}));
-          console.log('published'+JSON.stringify({height: offset - sensor_reading}));
+          device.publish('topic/floodsensor', JSON.stringify({coordinates: [150.87843, -34.405404], height: offset - sensor_reading}))
+          console.log('published'+JSON.stringify({coordinates: [150.87843, -34.405404], height: offset - sensor_reading}));
         }
     });
   });

@@ -27,7 +27,7 @@ device
         if (error) {
             console.log('Error')
         } else {
-          setTimeout( function() {
+          setInterval( function() {
             var sensor = usonic.createSensor(24, 23, 450);
             var sensor_reading = sensor().toFixed(2);
             device.publish('topic/floodsensor', JSON.stringify({coordinates: [150.87843, -34.405404], height: config.max_depth - sensor_reading}));

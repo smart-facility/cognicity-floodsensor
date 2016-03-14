@@ -19,8 +19,7 @@ var device = awsIot.device({
 
 var config = require('./config.js');
 
-const offset = 100; // cm
-
+// Need to put the following in a polling sensor loop
 device
   .on('connect', function() {
     console.log('connect');
@@ -31,8 +30,8 @@ device
           setTimeout( function() {
             var sensor = usonic.createSensor(24, 23, 450);
             var sensor_reading = sensor().toFixed(2);
-            device.publish('topic/floodsensor', JSON.stringify({ height: offset - sensor_reading}));
-            console.log('published'+JSON.stringify({height: offset - sensor_reading}));
+            device.publish('topic/floodsensor', JSON.stringify({coordinates: [150.87843, -34.405404], height: config.max_depth - sensor_reading}));
+            console.log('published'+JSON.stringify({coordinates: [150.87843, -34.405404], height: config.max_depth - sensor_reading}));
           },3000);
         }
     });

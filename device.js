@@ -10,11 +10,14 @@ var device = awsIot.device({
     region: 'us-west-2'
 });
 
+
+
 //
 // Device is an instance returned by mqtt.Client(), see mqtt.js for full
 // documentation.
 //
 
+var config = require('./config.js');
 
 const offset = 100; // cm
 
@@ -25,10 +28,12 @@ device
         if (error) {
             console.log('Error')
         } else {
-          var sensor = usonic.createSensor(24, 23, 450);
-          var sensor_reading = sensor().toFixed(2);
-          device.publish('topic/floodsensor', JSON.stringify({ height: offset - sensor_reading}));
-          console.log('published'+JSON.stringify({height: offset - sensor_reading}));
+          setTimeout( function() {
+            var sensor = usonic.createSensor(24, 23, 450);
+            var sensor_reading = sensor().toFixed(2);
+            device.publish('topic/floodsensor', JSON.stringify({ height: offset - sensor_reading}));
+            console.log('published'+JSON.stringify({height: offset - sensor_reading}));
+          },3000);
         }
     });
   });

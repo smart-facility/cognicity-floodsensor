@@ -17,24 +17,23 @@ device
         if (error) {
             console.log('Error')
         } else {
+          var sensor = usonic.createSensor(24, 23, 450);
           setInterval( function() {
-            var sensor = usonic.createSensor(24, 23, 450);
             var average = 0;
             var count = 0;
-			var averagingInterval = setInterval( function() {
-				count++
-				average += sensor();
-				if (count==5) {
-					clearInterval(averagingInterval);
-				}
-			}, 1000);
-			             
-            var sensor_reading = (average/5).toFixed(2);
-            
-            // publish heigh = max_distance - distance from sensor_reading.
-            device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date().valueOf(), height: config.max_distance - sensor_reading}));
-            console.log('published'+JSON.stringify({id: config.clientId, time: (new Date().valueOf(), height: config.max_distance - sensor_reading}));
-          },config.interval*1000);
+			      var averagingInterval = setInterval( function() {
+  				    count++;
+              if (count < 5) {
+                average += sensor();
+              } else {
+                var sensor_reading = (average/5).toFixed(2);
+                // publish heigh = max_distance - distance from sensor_reading.
+                device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), height: config.max_distance - sensor_reading}));
+                console.log('published'+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), height: config.max_distance - sensor_reading}));
+                clearInterval(averagingInterval);
+              }
+            }, 1000);
+				  }, config.interval*1000);			             
         }
     });
   });

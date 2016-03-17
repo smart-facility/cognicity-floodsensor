@@ -34,7 +34,7 @@ device
             // publish heigh = max_distance - distance from sensor_reading.
             device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date().valueOf(), height: config.max_distance - sensor_reading}));
             console.log('published'+JSON.stringify({id: config.clientId, time: (new Date().valueOf(), height: config.max_distance - sensor_reading}));
-          },config.interval);
+          },config.interval*1000);
         }
     });
   });

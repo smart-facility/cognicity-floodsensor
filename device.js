@@ -6,7 +6,7 @@ var device = awsIot.device({
    keyPath: './awsCerts/private.pem.key',
   certPath: './awsCerts/certificate.pem.crt',
     caPath: './rootCA.pem',
-  clientId: config.clientId,
+  clientId: config.clientId.toString(),
     region: config.aws.region
 });
 
@@ -21,8 +21,8 @@ device
           setInterval( function() {
             var average = 0;
             var count = 0;
-			      var averagingInterval = setInterval( function() {
-  				    count++;
+            var averagingInterval = setInterval( function() {
+              count++;
               if (count < 5) {
                 average += sensor();
               } else {
@@ -32,8 +32,8 @@ device
                 console.log('published'+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), height: config.max_distance - sensor_reading}));
                 clearInterval(averagingInterval);
               }
-            }, 1000);
-				  }, config.interval*1000);			             
-        }
+          }, 1000);
+        }, config.interval*1000);
+      }
     });
   });

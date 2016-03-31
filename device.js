@@ -21,9 +21,9 @@ device
           setInterval( function() {
             var average = 0;
             var count = 0;
-			      var averagingInterval = setInterval( function() {
-  				    count++;
+            var averagingInterval = setInterval( function() {
               if (count < 5) {
+                count++;
                 average += sensor();
               } else {
                 var sensor_reading = (average/5).toFixed(2);
@@ -33,7 +33,7 @@ device
                 clearInterval(averagingInterval);
               }
             }, 1000);
-				  }, config.interval*1000);			             
+          }, config.interval*1000);
         }
     });
   });

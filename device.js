@@ -6,7 +6,7 @@ var device = awsIot.device({
    keyPath: './awsCerts/private.pem.key',
   certPath: './awsCerts/certificate.pem.crt',
     caPath: './rootCA.pem',
-  clientId: config.clientId,
+  clientId: config.clientId.toString(),
     region: config.aws.region
 });
 
@@ -35,5 +35,5 @@ device
             }, 1000);
           }, config.interval*1000);
         }
-    });
+      });
   });

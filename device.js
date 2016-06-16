@@ -1,6 +1,7 @@
 var config = require('./config.js');
 var awsIot = require('aws-iot-device-sdk');
 var usonic = require('r-pi-usonic');
+var sensorLib = require('node-dht-sensor');
 
 var device = awsIot.device({
    keyPath: './awsCerts/private.pem.key',

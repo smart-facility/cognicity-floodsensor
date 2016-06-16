@@ -13,8 +13,6 @@ exports.handler = function(event, context) {
   var client = new pg.Client(conn);
   client.connect();
 
-  var query = client.query("SELECT * FROM BLA WHERE ID = 1"); // do something with event, which is object as per JSON emitted in device.js#24
-
   var query = client.query(
     {
       text: "INSERT INTO sensor_data (sensor_id, measurement_time, distance)" +

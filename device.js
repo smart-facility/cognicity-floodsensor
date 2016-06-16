@@ -27,9 +27,9 @@ device
                 average += sensor();
               } else {
                 var sensor_reading = (average/5).toFixed(2);
-                // publish heigh = max_distance - distance from sensor_reading.
-                device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), height: config.max_distance - sensor_reading}));
-                console.log('published'+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), height: config.max_distance - sensor_reading}));
+                // publish reading
+                device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), sensor_reading}));
+                console.log('published'+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), sensor_reading}));
                 clearInterval(averagingInterval);
               }
             }, 1000);

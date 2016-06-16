@@ -19,3 +19,11 @@ Run this (note it needs to be run as root to access the GPIO memory):
 sudo node device.js
 ```
 Ctrl-C to quit.
+
+# Units
+All distances are stored as centimetres (cm)
+
+# Database Schema
+Schema is design for PostgreSQL with the PostGIS extension.
+
+Create the schema by running `schema/cognicity_floodsensor_pg_schema.sql` in target database.

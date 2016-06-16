@@ -22,7 +22,7 @@ id bigserial NOT NULL,
 sensor_id integer NOT NULL,
 measurement_time timestamp with time zone NOT NULL,
 database_time timestamp with time zone DEFAULT now(),
-distance_measurement float NOT NULL,
+distance float NOT NULL,
 temperature float,
 humidity float,
 CONSTRAINT sensor_data_pkey PRIMARY KEY (id)
@@ -31,6 +31,6 @@ COMMENT ON TABLE sensor_data IS 'Measurements from individual sensors';
 COMMENT ON COLUMN sensor_data.id IS '{integer} [Primary Key] Unique key for each sensor';
 COMMENT ON COLUMN sensor_data.measurement_time IS '{timestamp with timezone} Time of measurement as recorded by sensor';
 COMMENT ON COLUMN sensor_data.database_time IS '{timestamp with timezone} Time measurement data entered into database';
-COMMENT ON COLUMN sensor_data.distance_measurement IS '{float} Range between sensor and top of water';
-COMMENT ON COLUMN sensor_data.temperature IS '{float} Temperature at sensor at time of measurement, if available';
-COMMENT ON COLUMN sensor_data.humidity IS '{float} Humidity at sensor at time of measurement, if available';
+COMMENT ON COLUMN sensor_data.distance IS '{float} Range between sensor and top of water (cm)';
+COMMENT ON COLUMN sensor_data.temperature IS '{float} Temperature at sensor at time of measurement, if available ';
+COMMENT ON COLUMN sensor_data.humidity IS '{float} Humidity at sensor at time of measurement , if available';

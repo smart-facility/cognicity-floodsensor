@@ -19,7 +19,7 @@ device
             console.log('Error')
         } else {
           var ultrasound_sensor = usonic.createSensor(24, 23, 450);
-          if (config.hasDHT) {}
+          if (config.hasDHT) {
             dht_sensor_lib.initialize(22,4);
           }
           setInterval( function() {

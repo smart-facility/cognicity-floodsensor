@@ -9,8 +9,9 @@ logs
 *.log
 npm-debug.log*
 
-# lambda config
+# lambda config & zip file
 lambda_config.js
+lambda.zip
 
 # Runtime data
 pids

@@ -28,7 +28,7 @@ device
             var averagingInterval = setInterval( function() {
               if (count < 5) {
                 count++;
-                average += sensor();
+                average += ultrasound_sensor().toFixed(2);
               } else {
                 var ultrasound_sensor_reading = (average/5).toFixed(2);
                 // publish reading

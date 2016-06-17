@@ -1,30 +1,32 @@
 var pg = require('pg');
-var config = require('./config.js');
+var config = require('./lambda_config.js');
 
 exports.handler = function(event, context) {
   console.log('Received event:');
   console.log(JSON.stringify(event, null, '  '));
 
-  var obs = JSON.stringify(event);
-
   // do stuff to store in pg
-  var conn = "pg://user:password@host:5432/bd_name"; // Could set via config stored in S3 or in Lambda
+  var conn = config.pg.conString; // Could set via config stored in S3 or in Lambda
 
   var client = new pg.Client(conn);
   client.connect();
 
   var query = client.query(
     {
-      text: "INSERT INTO sensor_data (sensor_id, measurement_time, distance)" +
+      text: "INSERT INTO sensor_data (sensor_id, measurement_time, distance, temperature, humidity)" +
       "VALUES (" +
       "$1, " +
       "to_timestamp($2), " +
-      "$3" +
+      "$3," +
+      "$4," +
+      "$5" +
       ");",
       values: [
-        config.clientId,
-        obs.time,
-        obs.distance
+        event.id,
+        event.time,
+        event.distance,
+        event.temperature,
+        event.humidity
       ]
     }
   );
@@ -32,6 +34,7 @@ exports.handler = function(event, context) {
   query.on("row", function (row, result) {
     result.addRow(row);
   });
+
   query.on("end", function (result) {
     var jsonString = JSON.stringify(result.rows);
     var jsonObj = JSON.parse(jsonString);

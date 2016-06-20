@@ -23,7 +23,7 @@ exports.handler = function(event, context) {
       ");",
       values: [
         event.id,
-        event.time,
+        event.time/1000,
         event.distance,
         event.temperature,
         event.humidity
@@ -41,8 +41,7 @@ exports.handler = function(event, context) {
     console.log(jsonString);
     client.end();
     context.succeed(jsonObj);
+    context.done(null,'finished successfully');
   });
-
-  context.done(null,'finished successfully');
 
 };

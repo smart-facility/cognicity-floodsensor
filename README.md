@@ -24,6 +24,9 @@ sudo node device.js
 ```
 Ctrl-C to quit.
 
+## Lambda side
+(fixme)
+
 # Units
 All distances are stored as centimetres (cm), temperature in °C, and humidity as %.
 

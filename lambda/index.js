@@ -1,5 +1,5 @@
 var pg = require('pg');
-var config = require('./lambda_config.js');
+var config = require('./config.js');
 
 exports.handler = function(event, context) {
   console.log('Received event:');

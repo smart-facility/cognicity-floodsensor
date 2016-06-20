@@ -1,5 +1,5 @@
 # Certs
-awsCerts/
+device/awsCerts/
 
 # Output json
 *_output.json
@@ -10,7 +10,7 @@ logs
 npm-debug.log*
 
 # lambda config & zip file
-lambda_config.js
+lambda/config.js
 lambda.zip
 
 # Runtime data

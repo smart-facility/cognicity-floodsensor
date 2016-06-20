@@ -1,0 +1,28 @@
+{
+  "name": "cognicity-floodsensor_lambda",
+  "version": "0.1.0",
+  "description": "cognicity-floodsensor lambda code dependencies",
+  "main": "index.js",
+  "dependencies": {
+    "pg": "^5.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smart-facility/cognicity-floodsensor.git"
+  },
+  "keywords": [
+    "flood",
+    "sensor",
+    "lambda"
+  ],
+  "author": "Matthew Berryman <mattjb@me.com>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/smart-facility/cognicity-floodsensor/issues"
+  },
+  "homepage": "https://github.com/smart-facility/cognicity-floodsensor#readme"
+}

@@ -1,5 +1,5 @@
 # cognicity-floodsensor
-IoT flood height sensor code
+IoT water depth, temperature and humidity sensor code
 
 # Installation
 First clone this repository and install dependencies:

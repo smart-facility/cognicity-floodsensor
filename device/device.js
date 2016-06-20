@@ -28,14 +28,13 @@ device
             var averagingInterval = setInterval( function() {
               if (count < 5) {
                 count++;
-                average += ultrasound_sensor().toFixed(2);
+                average += ultrasound_sensor();
               } else {
                 var ultrasound_sensor_reading = (average/5).toFixed(2);
                 // publish reading
                 if (config.hasDHT) {
                   var dht_readout = dht_sensor_lib.read();
                   device.publish('topic/floodsensor', JSON.stringify({id: config.clientI, time: (new DATE()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
-
                 } else {
                   device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
                   console.log('published'+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));

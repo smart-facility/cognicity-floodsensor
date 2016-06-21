@@ -1,6 +1,6 @@
 {
   "name": "cognicity-floodsensor",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "cognicity floodsensor example",
   "main": "device.js",
   "scripts": {

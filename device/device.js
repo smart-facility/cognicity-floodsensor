@@ -34,7 +34,7 @@ device
                 // publish reading
                 if (config.hasDHT) {
                   var dht_readout = dht_sensor_lib.read();
-                  device.publish('topic/floodsensor', JSON.stringify({id: config.clientI, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
+                  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
                 } else {
                   device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
                   console.log('published'+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));

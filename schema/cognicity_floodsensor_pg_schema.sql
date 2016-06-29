@@ -34,3 +34,17 @@ COMMENT ON COLUMN sensor_data.database_time IS '{timestamp with timezone} Time m
 COMMENT ON COLUMN sensor_data.distance IS '{float} Range between sensor and top of water (cm)';
 COMMENT ON COLUMN sensor_data.temperature IS '{float} Temperature at sensor at time of measurement, if available ';
 COMMENT ON COLUMN sensor_data.humidity IS '{float} Humidity at sensor at time of measurement , if available';
+
+-- Create types for floodsensor data output
+CREATE TYPE sensor_data_type AS (
+  measurement_time timestamp,
+  distance double precision,
+  temperature double precision,
+  humidity double precision
+);
+
+CREATE TYPE sensor_metadata_type AS (
+	id varchar,
+	height_above_riverbed real,
+	measurements json
+);

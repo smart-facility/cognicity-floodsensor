@@ -39,6 +39,7 @@ COMMENT ON COLUMN sensor_data.humidity IS '{float} Humidity at sensor at time of
 CREATE TYPE sensor_data_type AS (
   measurement_time timestamp,
   distance double precision,
+  computed_depth double precision,
   temperature double precision,
   humidity double precision
 );

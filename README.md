@@ -21,6 +21,7 @@ npm install
 Copy [lambda/sample_config.js](lambda/sample_config.js) to a file called `config` in the `lambda` subdirectory, and edit it to replace the sample PostgreSQL config string with your actual string.
 Then in the lambda subdirectory
 ```shell
+npm install
 zip -r -9 ../lambda.zip *
 ```
 and upload the lambda.zip file to AWS lambda.

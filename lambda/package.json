@@ -1,6 +1,6 @@
 {
   "name": "cognicity-floodsensor_lambda",
-  "version": "0.9.0",
+  "version": "2.0.1",
   "description": "cognicity-floodsensor lambda code dependencies",
   "main": "index.js",
   "dependencies": {

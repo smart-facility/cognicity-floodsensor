@@ -1,5 +1,5 @@
 # Certs
-device/awsCerts/
+device/awsCert*/
 
 # Output json
 *_output.json

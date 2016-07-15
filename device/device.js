@@ -8,7 +8,7 @@ var device = awsIot.device({
    keyPath: './awsCerts/private.pem.key',
   certPath: './awsCerts/certificate.pem.crt',
     caPath: './rootCA.pem',
-  clientId: config.clientId.toString(),
+  clientId: 'sensor' + config.clientId.toString(),
     region: config.aws.region
 });
 

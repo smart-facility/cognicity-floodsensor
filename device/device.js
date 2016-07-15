@@ -4,6 +4,7 @@ var usonic = require('r-pi-usonic');
 var dht_sensor_lib = require('node-dht-sensor');
 var logger = require('winston');
 var fs = require('fs');
+var path = require('path');
 
 var device = awsIot.device({
    keyPath: './awsCerts/private.pem.key',

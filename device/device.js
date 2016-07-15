@@ -23,8 +23,7 @@ try {
 	console.log( "Log directory '" + logPath + "' cannot be written to"  );
 	throw e;
 }
-logPath += path.sep;
-logPath += config.instance + ".log";
+logPath += path.sep + config.logger.logFileName;
 
 logger
 	.add(logger.transports.File, {

@@ -5,7 +5,7 @@ config.hasDHT = true; // if there's a DHT temperature and humidity sensor attach
 
 
 config.aws = {};
-config.aws.region = 'us-west-2'; // AWS region your IoT service is set up in
+config.aws.region = 'ap-southeast-1'; // AWS region your IoT service is set up in
 
 // Logging configuration
 config.logger = {};

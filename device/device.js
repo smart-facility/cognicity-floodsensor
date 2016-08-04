@@ -44,7 +44,7 @@ device
         if (error) {
             logger.error('Error initialising ultrasound sensor.');
         } else {
-          var ultrasound_sensor = usonic.createSensor(24, 23, 450);
+          var ultrasound_sensor = usonic.createSensor(24, 23, config.usonic_timeout);
           if (config.hasDHT) {
             dht_sensor_lib.initialize(22,4);
           }
@@ -68,7 +68,7 @@ device
                 }
                 clearInterval(averagingInterval);
               }
-            }, 1000);
+            }, 2000);
           }, config.interval*1000);
         }
       });

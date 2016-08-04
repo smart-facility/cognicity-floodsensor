@@ -68,7 +68,7 @@ device
                 }
                 clearInterval(averagingInterval);
               }
-            }, 2000);
+            }, 1000);
           }, config.interval*1000);
         }
       });

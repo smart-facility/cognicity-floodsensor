@@ -2,7 +2,7 @@ config = {};
 config.interval = 1800; // seconds between sensor values being uploaded
 config.clientId = 1; // client ID, integer, must match sensor_metadata table
 config.hasDHT = true; // if there's a DHT temperature and humidity sensor attached
-config.usonic_timeout = 1000; // ultrasound sensor timeout in ms
+config.usonic_timeout = 1000; // ultrasound sensor timeout in µs
 
 config.aws = {};
 config.aws.region = 'ap-southeast-1'; // AWS region your IoT service is set up in

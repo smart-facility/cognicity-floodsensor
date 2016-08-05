@@ -44,3 +44,7 @@ Ctrl-C to quit.
 
 # Units
 All distances are stored as centimetres (cm), temperature in °C, and humidity as %.
+
+# Circuit
+The circuit schematic we use with this software (included hard-coded pin numbers in set up of DHT and HC-SR04 libraries) is as follows:
+![circuit_schematic](circuit_schematic.jpg "Circuit Schematic")

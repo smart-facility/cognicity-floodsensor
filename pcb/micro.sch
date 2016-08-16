@@ -374,7 +374,7 @@ Wire Wire Line
 Wire Wire Line
 	5700 4200 6200 4200
 Wire Wire Line
-	5700 4100 6200 4100
+	5700 4100 8500 4100
 Wire Wire Line
 	5700 3800 6200 3800
 Wire Wire Line
@@ -507,4 +507,6 @@ Wire Wire Line
 	2500 3700 2500 3300
 Wire Wire Line
 	2500 4000 2500 4700
+Text HLabel 8500 4100 2    60   Input ~ 0
+WP
 $EndSCHEMATC

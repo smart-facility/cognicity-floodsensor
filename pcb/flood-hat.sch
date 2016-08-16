@@ -65,6 +65,7 @@ F1 "optionrom.sch" 60
 F2 "SCL" I R 5800 5000 60 
 F3 "SDA" I R 5800 4900 60 
 F4 "PIVCC" I L 5100 4900 60 
+F5 "WP" I L 5100 5100 60 
 $EndSheet
 Wire Wire Line
 	7100 5550 7100 5750
@@ -153,9 +154,10 @@ F3 "5V" I L 2800 2500 60
 F4 "TXD" I R 4000 2800 60 
 F5 "RXD" I R 4000 2900 60 
 F6 "VCCmicro" I L 2800 2700 60 
+F7 "WP" I R 4000 3000 60 
 $EndSheet
 Wire Wire Line
-	4000 2500 4500 2500
+	4000 2500 4700 2500
 Wire Wire Line
 	4000 1500 4200 1500
 Wire Wire Line
@@ -189,14 +191,6 @@ Wire Wire Line
 Wire Wire Line
 	8200 1100 8200 2300
 Wire Wire Line
-	4550 2500 4700 2500
-Wire Wire Line
-	4700 2500 4700 3300
-Wire Wire Line
-	4700 3300 2300 3300
-Wire Wire Line
-	2300 3300 2300 1100
-Wire Wire Line
 	2300 1100 2800 1100
 Wire Wire Line
 	4000 4300 4600 4300
@@ -212,4 +206,20 @@ Text Label 4350 4300 2    60   ~ 0
 PIVCC
 Text Label 4850 4900 2    60   ~ 0
 PIVCC
+Wire Wire Line
+	5100 5100 4500 5100
+Text Label 4850 5100 2    60   ~ 0
+WP
+Wire Wire Line
+	4000 3000 4500 3000
+Text Label 4350 3000 2    60   ~ 0
+WP
+Text Label 4550 2500 2    60   ~ 0
+SWITCH
+Text Label 2700 1100 2    60   ~ 0
+SWITCH
+Text Label 6500 4300 2    60   ~ 0
+TRIG
+Text Label 6500 4400 2    60   ~ 0
+ECHO
 $EndSCHEMATC

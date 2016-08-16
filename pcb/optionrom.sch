@@ -88,17 +88,6 @@ F 3 "" H 5500 3150 50  0000 C CNN
 	1    5500 3150
 	1    0    0    -1  
 $EndComp
-$Comp
-L CONN_01X02 P1
-U 1 1 57B302AE
-P 5700 4050
-F 0 "P1" H 5700 4200 50  0000 C CNN
-F 1 "CONN_01X02" V 5800 4050 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x02" H 5700 4050 50  0001 C CNN
-F 3 "" H 5700 4050 50  0000 C CNN
-	1    5700 4050
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	3700 3400 3900 3400
 Wire Wire Line
@@ -135,14 +124,8 @@ Wire Wire Line
 	3700 3300 3700 4300
 Connection ~ 5500 3400
 Wire Wire Line
-	5500 4300 5500 4100
-Wire Wire Line
-	3100 4300 5500 4300
-Wire Wire Line
 	4600 4300 4600 4000
 Connection ~ 4600 4300
-Text Notes 5950 4050 0    60   ~ 0
-Write Enable
 Wire Wire Line
 	3100 2800 5900 2800
 Text HLabel 6900 3600 2    60   Input ~ 0
@@ -170,4 +153,10 @@ Text GLabel 3100 4300 0    60   Input ~ 0
 GND
 Text HLabel 3100 2800 0    60   Input ~ 0
 PIVCC
+Wire Wire Line
+	3100 4300 4600 4300
+Text HLabel 6900 4000 2    60   Input ~ 0
+WP
+Wire Wire Line
+	5500 4000 6900 4000
 $EndSCHEMATC

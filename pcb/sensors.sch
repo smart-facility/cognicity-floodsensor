@@ -137,50 +137,80 @@ Wire Wire Line
 Wire Wire Line
 	4700 3100 8000 3100
 Connection ~ 4700 3000
-Text GLabel 8000 4900 2    60   Input ~ 0
-GND
 Connection ~ 4900 4100
-Text HLabel 8000 3800 2    60   Input ~ 0
+Text HLabel 4300 1100 0    60   Input ~ 0
 5Vsensor
-Text HLabel 8000 2900 2    60   Input ~ 0
-VCCsensor
 Connection ~ 5100 2900
-$Comp
-L C C3
-U 1 1 57B35820
-P 7700 4550
-F 0 "C3" H 7725 4650 50  0000 L CNN
-F 1 "1u" H 7725 4450 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805" H 7738 4400 50  0001 C CNN
-F 3 "" H 7700 4550 50  0000 C CNN
-	1    7700 4550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4900 4900 8000 4900
 Wire Wire Line
 	4900 3200 4900 4900
 $Comp
+L HT73xx U5
+U 1 1 57B665D3
+P 5800 1150
+F 0 "U5" H 5950 954 50  0000 C CNN
+F 1 "HT7333" H 5800 1350 50  0000 C CNN
+F 2 "TO_SOT_Packages_SMD:SOT89-3_Housing" H 5800 1150 50  0001 C CNN
+F 3 "" H 5800 1150 50  0000 C CNN
+	1    5800 1150
+	1    0    0    -1  
+$EndComp
+$Comp
 L C C2
-U 1 1 57B35A52
-P 7400 4550
-F 0 "C2" H 7425 4650 50  0000 L CNN
-F 1 "1u" H 7425 4450 50  0000 L CNN
-F 2 "Capacitors_SMD:C_0805" H 7438 4400 50  0001 C CNN
-F 3 "" H 7400 4550 50  0000 C CNN
-	1    7400 4550
+U 1 1 57B665DA
+P 5100 1450
+F 0 "C2" H 5125 1550 50  0000 L CNN
+F 1 "10u" H 5125 1350 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805" H 5138 1300 50  0001 C CNN
+F 3 "" H 5100 1450 50  0000 C CNN
+	1    5100 1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C3
+U 1 1 57B665E1
+P 6400 1450
+F 0 "C3" H 6425 1550 50  0000 L CNN
+F 1 "10u" H 6425 1350 50  0000 L CNN
+F 2 "Capacitors_SMD:C_0805" H 6438 1300 50  0001 C CNN
+F 3 "" H 6400 1450 50  0000 C CNN
+	1    6400 1450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7700 4900 7700 4700
-Connection ~ 7700 4900
+	4300 1100 5400 1100
 Wire Wire Line
-	7700 4400 7700 3800
-Connection ~ 7700 3800
+	5100 1100 5100 1300
+Connection ~ 5100 1100
 Wire Wire Line
-	7400 4400 7400 2900
-Connection ~ 7400 2900
+	5100 1600 5100 1700
 Wire Wire Line
-	7400 4700 7400 4900
-Connection ~ 7400 4900
+	4300 1700 7300 1700
+Connection ~ 5800 1700
+Wire Wire Line
+	6400 1700 6400 1600
+Connection ~ 6400 1700
+Wire Wire Line
+	6400 1300 6400 1100
+Connection ~ 6400 1100
+Wire Wire Line
+	5800 1400 5800 1700
+Connection ~ 5100 1700
+Text GLabel 4300 1700 0    60   Input ~ 0
+GND
+Wire Wire Line
+	6200 1100 7300 1100
+Text Label 4550 1700 0    60   ~ 0
+GND
+Text Label 4550 1100 0    60   ~ 0
+5V
+Text Label 6050 3800 0    60   ~ 0
+5V
+Text Label 6100 2900 0    60   ~ 0
+VCC
+Text Label 6750 1100 0    60   ~ 0
+VCC
+Wire Wire Line
+	4900 4900 8000 4900
+Text Label 6050 4900 0    60   ~ 0
+GND
 $EndSCHEMATC

@@ -44,15 +44,13 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 8100 3400 2    60   Input ~ 0
+Text HLabel 8000 4200 2    60   Input ~ 0
 PWRSWITCH
 Text HLabel 1750 1200 0    60   Input ~ 0
 5V
-Text HLabel 6600 4000 2    60   Input ~ 0
+Text HLabel 6600 3400 2    60   Input ~ 0
 TXD
-Text HLabel 6600 3900 2    60   Input ~ 0
-RXD
-Text GLabel 8500 5000 2    60   Input ~ 0
+Text GLabel 8500 5500 2    60   Input ~ 0
 GND
 $Comp
 L STM32F030F U4
@@ -169,7 +167,7 @@ U 1 1 57B37BC2
 P 2350 6450
 F 0 "P5" H 2350 6700 50  0000 C CNN
 F 1 "CONN_01X04" V 2450 6450 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Angled_1x04" H 2350 6450 50  0001 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x04" H 2350 6450 50  0001 C CNN
 F 3 "" H 2350 6450 50  0000 C CNN
 	1    2350 6450
 	-1   0    0    1   
@@ -186,23 +184,23 @@ Text Notes 2050 6450 2    60   ~ 0
 Debug Port
 Text Label 2950 6300 2    60   ~ 0
 VCCmicro
-Text Label 6150 3800 2    60   ~ 0
-FLASHCS
+Text Label 6100 3800 2    60   ~ 0
+PA4
 Text Label 6100 3700 2    60   ~ 0
-SCK
+PA5
 Text Label 6100 3600 2    60   ~ 0
-MISO
+PA6
 Text Label 6100 3500 2    60   ~ 0
-MOSI
+PA7
 $Comp
 L LED D1
 U 1 1 57B395AF
-P 7300 4300
-F 0 "D1" H 7300 4400 50  0000 C CNN
-F 1 "LED" H 7300 4200 50  0000 C CNN
-F 2 "LEDs:LED_0805" H 7300 4300 50  0001 C CNN
-F 3 "" H 7300 4300 50  0000 C CNN
-	1    7300 4300
+P 7300 4800
+F 0 "D1" H 7300 4900 50  0000 C CNN
+F 1 "LED" H 7300 4700 50  0000 C CNN
+F 2 "LEDs:LED_0805" H 7300 4800 50  0001 C CNN
+F 3 "" H 7300 4800 50  0000 C CNN
+	1    7300 4800
 	0    -1   -1   0   
 $EndComp
 Text Label 2050 1200 2    60   ~ 0
@@ -243,34 +241,23 @@ $EndComp
 $Comp
 L R R12
 U 1 1 57B3F8D9
-P 7300 4750
-F 0 "R12" V 7380 4750 50  0000 C CNN
-F 1 "1k" V 7300 4750 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805" V 7230 4750 50  0001 C CNN
-F 3 "" H 7300 4750 50  0000 C CNN
-	1    7300 4750
+P 7300 5250
+F 0 "R12" V 7380 5250 50  0000 C CNN
+F 1 "1k" V 7300 5250 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805" V 7230 5250 50  0001 C CNN
+F 3 "" H 7300 5250 50  0000 C CNN
+	1    7300 5250
 	1    0    0    -1  
 $EndComp
 Text Label 4350 3300 2    60   ~ 0
 BOOT0
 Text Label 4350 3400 2    60   ~ 0
 NRST
-$Comp
-L 25LC_EEPROM U6
-U 1 1 57B59186
-P 5100 6500
-F 0 "U6" H 4800 6750 50  0000 L CNN
-F 1 "25Q64" H 5150 6750 50  0000 L CNN
-F 2 "SMD_Packages:SOIC-8-N" H 4750 6450 50  0001 C CNN
-F 3 "" H 4750 6450 50  0000 C CNN
-	1    5100 6500
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	5100 4500 5100 5000
+	5100 4500 5100 5500
 Wire Wire Line
 	1750 1200 2850 1200
-Connection ~ 5100 5000
+Connection ~ 5100 5500
 Wire Wire Line
 	5000 1200 5000 2600
 Wire Wire Line
@@ -306,9 +293,9 @@ Wire Wire Line
 	3350 3400 3350 3500
 Connection ~ 3350 3400
 Wire Wire Line
-	3350 3800 3350 5000
+	3350 3800 3350 5500
 Wire Wire Line
-	3050 4100 3050 5000
+	3050 4100 3050 5500
 Wire Wire Line
 	2500 3300 4500 3300
 Wire Wire Line
@@ -343,10 +330,6 @@ Wire Wire Line
 Wire Wire Line
 	5700 3500 6200 3500
 Wire Wire Line
-	5700 3400 8100 3400
-Wire Wire Line
-	5700 3300 8100 3300
-Wire Wire Line
 	2500 2500 5200 2500
 Wire Wire Line
 	4500 3600 4500 3800
@@ -365,45 +348,19 @@ Connection ~ 4300 4100
 Wire Wire Line
 	3800 3600 3700 3600
 Wire Wire Line
-	3700 3600 3700 5000
-Connection ~ 3700 5000
+	3700 3600 3700 5500
+Connection ~ 3700 5500
 Wire Wire Line
 	3800 4100 3700 4100
 Connection ~ 3700 4100
-Connection ~ 3350 5000
-Connection ~ 3050 5000
+Connection ~ 3350 5500
+Connection ~ 3050 5500
 Wire Wire Line
 	3050 3400 4500 3400
 Wire Wire Line
 	2500 3100 2500 3700
 Wire Wire Line
-	2500 4000 2500 5000
-Wire Wire Line
-	5100 6200 5100 5900
-Wire Wire Line
-	4500 5900 5600 5900
-Wire Wire Line
-	5100 6800 5100 7200
-Wire Wire Line
-	4700 6600 4200 6600
-Wire Wire Line
-	5500 6600 6000 6600
-Wire Wire Line
-	5500 6500 6000 6500
-Wire Wire Line
-	5500 6400 6000 6400
-Text Label 5200 5900 0    60   ~ 0
-VCCmicro
-Text Label 5250 7200 0    60   ~ 0
-GND
-Text Label 4300 6600 0    60   ~ 0
-FLASHCS
-Text Label 5700 6400 0    60   ~ 0
-SCK
-Text Label 5700 6600 0    60   ~ 0
-MISO
-Text Label 5700 6500 0    60   ~ 0
-MOSI
+	2500 4000 2500 5500
 $Comp
 L C C11
 U 1 1 57B59CDF
@@ -421,64 +378,48 @@ Connection ~ 4750 1200
 Wire Wire Line
 	4750 1800 4750 1700
 Connection ~ 4450 1800
-Wire Wire Line
-	4700 6400 4500 6400
-Text Notes 4650 7400 0    60   ~ 0
-Flash Logging Storage
 Text HLabel 6600 2900 2    60   Input ~ 0
 DHT
-Text HLabel 6600 4200 2    60   Input ~ 0
+Text HLabel 6600 4000 2    60   Input ~ 0
 ECHO
-Text HLabel 6600 4100 2    60   Input ~ 0
+Text HLabel 6600 3900 2    60   Input ~ 0
 TRIG
-Wire Wire Line
-	5100 7200 5500 7200
-Wire Wire Line
-	4500 6500 4700 6500
-Wire Wire Line
-	4500 5900 4500 6500
-Connection ~ 5100 5900
-Connection ~ 4500 6400
-Text Notes 7000 5250 0    60   ~ 0
+Text Notes 7000 5750 0    60   ~ 0
 Pi On
 Wire Wire Line
 	5700 2900 6600 2900
 Wire Wire Line
-	7300 4900 7300 5000
+	7300 5400 7300 5500
 Wire Wire Line
-	2500 5000 8500 5000
-Wire Wire Line
-	7300 3400 7300 4100
-Text HLabel 8100 3300 2    60   Input ~ 0
+	2500 5500 8500 5500
+Text HLabel 8000 4100 2    60   Input ~ 0
 SENSSWITCH
 $Comp
 L LED D2
 U 1 1 57B5CE82
-P 7800 4300
-F 0 "D2" H 7800 4400 50  0000 C CNN
-F 1 "LED" H 7800 4200 50  0000 C CNN
-F 2 "LEDs:LED_0805" H 7800 4300 50  0001 C CNN
-F 3 "" H 7800 4300 50  0000 C CNN
-	1    7800 4300
+P 7800 4800
+F 0 "D2" H 7800 4900 50  0000 C CNN
+F 1 "LED" H 7800 4700 50  0000 C CNN
+F 2 "LEDs:LED_0805" H 7800 4800 50  0001 C CNN
+F 3 "" H 7800 4800 50  0000 C CNN
+	1    7800 4800
 	0    -1   -1   0   
 $EndComp
 $Comp
 L R R15
 U 1 1 57B5CEE1
-P 7800 4750
-F 0 "R15" V 7880 4750 50  0000 C CNN
-F 1 "1k" V 7800 4750 50  0000 C CNN
-F 2 "Resistors_SMD:R_0805" V 7730 4750 50  0001 C CNN
-F 3 "" H 7800 4750 50  0000 C CNN
-	1    7800 4750
+P 7800 5250
+F 0 "R15" V 7880 5250 50  0000 C CNN
+F 1 "1k" V 7800 5250 50  0000 C CNN
+F 2 "Resistors_SMD:R_0805" V 7730 5250 50  0001 C CNN
+F 3 "" H 7800 5250 50  0000 C CNN
+	1    7800 5250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	7800 4900 7800 5000
-Connection ~ 7800 5000
-Wire Wire Line
-	7800 3300 7800 4100
-Text Notes 7600 5300 0    60   ~ 0
+	7800 5400 7800 5500
+Connection ~ 7800 5500
+Text Notes 7600 5800 0    60   ~ 0
 Sensors\nOn
 $Comp
 L CONN_01X02 P9
@@ -497,13 +438,60 @@ Wire Wire Line
 Text Notes 1500 3100 0    60   ~ 0
 Bootloader
 Wire Wire Line
-	5700 4200 6600 4200
+	5700 4200 8000 4200
 Wire Wire Line
-	5700 4100 6600 4100
+	5700 4100 8000 4100
 Wire Wire Line
-	7300 4600 7300 4500
+	7300 5100 7300 5000
 Wire Wire Line
-	7800 4600 7800 4500
-Connection ~ 7800 3300
-Connection ~ 7300 3400
+	7800 5100 7800 5000
+Text HLabel 6600 3300 2    60   Input ~ 0
+RXD
+Wire Wire Line
+	5700 3400 6600 3400
+Wire Wire Line
+	6600 3300 5700 3300
+Wire Wire Line
+	7800 4100 7800 4600
+Wire Wire Line
+	7300 4200 7300 4600
+Connection ~ 7800 4100
+Connection ~ 7300 4200
+$Comp
+L CONN_01X06 P10
+U 1 1 57FB93DC
+P 2350 7150
+F 0 "P10" H 2350 7500 50  0000 C CNN
+F 1 "CONN_01X06" V 2450 7150 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 2350 7150 50  0001 C CNN
+F 3 "" H 2350 7150 50  0000 C CNN
+	1    2350 7150
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2550 7400 3100 7400
+Wire Wire Line
+	2550 7300 3100 7300
+Wire Wire Line
+	2550 7200 3100 7200
+Wire Wire Line
+	2550 7100 3100 7100
+Wire Wire Line
+	2550 7000 3100 7000
+Wire Wire Line
+	2550 6900 3100 6900
+Text Label 2750 6900 0    60   ~ 0
+PA7
+Text Label 2750 7000 0    60   ~ 0
+PA6
+Text Label 2750 7100 0    60   ~ 0
+PA5
+Text Label 2750 7200 0    60   ~ 0
+PA4
+Text Label 2600 7300 0    60   ~ 0
+VCCmicro
+Text Label 2600 7400 0    60   ~ 0
+GND
+Text Notes 2050 7150 2    60   ~ 0
+Breakout Port
 $EndSCHEMATC

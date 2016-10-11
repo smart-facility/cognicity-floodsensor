@@ -68,59 +68,6 @@ main(int argc, char* argv[])
 	t0+=1000;
 	++count;
   }
-
-  /*
-	uint32_t count=0;
-
-	usonic.setup();
-	dht.setup();
-	serial.setup(115200);
-
-	uint64_t t0=Timer::millis()+1000;
-	bool tried;
-
-	while (true){
-		Timer::msleepUntil(t0);
-
-	    ++count;
-	    tried=false;
-
-	    usonic.startRead();
-	    if((count & 31) == 0){
-	    	dht.startRead();
-	    	tried=true;
-	    }
-
-	    t0+=30;
-	    Timer::msleepUntil(t0);
-
-	    uint16_t range=usonic.getRange();
-	    utostr(range, 10, 4, '0', &txtbuf[0]);
-	    txtbuf[4]=' ';
-	    txtbuf[5]='\0';
-	    serial.print(&txtbuf[0]);
-
-	    if(tried){
-	    	serial.print("\r\n");
-	    	if(dht.readSuccess()){
-	    		int16_t temp=dht.getTemperature();
-	    		int16_t rh=dht.getHumidity();
-
-	    		dtostrx(temp, 10, 10, 4, 1, '0', &txtbuf[0]);
-	    		serial.print(&txtbuf[0]);
-	    		serial.print("C\r\n");
-	    		dtostrx(rh, 10, 10, 4, 1, '0', &txtbuf[0]);
-	    		serial.print(&txtbuf[0]);
-	    		serial.print("%\r\n");
-		    }
-	    	else{
-	    		serial.println("-");
-	    	}
-	    }
-
-	    t0+=70;
-	}
-	*/
 }
 
 #pragma GCC diagnostic pop

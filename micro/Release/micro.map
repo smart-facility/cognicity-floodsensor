@@ -2673,7 +2673,7 @@ END GROUP
  .debug_abbrev  0x00000000000034db      0x4fb ./src/main.o
  .debug_abbrev  0x00000000000039d6      0x47f ./src/serial.o
 
-.debug_line     0x0000000000000000     0x330c
+.debug_line     0x0000000000000000     0x3306
  *(.debug_line)
  .debug_line    0x0000000000000000      0x208 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_line    0x0000000000000208      0x1ad ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2701,8 +2701,8 @@ END GROUP
  .debug_line    0x0000000000002822      0x2c9 ./src/flood.o
  .debug_line    0x0000000000002aeb      0x26e ./src/hcsr04.o
  .debug_line    0x0000000000002d59      0x130 ./src/intchain.o
- .debug_line    0x0000000000002e89      0x1d9 ./src/main.o
- .debug_line    0x0000000000003062      0x2aa ./src/serial.o
+ .debug_line    0x0000000000002e89      0x1d3 ./src/main.o
+ .debug_line    0x000000000000305c      0x2aa ./src/serial.o
 
 .debug_frame    0x0000000000000000     0x16ac
  *(.debug_frame)

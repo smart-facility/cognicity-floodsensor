@@ -21,8 +21,6 @@
  * @file main.cpp
  *
  * Main process - power management for Pi collecting flood data.
- *
- * Currently is just brain-dead device-test code.
  */
 
 #include <stdio.h>
@@ -31,11 +29,9 @@
 
 #include "rtos.h"
 #include "Timer.h"
-#include "serial.h"
 #include "bbuffer.h"
 #include "dtostrf.h"
-#include "dht22.h"
-#include "hcsr04.h"
+#include "flood.h"
 
 // Sample pragmas to cope with warnings. Please note the related line at
 // the end of this function, used to pop the compiler diagnostics status.
@@ -45,17 +41,35 @@
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
 char txtbuf[128];
-allocated_buffer<32> serbuf;
-bounded_buffer serial_rx(serbuf);
-Serial serial(USART1, &serial_rx);
-DHT22 dht(GPIOB, 1, EXTI0_1_IRQn, &irqc_EXTI0_1);
-HCSR04 usonic(GPIOA, 3, 2, EXTI2_3_IRQn, &irqc_EXTI2_3);
+FloodSensor flood;
 
 int
 main(int argc, char* argv[])
 {
   Timer::setup();
+  flood.setup();
 
+  uint64_t t0=Timer::millis()+1000;
+  uint32_t count=0;
+
+  flood.setSensorPower(true);
+
+  while(true){
+	Timer::msleepUntil(t0);
+
+	flood.getSerial().print(".");
+	flood.observe();
+
+	if((count & 7) == 0){
+		flood.getSerial().println("");
+		flood.dump();
+	}
+
+	t0+=1000;
+	++count;
+  }
+
+  /*
 	uint32_t count=0;
 
 	usonic.setup();
@@ -106,6 +120,7 @@ main(int argc, char* argv[])
 
 	    t0+=70;
 	}
+	*/
 }
 
 #pragma GCC diagnostic pop

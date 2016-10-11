@@ -4,7 +4,7 @@
   "description": "cognicity-floodsensor lambda code dependencies",
   "main": "index.js",
   "dependencies": {
-    "pg": "^5.1.0"
+    "pg": "^6.1.0"
   },
   "devDependencies": {},
   "scripts": {

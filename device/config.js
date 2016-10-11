@@ -1,5 +1,5 @@
 config = {};
-config.interval = 1800; // seconds between sensor values being uploaded
+config.interval = 60; // seconds between sensor values being uploaded
 config.clientId = 1; // client ID, integer, must match sensor_metadata table
 config.hasDHT = true; // if there's a DHT temperature and humidity sensor attached
 config.usonic_timeout = 1000; // ultrasound sensor timeout in µs

@@ -48,7 +48,7 @@ node_modules/
 *.so
 *.rlib
 *.dll
-#.elf
+*.elf
 
 # Executables
 *.exe

@@ -27,18 +27,22 @@
 #include "rtos.h"
 
 
-volatile uint64_t Timer::ms_elapsed;
+volatile uint64_t Timer::ms_elapsed=0;
 uint32_t Timer::TICKS_PER_US;
 uint32_t Timer::TICKS_PER_MS;
 Timer::tickfunc_t Timer::tickfunc=&Timer::systemTick;
 
-void Timer::setup()
+uint32_t Timer::setup(bool use_hse, bool use_pll)
 {
-	  TICKS_PER_US = SystemCoreClock / 1000000;
-	  TICKS_PER_MS = TICKS_PER_US * 1000;
-	  ms_elapsed=0;
-	  NVIC_SetPriority(SysTick_IRQn, SYSTICK_PRIORITY);  // lowest priority except sched
-	  SysTick_Config(TICKS_PER_MS);
+	SetSysClock(use_hse, use_pll);
+	SystemCoreClockUpdate();
+
+	TICKS_PER_US = SystemCoreClock / 1000000;
+	TICKS_PER_MS = TICKS_PER_US * 1000;
+	NVIC_SetPriority(SysTick_IRQn, SYSTICK_PRIORITY);  // lowest priority except sched
+	SysTick_Config(TICKS_PER_MS);
+
+	return SystemCoreClock;
 }
 
 void Timer::msleep(uint32_t ms)
@@ -47,8 +51,13 @@ void Timer::msleep(uint32_t ms)
 	Thread::sleepUntil(ms_elapsed+ms);
 #else
 	uint64_t when=ms_elapsed+ms;
-	while(ms_elapsed < when)
+	while(ms_elapsed < when){
+#if USE_WFI
+		asm("wfi\n");
+#else
 		;
+#endif
+	}
 #endif
 }
 
@@ -57,8 +66,13 @@ void Timer::msleepUntil(uint64_t when)
 #ifndef SINGLETHREAD
 	Thread::sleepUntil(when);
 #else
-	while(ms_elapsed < when)
+	while(ms_elapsed < when){
+#if USE_WFI
+		asm("wfi\n");
+#else
 		;
+#endif
+	}
 #endif
 }
 
@@ -83,8 +97,9 @@ void Timer::usleep(uint32_t us)
 		ms_end=ms_orig;
 	}
 
-	while(ms_elapsed < ms_end || (SysTick->VAL > ticks_end && ms_elapsed == ms_end))
-	 	asm("nop");
+	while(ms_elapsed < ms_end || (SysTick->VAL > ticks_end && ms_elapsed == ms_end)){
+		;
+	}
 }
 
 Timer::tickfunc_t Timer::addTickHandler(Timer::tickfunc_t tf)

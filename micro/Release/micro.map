@@ -1758,7 +1758,7 @@ END GROUP
                 0x0000000020000c00                __Main_Stack_Limit = (__stack - __Main_Stack_Size)
                 0x0000000020000c00                PROVIDE (_Main_Stack_Limit, __Main_Stack_Limit)
                 0x0000000000000100                _Minimum_Stack_Size = 0x100
-                0x0000000020000660                PROVIDE (_Heap_Begin, _end_noinit)
+                0x0000000020000668                PROVIDE (_Heap_Begin, _end_noinit)
                 0x0000000020000c00                PROVIDE (_Heap_Limit, (__stack - __Main_Stack_Size))
 
 .isr_vector     0x0000000008000000      0x1b6
@@ -1818,16 +1818,16 @@ END GROUP
 
 .inits          0x00000000080001b8       0x34
                 0x00000000080001b8                __data_regions_array_start = .
-                0x00000000080001b8        0x4 LONG 0x80023d0 LOADADDR (.data)
+                0x00000000080001b8        0x4 LONG 0x80024e8 LOADADDR (.data)
                 0x00000000080001bc        0x4 LONG 0x20000000 ADDR (.data)
-                0x00000000080001c0        0x4 LONG 0x20000094 (ADDR (.data) + SIZEOF (.data))
-                0x00000000080001c4        0x4 LONG 0x80023d0 LOADADDR (.data_CCMRAM)
+                0x00000000080001c0        0x4 LONG 0x2000009c (ADDR (.data) + SIZEOF (.data))
+                0x00000000080001c4        0x4 LONG 0x80024e8 LOADADDR (.data_CCMRAM)
                 0x00000000080001c8        0x4 LONG 0x0 ADDR (.data_CCMRAM)
                 0x00000000080001cc        0x4 LONG 0x0 (ADDR (.data_CCMRAM) + SIZEOF (.data_CCMRAM))
                 0x00000000080001d0                __data_regions_array_end = .
                 0x00000000080001d0                __bss_regions_array_start = .
-                0x00000000080001d0        0x4 LONG 0x20000098 ADDR (.bss)
-                0x00000000080001d4        0x4 LONG 0x20000660 (ADDR (.bss) + SIZEOF (.bss))
+                0x00000000080001d0        0x4 LONG 0x200000a0 ADDR (.bss)
+                0x00000000080001d4        0x4 LONG 0x20000668 (ADDR (.bss) + SIZEOF (.bss))
                 0x00000000080001d8        0x4 LONG 0x0 ADDR (.bss_CCMRAM)
                 0x00000000080001dc        0x4 LONG 0x0 (ADDR (.bss_CCMRAM) + SIZEOF (.bss_CCMRAM))
                 0x00000000080001e0                __bss_regions_array_end = .
@@ -1856,7 +1856,7 @@ END GROUP
 .flashtext
  *(.flashtext .flashtext.*)
 
-.text           0x00000000080001f0     0x21d7
+.text           0x00000000080001f0     0x22ef
  *(.text .text.*)
  .text.DMA_DeInit
                 0x00000000080001f0       0xa8 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
@@ -1958,265 +1958,268 @@ END GROUP
  .text.__reset_hardware
                 0x00000000080007e0       0x18 ./system/src/cortexm/_reset_hardware.o
                 0x00000000080007e0                __reset_hardware
- .text.SystemInit
-                0x00000000080007f8       0xf4 ./system/src/cmsis/system_stm32f0xx.o
-                0x00000000080007f8                SystemInit
  .text.SystemCoreClockUpdate
-                0x00000000080008ec       0x68 ./system/src/cmsis/system_stm32f0xx.o
-                0x00000000080008ec                SystemCoreClockUpdate
+                0x00000000080007f8       0x68 ./system/src/cmsis/system_stm32f0xx.o
+                0x00000000080007f8                SystemCoreClockUpdate
+ .text.SetSysClock
+                0x0000000008000860      0x180 ./system/src/cmsis/system_stm32f0xx.o
+                0x0000000008000860                SetSysClock
+ .text.SystemInit
+                0x00000000080009e0       0x64 ./system/src/cmsis/system_stm32f0xx.o
+                0x00000000080009e0                SystemInit
  .text._ZN5Timer10systemTickEv
-                0x0000000008000954       0x1c ./src/Timer.o
-                0x0000000008000954                Timer::systemTick()
- .text._ZN5Timer5setupEv
-                0x0000000008000970       0x78 ./src/Timer.o
-                0x0000000008000970                Timer::setup()
+                0x0000000008000a44       0x1c ./src/Timer.o
+                0x0000000008000a44                Timer::systemTick()
+ .text._ZN5Timer5setupEbb
+                0x0000000008000a60       0x7c ./src/Timer.o
+                0x0000000008000a60                Timer::setup(bool, bool)
  .text._ZN5Timer6msleepEm
-                0x00000000080009e8       0x24 ./src/Timer.o
-                0x00000000080009e8                Timer::msleep(unsigned long)
+                0x0000000008000adc       0x2c ./src/Timer.o
+                0x0000000008000adc                Timer::msleep(unsigned long)
  .text._ZN5Timer11msleepUntilEy
-                0x0000000008000a0c       0x18 ./src/Timer.o
-                0x0000000008000a0c                Timer::msleepUntil(unsigned long long)
+                0x0000000008000b08       0x1c ./src/Timer.o
+                0x0000000008000b08                Timer::msleepUntil(unsigned long long)
  .text._ZN5Timer6usleepEm
-                0x0000000008000a24       0x90 ./src/Timer.o
-                0x0000000008000a24                Timer::usleep(unsigned long)
+                0x0000000008000b24       0x88 ./src/Timer.o
+                0x0000000008000b24                Timer::usleep(unsigned long)
  .text.SysTick_Handler
-                0x0000000008000ab4       0x10 ./src/Timer.o
-                0x0000000008000ab4                SysTick_Handler
+                0x0000000008000bac       0x10 ./src/Timer.o
+                0x0000000008000bac                SysTick_Handler
  .text._ZN14bounded_bufferC2ER6buffer
-                0x0000000008000ac4       0x10 ./src/bbuffer.o
-                0x0000000008000ac4                bounded_buffer::bounded_buffer(buffer&)
-                0x0000000008000ac4                bounded_buffer::bounded_buffer(buffer&)
+                0x0000000008000bbc       0x10 ./src/bbuffer.o
+                0x0000000008000bbc                bounded_buffer::bounded_buffer(buffer&)
+                0x0000000008000bbc                bounded_buffer::bounded_buffer(buffer&)
  .text._ZN14bounded_buffer19insertFromInterruptEh
-                0x0000000008000ad4       0x44 ./src/bbuffer.o
-                0x0000000008000ad4                bounded_buffer::insertFromInterrupt(unsigned char)
+                0x0000000008000bcc       0x44 ./src/bbuffer.o
+                0x0000000008000bcc                bounded_buffer::insertFromInterrupt(unsigned char)
  .text._ZN9Semaphore16incFromInterruptEm
-                0x0000000008000b18        0xc ./src/conditions.o
-                0x0000000008000b18                Semaphore::incFromInterrupt(unsigned long)
+                0x0000000008000c10        0xc ./src/conditions.o
+                0x0000000008000c10                Semaphore::incFromInterrupt(unsigned long)
  .text._ZN5DHT22D2Ev
-                0x0000000008000b24        0x2 ./src/dht22.o
-                0x0000000008000b24                DHT22::~DHT22()
-                0x0000000008000b24                DHT22::~DHT22()
- *fill*         0x0000000008000b26        0x2 
+                0x0000000008000c1c        0x2 ./src/dht22.o
+                0x0000000008000c1c                DHT22::~DHT22()
+                0x0000000008000c1c                DHT22::~DHT22()
+ *fill*         0x0000000008000c1e        0x2 
  .text._ZN5DHT225onIRQEv
-                0x0000000008000b28       0xdc ./src/dht22.o
-                0x0000000008000b28                DHT22::onIRQ()
+                0x0000000008000c20       0xdc ./src/dht22.o
+                0x0000000008000c20                DHT22::onIRQ()
  .text._ZN5DHT22D0Ev
-                0x0000000008000c04        0xc ./src/dht22.o
-                0x0000000008000c04                DHT22::~DHT22()
+                0x0000000008000cfc        0xc ./src/dht22.o
+                0x0000000008000cfc                DHT22::~DHT22()
  .text._ZN5DHT22C2EP12GPIO_TypeDefhhPP8IntChain
-                0x0000000008000c10       0x3c ./src/dht22.o
-                0x0000000008000c10                DHT22::DHT22(GPIO_TypeDef*, unsigned char, unsigned char, IntChain**)
-                0x0000000008000c10                DHT22::DHT22(GPIO_TypeDef*, unsigned char, unsigned char, IntChain**)
+                0x0000000008000d08       0x3c ./src/dht22.o
+                0x0000000008000d08                DHT22::DHT22(GPIO_TypeDef*, unsigned char, unsigned char, IntChain**)
+                0x0000000008000d08                DHT22::DHT22(GPIO_TypeDef*, unsigned char, unsigned char, IntChain**)
  .text._ZN5DHT225setupEv
-                0x0000000008000c4c       0x98 ./src/dht22.o
-                0x0000000008000c4c                DHT22::setup()
+                0x0000000008000d44       0x98 ./src/dht22.o
+                0x0000000008000d44                DHT22::setup()
  .text._ZN5DHT229startReadEv
-                0x0000000008000ce4       0x38 ./src/dht22.o
-                0x0000000008000ce4                DHT22::startRead()
+                0x0000000008000ddc       0x38 ./src/dht22.o
+                0x0000000008000ddc                DHT22::startRead()
  .text._ZN5DHT2211readSuccessEv
-                0x0000000008000d1c       0x2e ./src/dht22.o
-                0x0000000008000d1c                DHT22::readSuccess()
+                0x0000000008000e14       0x2e ./src/dht22.o
+                0x0000000008000e14                DHT22::readSuccess()
  .text._ZN5DHT2214getTemperatureEv
-                0x0000000008000d4a       0x1c ./src/dht22.o
-                0x0000000008000d4a                DHT22::getTemperature()
+                0x0000000008000e42       0x1c ./src/dht22.o
+                0x0000000008000e42                DHT22::getTemperature()
  .text._ZN5DHT2211getHumidityEv
-                0x0000000008000d66       0x10 ./src/dht22.o
-                0x0000000008000d66                DHT22::getHumidity()
+                0x0000000008000e5e       0x10 ./src/dht22.o
+                0x0000000008000e5e                DHT22::getHumidity()
  .text._ZN10DMAChannelC2EP19DMA_Channel_TypeDefmh
-                0x0000000008000d76       0x32 ./src/dmachan.o
-                0x0000000008000d76                DMAChannel::DMAChannel(DMA_Channel_TypeDef*, unsigned long, unsigned char)
-                0x0000000008000d76                DMAChannel::DMAChannel(DMA_Channel_TypeDef*, unsigned long, unsigned char)
+                0x0000000008000e6e       0x32 ./src/dmachan.o
+                0x0000000008000e6e                DMAChannel::DMAChannel(DMA_Channel_TypeDef*, unsigned long, unsigned char)
+                0x0000000008000e6e                DMAChannel::DMAChannel(DMA_Channel_TypeDef*, unsigned long, unsigned char)
  .text._ZN10DMAChannel5onIRQEv
-                0x0000000008000da8       0x2a ./src/dmachan.o
-                0x0000000008000da8                DMAChannel::onIRQ()
- *fill*         0x0000000008000dd2        0x2 
+                0x0000000008000ea0       0x2a ./src/dmachan.o
+                0x0000000008000ea0                DMAChannel::onIRQ()
+ *fill*         0x0000000008000eca        0x2 
  .text.DMA1_Channel1_IRQHandler
-                0x0000000008000dd4       0x10 ./src/dmachan.o
-                0x0000000008000dd4                DMA1_Channel1_IRQHandler
+                0x0000000008000ecc       0x10 ./src/dmachan.o
+                0x0000000008000ecc                DMA1_Channel1_IRQHandler
  .text.DMA1_Channel2_3_IRQHandler
-                0x0000000008000de4       0x18 ./src/dmachan.o
-                0x0000000008000de4                DMA1_Channel2_3_IRQHandler
+                0x0000000008000edc       0x18 ./src/dmachan.o
+                0x0000000008000edc                DMA1_Channel2_3_IRQHandler
  .text.DMA1_Channel4_5_IRQHandler
-                0x0000000008000dfc       0x18 ./src/dmachan.o
-                0x0000000008000dfc                DMA1_Channel4_5_IRQHandler
+                0x0000000008000ef4       0x18 ./src/dmachan.o
+                0x0000000008000ef4                DMA1_Channel4_5_IRQHandler
  .text.startup._GLOBAL__sub_I__ZN11SemDelegate5onIRQEv
-                0x0000000008000e14       0x70 ./src/dmachan.o
+                0x0000000008000f0c       0x70 ./src/dmachan.o
  .text._Z6itostrljjcPc
-                0x0000000008000e84       0xb0 ./src/dtostrf.o
-                0x0000000008000e84                itostr(long, unsigned int, unsigned int, char, char*)
+                0x0000000008000f7c       0xb0 ./src/dtostrf.o
+                0x0000000008000f7c                itostr(long, unsigned int, unsigned int, char, char*)
  .text._Z6utostrmjjcPc
-                0x0000000008000f34       0x98 ./src/dtostrf.o
-                0x0000000008000f34                utostr(unsigned long, unsigned int, unsigned int, char, char*)
+                0x000000000800102c       0x98 ./src/dtostrf.o
+                0x000000000800102c                utostr(unsigned long, unsigned int, unsigned int, char, char*)
  .text._Z7dtostrxljjjjcPc
-                0x0000000008000fcc       0xd4 ./src/dtostrf.o
-                0x0000000008000fcc                dtostrx(long, unsigned int, unsigned int, unsigned int, unsigned int, char, char*)
+                0x00000000080010c4       0xd4 ./src/dtostrf.o
+                0x00000000080010c4                dtostrx(long, unsigned int, unsigned int, unsigned int, unsigned int, char, char*)
  .text._ZN11FloodSensorC2Ev
-                0x00000000080010a0       0x8c ./src/flood.o
-                0x00000000080010a0                FloodSensor::FloodSensor()
-                0x00000000080010a0                FloodSensor::FloodSensor()
+                0x0000000008001198       0x8c ./src/flood.o
+                0x0000000008001198                FloodSensor::FloodSensor()
+                0x0000000008001198                FloodSensor::FloodSensor()
  .text._ZN11FloodSensor14setSensorPowerEb
-                0x000000000800112c       0x1c ./src/flood.o
-                0x000000000800112c                FloodSensor::setSensorPower(bool)
+                0x0000000008001224       0x1c ./src/flood.o
+                0x0000000008001224                FloodSensor::setSensorPower(bool)
  .text._ZN11FloodSensor10setPiPowerEb
-                0x0000000008001148       0x1c ./src/flood.o
-                0x0000000008001148                FloodSensor::setPiPower(bool)
+                0x0000000008001240       0x1c ./src/flood.o
+                0x0000000008001240                FloodSensor::setPiPower(bool)
  .text._ZN11FloodSensor5setupEv
-                0x0000000008001164       0x58 ./src/flood.o
-                0x0000000008001164                FloodSensor::setup()
+                0x000000000800125c       0x58 ./src/flood.o
+                0x000000000800125c                FloodSensor::setup()
  .text._ZN11FloodSensor7observeEv
-                0x00000000080011bc      0x174 ./src/flood.o
-                0x00000000080011bc                FloodSensor::observe()
+                0x00000000080012b4      0x174 ./src/flood.o
+                0x00000000080012b4                FloodSensor::observe()
  .text._ZN11FloodSensor4dumpEv
-                0x0000000008001330       0xec ./src/flood.o
-                0x0000000008001330                FloodSensor::dump()
+                0x0000000008001428       0xec ./src/flood.o
+                0x0000000008001428                FloodSensor::dump()
  .text._ZN6HCSR04D2Ev
-                0x000000000800141c        0x2 ./src/hcsr04.o
-                0x000000000800141c                HCSR04::~HCSR04()
-                0x000000000800141c                HCSR04::~HCSR04()
- *fill*         0x000000000800141e        0x2 
+                0x0000000008001514        0x2 ./src/hcsr04.o
+                0x0000000008001514                HCSR04::~HCSR04()
+                0x0000000008001514                HCSR04::~HCSR04()
+ *fill*         0x0000000008001516        0x2 
  .text._ZN6HCSR045onIRQEv
-                0x0000000008001420       0x90 ./src/hcsr04.o
-                0x0000000008001420                HCSR04::onIRQ()
+                0x0000000008001518       0x90 ./src/hcsr04.o
+                0x0000000008001518                HCSR04::onIRQ()
  .text._ZN6HCSR04D0Ev
-                0x00000000080014b0        0xc ./src/hcsr04.o
-                0x00000000080014b0                HCSR04::~HCSR04()
+                0x00000000080015a8        0xc ./src/hcsr04.o
+                0x00000000080015a8                HCSR04::~HCSR04()
  .text._ZN6HCSR04C2EP12GPIO_TypeDefhhhPP8IntChain
-                0x00000000080014bc       0x38 ./src/hcsr04.o
-                0x00000000080014bc                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
-                0x00000000080014bc                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
+                0x00000000080015b4       0x38 ./src/hcsr04.o
+                0x00000000080015b4                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
+                0x00000000080015b4                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
  .text._ZN6HCSR045setupEv
-                0x00000000080014f4       0xb8 ./src/hcsr04.o
-                0x00000000080014f4                HCSR04::setup()
+                0x00000000080015ec       0xb8 ./src/hcsr04.o
+                0x00000000080015ec                HCSR04::setup()
  .text._ZN6HCSR049startReadEv
-                0x00000000080015ac       0x30 ./src/hcsr04.o
-                0x00000000080015ac                HCSR04::startRead()
+                0x00000000080016a4       0x30 ./src/hcsr04.o
+                0x00000000080016a4                HCSR04::startRead()
  .text._ZN6HCSR048getRangeEv
-                0x00000000080015dc       0x14 ./src/hcsr04.o
-                0x00000000080015dc                HCSR04::getRange()
+                0x00000000080016d4       0x14 ./src/hcsr04.o
+                0x00000000080016d4                HCSR04::getRange()
  .text._ZN8IntChain7executeEPS_
-                0x00000000080015f0       0x16 ./src/intchain.o
-                0x00000000080015f0                IntChain::execute(IntChain*)
+                0x00000000080016e8       0x16 ./src/intchain.o
+                0x00000000080016e8                IntChain::execute(IntChain*)
  .text._ZN8IntChain7installEPPS_
-                0x0000000008001606        0x8 ./src/intchain.o
-                0x0000000008001606                IntChain::install(IntChain**)
- *fill*         0x000000000800160e        0x2 
+                0x00000000080016fe        0x8 ./src/intchain.o
+                0x00000000080016fe                IntChain::install(IntChain**)
+ *fill*         0x0000000008001706        0x2 
  .text.EXTI0_1_IRQHandler
-                0x0000000008001610       0x10 ./src/intchain.o
-                0x0000000008001610                EXTI0_1_IRQHandler
+                0x0000000008001708       0x10 ./src/intchain.o
+                0x0000000008001708                EXTI0_1_IRQHandler
  .text.EXTI2_3_IRQHandler
-                0x0000000008001620       0x10 ./src/intchain.o
-                0x0000000008001620                EXTI2_3_IRQHandler
+                0x0000000008001718       0x10 ./src/intchain.o
+                0x0000000008001718                EXTI2_3_IRQHandler
  .text.EXTI4_15_IRQHandler
-                0x0000000008001630       0x10 ./src/intchain.o
-                0x0000000008001630                EXTI4_15_IRQHandler
+                0x0000000008001728       0x10 ./src/intchain.o
+                0x0000000008001728                EXTI4_15_IRQHandler
  .text.startup.main
-                0x0000000008001640       0x74 ./src/main.o
-                0x0000000008001640                main
+                0x0000000008001738       0x94 ./src/main.o
+                0x0000000008001738                main
  .text.startup._GLOBAL__sub_I_txtbuf
-                0x00000000080016b4       0x10 ./src/main.o
+                0x00000000080017cc       0x10 ./src/main.o
  .text.exit._GLOBAL__sub_D_txtbuf
-                0x00000000080016c4       0x18 ./src/main.o
+                0x00000000080017dc       0x18 ./src/main.o
  .text._ZN6Serial8transmitEmPKh.part.2
-                0x00000000080016dc       0x32 ./src/serial.o
- *fill*         0x000000000800170e        0x2 
+                0x00000000080017f4       0x32 ./src/serial.o
+ *fill*         0x0000000008001826        0x2 
  .text._ZN6SerialC2EP13USART_TypeDefP14bounded_buffer
-                0x0000000008001710       0x38 ./src/serial.o
-                0x0000000008001710                Serial::Serial(USART_TypeDef*, bounded_buffer*)
-                0x0000000008001710                Serial::Serial(USART_TypeDef*, bounded_buffer*)
+                0x0000000008001828       0x38 ./src/serial.o
+                0x0000000008001828                Serial::Serial(USART_TypeDef*, bounded_buffer*)
+                0x0000000008001828                Serial::Serial(USART_TypeDef*, bounded_buffer*)
  .text._ZN6SerialD2Ev
-                0x0000000008001748       0x20 ./src/serial.o
-                0x0000000008001748                Serial::~Serial()
-                0x0000000008001748                Serial::~Serial()
+                0x0000000008001860       0x20 ./src/serial.o
+                0x0000000008001860                Serial::~Serial()
+                0x0000000008001860                Serial::~Serial()
  .text._ZN6Serial5setupEP17USART_InitTypeDef
-                0x0000000008001768       0xcc ./src/serial.o
-                0x0000000008001768                Serial::setup(USART_InitTypeDef*)
+                0x0000000008001880       0xcc ./src/serial.o
+                0x0000000008001880                Serial::setup(USART_InitTypeDef*)
  .text._ZN6Serial5setupEm
-                0x0000000008001834       0x1c ./src/serial.o
-                0x0000000008001834                Serial::setup(unsigned long)
+                0x000000000800194c       0x1c ./src/serial.o
+                0x000000000800194c                Serial::setup(unsigned long)
  .text._ZN6Serial8transmitEmPKh
-                0x0000000008001850        0xc ./src/serial.o
-                0x0000000008001850                Serial::transmit(unsigned long, unsigned char const*)
+                0x0000000008001968        0xc ./src/serial.o
+                0x0000000008001968                Serial::transmit(unsigned long, unsigned char const*)
  .text._ZN6Serial5printEPKc
-                0x000000000800185c       0x18 ./src/serial.o
-                0x000000000800185c                Serial::print(char const*)
+                0x0000000008001974       0x18 ./src/serial.o
+                0x0000000008001974                Serial::print(char const*)
  .text._ZN6Serial7printlnEPKc
-                0x0000000008001874       0x18 ./src/serial.o
-                0x0000000008001874                Serial::println(char const*)
+                0x000000000800198c       0x18 ./src/serial.o
+                0x000000000800198c                Serial::println(char const*)
  .text._ZN6Serial11onInterruptEv
-                0x000000000800188c       0x2a ./src/serial.o
-                0x000000000800188c                Serial::onInterrupt()
- *fill*         0x00000000080018b6        0x2 
+                0x00000000080019a4       0x2a ./src/serial.o
+                0x00000000080019a4                Serial::onInterrupt()
+ *fill*         0x00000000080019ce        0x2 
  .text.USART1_IRQHandler
-                0x00000000080018b8       0x14 ./src/serial.o
-                0x00000000080018b8                USART1_IRQHandler
- .text._ZdlPv   0x00000000080018cc        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a(del_op.o)
-                0x00000000080018cc                operator delete(void*)
- .text          0x00000000080018d4       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
-                0x00000000080018d4                __gnu_thumb1_case_uqi
- .text          0x00000000080018e8      0x120 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
-                0x00000000080018e8                __udivsi3
-                0x00000000080018e8                __aeabi_uidiv
-                0x00000000080019f4                __aeabi_uidivmod
- .text          0x0000000008001a08      0x1e0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
-                0x0000000008001a08                __aeabi_idiv
-                0x0000000008001a08                __divsi3
-                0x0000000008001bd4                __aeabi_idivmod
- .text          0x0000000008001be8        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
-                0x0000000008001be8                __aeabi_ldiv0
-                0x0000000008001be8                __aeabi_idiv0
- .text          0x0000000008001bec       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_aeabi_uldivmod.o)
-                0x0000000008001bec                __aeabi_uldivmod
- .text          0x0000000008001c2c       0x54 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_muldi3.o)
-                0x0000000008001c2c                __aeabi_lmul
-                0x0000000008001c2c                __muldi3
- .text          0x0000000008001c80       0x6c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(bpabi.o)
-                0x0000000008001c80                __gnu_ldivmod_helper
-                0x0000000008001cb8                __gnu_uldivmod_helper
- .text          0x0000000008001cec       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzsi2.o)
-                0x0000000008001cec                __clzsi2
- .text          0x0000000008001d28      0x1f0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
-                0x0000000008001d28                __divdi3
- .text          0x0000000008001f18      0x158 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
-                0x0000000008001f18                __udivdi3
- .text          0x0000000008002070       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzdi2.o)
-                0x0000000008002070                __clzdi2
- .text.free     0x0000000008002088       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-malloc.o)
-                0x0000000008002088                free
- .text._free_r  0x000000000800209c       0x8c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-freer.o)
-                0x000000000800209c                _free_r
- .text.strlen   0x0000000008002128        0xe /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-strlen.o)
-                0x0000000008002128                strlen
+                0x00000000080019d0       0x14 ./src/serial.o
+                0x00000000080019d0                USART1_IRQHandler
+ .text._ZdlPv   0x00000000080019e4        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a(del_op.o)
+                0x00000000080019e4                operator delete(void*)
+ .text          0x00000000080019ec       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
+                0x00000000080019ec                __gnu_thumb1_case_uqi
+ .text          0x0000000008001a00      0x120 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+                0x0000000008001a00                __udivsi3
+                0x0000000008001a00                __aeabi_uidiv
+                0x0000000008001b0c                __aeabi_uidivmod
+ .text          0x0000000008001b20      0x1e0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+                0x0000000008001b20                __aeabi_idiv
+                0x0000000008001b20                __divsi3
+                0x0000000008001cec                __aeabi_idivmod
+ .text          0x0000000008001d00        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x0000000008001d00                __aeabi_ldiv0
+                0x0000000008001d00                __aeabi_idiv0
+ .text          0x0000000008001d04       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_aeabi_uldivmod.o)
+                0x0000000008001d04                __aeabi_uldivmod
+ .text          0x0000000008001d44       0x54 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_muldi3.o)
+                0x0000000008001d44                __aeabi_lmul
+                0x0000000008001d44                __muldi3
+ .text          0x0000000008001d98       0x6c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(bpabi.o)
+                0x0000000008001d98                __gnu_ldivmod_helper
+                0x0000000008001dd0                __gnu_uldivmod_helper
+ .text          0x0000000008001e04       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzsi2.o)
+                0x0000000008001e04                __clzsi2
+ .text          0x0000000008001e40      0x1f0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
+                0x0000000008001e40                __divdi3
+ .text          0x0000000008002030      0x158 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
+                0x0000000008002030                __udivdi3
+ .text          0x0000000008002188       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzdi2.o)
+                0x0000000008002188                __clzdi2
+ .text.free     0x00000000080021a0       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-malloc.o)
+                0x00000000080021a0                free
+ .text._free_r  0x00000000080021b4       0x8c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-freer.o)
+                0x00000000080021b4                _free_r
+ .text.strlen   0x0000000008002240        0xe /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-strlen.o)
+                0x0000000008002240                strlen
  *(.rodata .rodata.* .constdata .constdata.*)
- *fill*         0x0000000008002136        0x2 
+ *fill*         0x000000000800224e        0x2 
  .rodata._ZTV5DHT22
-                0x0000000008002138       0x14 ./src/dht22.o
-                0x0000000008002138                vtable for DHT22
+                0x0000000008002250       0x14 ./src/dht22.o
+                0x0000000008002250                vtable for DHT22
  .rodata.str1.1
-                0x000000000800214c       0xe4 ./src/dtostrf.o
+                0x0000000008002264       0xe4 ./src/dtostrf.o
  .rodata._ZZ6utostrmjjcPcE19__PRETTY_FUNCTION__
-                0x0000000008002230       0x40 ./src/dtostrf.o
+                0x0000000008002348       0x40 ./src/dtostrf.o
  .rodata._ZZ6itostrljjcPcE19__PRETTY_FUNCTION__
-                0x0000000008002270       0x3f ./src/dtostrf.o
+                0x0000000008002388       0x3f ./src/dtostrf.o
  .rodata._ZZ7dtostrxljjjjcPcE19__PRETTY_FUNCTION__
-                0x00000000080022af       0x5c ./src/dtostrf.o
+                0x00000000080023c7       0x5c ./src/dtostrf.o
  .rodata.str1.1
-                0x000000000800230b       0x18 ./src/flood.o
+                0x0000000008002423       0x18 ./src/flood.o
                                          0x1a (size before relaxing)
- *fill*         0x0000000008002323        0x5 
+ *fill*         0x000000000800243b        0x5 
  .rodata._ZTV6HCSR04
-                0x0000000008002328       0x14 ./src/hcsr04.o
-                0x0000000008002328                vtable for HCSR04
+                0x0000000008002440       0x14 ./src/hcsr04.o
+                0x0000000008002440                vtable for HCSR04
  .rodata.str1.1
-                0x000000000800233c        0x2 ./src/main.o
+                0x0000000008002454        0x2 ./src/main.o
                                           0x3 (size before relaxing)
  .rodata._ZZN6Serial5setupEP17USART_InitTypeDefE19__PRETTY_FUNCTION__
-                0x000000000800233e       0x27 ./src/serial.o
+                0x0000000008002456       0x27 ./src/serial.o
  .rodata.str1.1
-                0x0000000008002365       0x30 ./src/serial.o
+                0x000000000800247d       0x30 ./src/serial.o
  .rodata._ZZN6SerialC4EP13USART_TypeDefP14bounded_bufferE19__PRETTY_FUNCTION__
-                0x0000000008002395       0x30 ./src/serial.o
+                0x00000000080024ad       0x30 ./src/serial.o
  .rodata.str1.1
-                0x00000000080023c5        0x2 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
+                0x00000000080024dd        0x2 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
  *(vtable)
  *(.eh_frame*)
  *(.glue_7)
@@ -2224,40 +2227,40 @@ END GROUP
  *(.glue_7t)
  .glue_7t       0x0000000000000000        0x0 linker stubs
 
-.vfp11_veneer   0x00000000080023c8        0x0
+.vfp11_veneer   0x00000000080024e0        0x0
  .vfp11_veneer  0x0000000000000000        0x0 linker stubs
 
-.v4_bx          0x00000000080023c8        0x0
+.v4_bx          0x00000000080024e0        0x0
  .v4_bx         0x0000000000000000        0x0 linker stubs
 
-.iplt           0x00000000080023c8        0x0
+.iplt           0x00000000080024e0        0x0
  .iplt          0x0000000000000000        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_adc.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000000080023c8                . = ALIGN (0x4)
-                0x00000000080023c8                __exidx_start = .
+                0x00000000080024e0                . = ALIGN (0x4)
+                0x00000000080024e0                __exidx_start = .
 
-.ARM.exidx      0x00000000080023c8        0x8
+.ARM.exidx      0x00000000080024e0        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x00000000080023c8        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
- .ARM.exidx     0x00000000080023d0        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
+ .ARM.exidx     0x00000000080024e0        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
+ .ARM.exidx     0x00000000080024e8        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
                                           0x8 (size before relaxing)
-                0x00000000080023d0                __exidx_end = .
+                0x00000000080024e8                __exidx_end = .
 
-.rel.dyn        0x00000000080023d0        0x0
+.rel.dyn        0x00000000080024e8        0x0
  .rel.iplt      0x0000000000000000        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_adc.o
-                0x00000000080023d0                . = ALIGN (0x4)
-                0x00000000080023d0                _etext = .
-                0x00000000080023d0                __etext = .
+                0x00000000080024e8                . = ALIGN (0x4)
+                0x00000000080024e8                _etext = .
+                0x00000000080024e8                __etext = .
 
-.data_CCMRAM    0x0000000000000000        0x0 load address 0x00000000080023d0
+.data_CCMRAM    0x0000000000000000        0x0 load address 0x00000000080024e8
  FILL mask 0xff
  *(.data.CCMRAM .data.CCMRAM.*)
                 0x0000000000000000                . = ALIGN (0x4)
-                0x00000000080023d0                _sidata = LOADADDR (.data)
+                0x00000000080024e8                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000       0x94 load address 0x00000000080023d0
+.data           0x0000000020000000       0x9c load address 0x00000000080024e8
  FILL mask 0xff
                 0x0000000020000000                _sdata = .
                 0x0000000020000000                __data_start__ = .
@@ -2276,98 +2279,102 @@ END GROUP
  .data._ZN5Timer8tickfuncE
                 0x000000002000002c        0x4 ./src/Timer.o
                 0x000000002000002c                Timer::tickfunc
+ .data.PERIOD   0x0000000020000030        0x4 ./src/main.o
+                0x0000000020000030                PERIOD
+ .data.PERDUMP  0x0000000020000034        0x4 ./src/main.o
+                0x0000000020000034                PERDUMP
  .data.impure_data
-                0x0000000020000030       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
+                0x0000000020000038       0x60 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
  .data._impure_ptr
-                0x0000000020000090        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
-                0x0000000020000090                _impure_ptr
+                0x0000000020000098        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-impure.o)
+                0x0000000020000098                _impure_ptr
  *(.data_end .data_end.*)
-                0x0000000020000094                . = ALIGN (0x4)
-                0x0000000020000094                _edata = .
-                0x0000000020000094                __data_end__ = .
+                0x000000002000009c                . = ALIGN (0x4)
+                0x000000002000009c                _edata = .
+                0x000000002000009c                __data_end__ = .
 
-.igot.plt       0x0000000020000094        0x0 load address 0x0000000008002464
+.igot.plt       0x000000002000009c        0x0 load address 0x0000000008002584
  .igot.plt      0x0000000000000000        0x0 ./system/src/stm32f0-stdperiph/stm32f0xx_adc.o
 
 .bss_CCMRAM     0x0000000000000000        0x0
  *(.bss.CCMRAM .bss.CCMRAM.*)
 
-.bss            0x0000000020000098      0x5c8
-                0x0000000020000098                __bss_start__ = .
-                0x0000000020000098                _sbss = .
+.bss            0x00000000200000a0      0x5c8
+                0x00000000200000a0                __bss_start__ = .
+                0x00000000200000a0                _sbss = .
  *(.bss_begin .bss_begin.*)
  *(.bss .bss.*)
  .bss.name.4156
-                0x0000000020000098        0x1 ./system/src/newlib/_syscalls.o
- *fill*         0x0000000020000099        0x3 
+                0x00000000200000a0        0x1 ./system/src/newlib/_syscalls.o
+ *fill*         0x00000000200000a1        0x3 
  .bss._ZN5Timer12TICKS_PER_MSE
-                0x000000002000009c        0x4 ./src/Timer.o
-                0x000000002000009c                Timer::TICKS_PER_MS
+                0x00000000200000a4        0x4 ./src/Timer.o
+                0x00000000200000a4                Timer::TICKS_PER_MS
  .bss._ZN5Timer10ms_elapsedE
-                0x00000000200000a0        0x8 ./src/Timer.o
-                0x00000000200000a0                Timer::ms_elapsed
+                0x00000000200000a8        0x8 ./src/Timer.o
+                0x00000000200000a8                Timer::ms_elapsed
  .bss._ZN5Timer12TICKS_PER_USE
-                0x00000000200000a8        0x4 ./src/Timer.o
-                0x00000000200000a8                Timer::TICKS_PER_US
+                0x00000000200000b0        0x4 ./src/Timer.o
+                0x00000000200000b0                Timer::TICKS_PER_US
  .bss._ZN6buffer6canaryE
-                0x00000000200000ac        0x1 ./src/buffer.o
-                0x00000000200000ac                buffer::canary
- *fill*         0x00000000200000ad        0x3 
+                0x00000000200000b4        0x1 ./src/buffer.o
+                0x00000000200000b4                buffer::canary
+ *fill*         0x00000000200000b5        0x3 
  .bss._ZN10DMAChannel13dma1_channel1E
-                0x00000000200000b0       0x10 ./src/dmachan.o
-                0x00000000200000b0                DMAChannel::dma1_channel1
+                0x00000000200000b8       0x10 ./src/dmachan.o
+                0x00000000200000b8                DMAChannel::dma1_channel1
  .bss._ZN10DMAChannel13dma1_channel2E
-                0x00000000200000c0       0x10 ./src/dmachan.o
-                0x00000000200000c0                DMAChannel::dma1_channel2
+                0x00000000200000c8       0x10 ./src/dmachan.o
+                0x00000000200000c8                DMAChannel::dma1_channel2
  .bss._ZN10DMAChannel13dma1_channel3E
-                0x00000000200000d0       0x10 ./src/dmachan.o
-                0x00000000200000d0                DMAChannel::dma1_channel3
+                0x00000000200000d8       0x10 ./src/dmachan.o
+                0x00000000200000d8                DMAChannel::dma1_channel3
  .bss._ZN10DMAChannel13dma1_channel4E
-                0x00000000200000e0       0x10 ./src/dmachan.o
-                0x00000000200000e0                DMAChannel::dma1_channel4
+                0x00000000200000e8       0x10 ./src/dmachan.o
+                0x00000000200000e8                DMAChannel::dma1_channel4
  .bss._ZN10DMAChannel13dma1_channel5E
-                0x00000000200000f0       0x10 ./src/dmachan.o
-                0x00000000200000f0                DMAChannel::dma1_channel5
+                0x00000000200000f8       0x10 ./src/dmachan.o
+                0x00000000200000f8                DMAChannel::dma1_channel5
  .bss.irqc_EXTI4_15
-                0x0000000020000100        0x4 ./src/intchain.o
-                0x0000000020000100                irqc_EXTI4_15
- .bss.irqc_EXTI2_3
-                0x0000000020000104        0x4 ./src/intchain.o
-                0x0000000020000104                irqc_EXTI2_3
- .bss.irqc_EXTI0_1
                 0x0000000020000108        0x4 ./src/intchain.o
-                0x0000000020000108                irqc_EXTI0_1
- *fill*         0x000000002000010c        0x4 
- .bss.flood     0x0000000020000110      0x548 ./src/main.o
-                0x0000000020000110                flood
+                0x0000000020000108                irqc_EXTI4_15
+ .bss.irqc_EXTI2_3
+                0x000000002000010c        0x4 ./src/intchain.o
+                0x000000002000010c                irqc_EXTI2_3
+ .bss.irqc_EXTI0_1
+                0x0000000020000110        0x4 ./src/intchain.o
+                0x0000000020000110                irqc_EXTI0_1
+ *fill*         0x0000000020000114        0x4 
+ .bss.flood     0x0000000020000118      0x548 ./src/main.o
+                0x0000000020000118                flood
  .bss._ZN6Serial5uart1E
-                0x0000000020000658        0x4 ./src/serial.o
-                0x0000000020000658                Serial::uart1
+                0x0000000020000660        0x4 ./src/serial.o
+                0x0000000020000660                Serial::uart1
  .bss.__malloc_free_list
-                0x000000002000065c        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-mallocr.o)
-                0x000000002000065c                __malloc_free_list
+                0x0000000020000664        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-mallocr.o)
+                0x0000000020000664                __malloc_free_list
  *(COMMON)
  *(.bss_end .bss_end.*)
-                0x0000000020000660                . = ALIGN (0x4)
-                0x0000000020000660                __bss_end__ = .
-                0x0000000020000660                _ebss = .
+                0x0000000020000668                . = ALIGN (0x4)
+                0x0000000020000668                __bss_end__ = .
+                0x0000000020000668                _ebss = .
 
 .noinit_CCMRAM
  *(.noinit.CCMRAM .noinit.CCMRAM.*)
 
-.noinit         0x0000000020000660        0x0
-                0x0000000020000660                _noinit = .
+.noinit         0x0000000020000668        0x0
+                0x0000000020000668                _noinit = .
  *(.noinit .noinit.*)
-                0x0000000020000660                . = ALIGN (0x4)
-                0x0000000020000660                _end_noinit = .
-                0x0000000020000660                PROVIDE (end, _end_noinit)
-                0x0000000020000660                PROVIDE (_end, _end_noinit)
-                0x0000000020000660                PROVIDE (__end, _end_noinit)
-                0x0000000020000660                PROVIDE (__end__, _end_noinit)
+                0x0000000020000668                . = ALIGN (0x4)
+                0x0000000020000668                _end_noinit = .
+                0x0000000020000668                PROVIDE (end, _end_noinit)
+                0x0000000020000668                PROVIDE (_end, _end_noinit)
+                0x0000000020000668                PROVIDE (__end, _end_noinit)
+                0x0000000020000668                PROVIDE (__end__, _end_noinit)
 
-._check_stack   0x0000000020000660      0x100
-                0x0000000020000760                . = (. + _Minimum_Stack_Size)
- *fill*         0x0000000020000660      0x100 
+._check_stack   0x0000000020000668      0x100
+                0x0000000020000768                . = (. + _Minimum_Stack_Size)
+ *fill*         0x0000000020000668      0x100 
 
 .b1text
  *(.b1text)
@@ -2549,7 +2556,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x0000000000000000      0xa00
+.debug_aranges  0x0000000000000000      0xa08
  *(.debug_aranges)
  .debug_aranges
                 0x0000000000000000       0x70 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
@@ -2580,38 +2587,38 @@ END GROUP
  .debug_aranges
                 0x00000000000005d0       0x50 ./system/src/cortexm/exception_handlers.o
  .debug_aranges
-                0x0000000000000620       0x28 ./system/src/cmsis/system_stm32f0xx.o
+                0x0000000000000620       0x30 ./system/src/cmsis/system_stm32f0xx.o
  .debug_aranges
-                0x0000000000000648       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
+                0x0000000000000650       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
  .debug_aranges
-                0x0000000000000668       0x50 ./src/Timer.o
+                0x0000000000000670       0x50 ./src/Timer.o
  .debug_aranges
-                0x00000000000006b8       0x40 ./src/bbuffer.o
+                0x00000000000006c0       0x40 ./src/bbuffer.o
  .debug_aranges
-                0x00000000000006f8       0x38 ./src/buffer.o
+                0x0000000000000700       0x38 ./src/buffer.o
  .debug_aranges
-                0x0000000000000730       0x30 ./src/conditions.o
+                0x0000000000000738       0x30 ./src/conditions.o
  .debug_aranges
-                0x0000000000000760       0x60 ./src/dht22.o
+                0x0000000000000768       0x60 ./src/dht22.o
  .debug_aranges
-                0x00000000000007c0       0x78 ./src/dmachan.o
+                0x00000000000007c8       0x78 ./src/dmachan.o
  .debug_aranges
-                0x0000000000000838       0x48 ./src/dtostrf.o
+                0x0000000000000840       0x48 ./src/dtostrf.o
  .debug_aranges
-                0x0000000000000880       0x48 ./src/flood.o
+                0x0000000000000888       0x48 ./src/flood.o
  .debug_aranges
-                0x00000000000008c8       0x50 ./src/hcsr04.o
+                0x00000000000008d0       0x50 ./src/hcsr04.o
  .debug_aranges
-                0x0000000000000918       0x48 ./src/intchain.o
+                0x0000000000000920       0x48 ./src/intchain.o
  .debug_aranges
-                0x0000000000000960       0x30 ./src/main.o
+                0x0000000000000968       0x30 ./src/main.o
  .debug_aranges
-                0x0000000000000990       0x70 ./src/serial.o
+                0x0000000000000998       0x70 ./src/serial.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0xc4e6
+.debug_info     0x0000000000000000     0xc639
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0x413 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_info    0x0000000000000413      0x308 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2627,22 +2634,22 @@ END GROUP
  .debug_info    0x00000000000034ba       0xbf ./system/src/cortexm/_initialize_hardware.o
  .debug_info    0x0000000000003579      0x17c ./system/src/cortexm/_reset_hardware.o
  .debug_info    0x00000000000036f5      0x1a7 ./system/src/cortexm/exception_handlers.o
- .debug_info    0x000000000000389c      0x2f2 ./system/src/cmsis/system_stm32f0xx.o
- .debug_info    0x0000000000003b8e       0xcd ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_info    0x0000000000003c5b      0x6ee ./src/Timer.o
- .debug_info    0x0000000000004349      0xa2d ./src/bbuffer.o
- .debug_info    0x0000000000004d76      0x59f ./src/buffer.o
- .debug_info    0x0000000000005315      0x20f ./src/conditions.o
- .debug_info    0x0000000000005524      0xe81 ./src/dht22.o
- .debug_info    0x00000000000063a5      0xb85 ./src/dmachan.o
- .debug_info    0x0000000000006f2a      0x7a5 ./src/dtostrf.o
- .debug_info    0x00000000000076cf     0x191c ./src/flood.o
- .debug_info    0x0000000000008feb      0xe0f ./src/hcsr04.o
- .debug_info    0x0000000000009dfa      0x321 ./src/intchain.o
- .debug_info    0x000000000000a11b     0x1073 ./src/main.o
- .debug_info    0x000000000000b18e     0x1358 ./src/serial.o
+ .debug_info    0x000000000000389c      0x30f ./system/src/cmsis/system_stm32f0xx.o
+ .debug_info    0x0000000000003bab       0xcd ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_info    0x0000000000003c78      0x768 ./src/Timer.o
+ .debug_info    0x00000000000043e0      0xa2d ./src/bbuffer.o
+ .debug_info    0x0000000000004e0d      0x59f ./src/buffer.o
+ .debug_info    0x00000000000053ac      0x20f ./src/conditions.o
+ .debug_info    0x00000000000055bb      0xe94 ./src/dht22.o
+ .debug_info    0x000000000000644f      0xb85 ./src/dmachan.o
+ .debug_info    0x0000000000006fd4      0x7a5 ./src/dtostrf.o
+ .debug_info    0x0000000000007779     0x192f ./src/flood.o
+ .debug_info    0x00000000000090a8      0xe22 ./src/hcsr04.o
+ .debug_info    0x0000000000009eca      0x321 ./src/intchain.o
+ .debug_info    0x000000000000a1eb     0x10f6 ./src/main.o
+ .debug_info    0x000000000000b2e1     0x1358 ./src/serial.o
 
-.debug_abbrev   0x0000000000000000     0x3e55
+.debug_abbrev   0x0000000000000000     0x3e3d
  *(.debug_abbrev)
  .debug_abbrev  0x0000000000000000      0x16d ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_abbrev  0x000000000000016d      0x1b2 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2658,22 +2665,22 @@ END GROUP
  .debug_abbrev  0x0000000000000fb7       0x60 ./system/src/cortexm/_initialize_hardware.o
  .debug_abbrev  0x0000000000001017       0xd4 ./system/src/cortexm/_reset_hardware.o
  .debug_abbrev  0x00000000000010eb       0xc4 ./system/src/cortexm/exception_handlers.o
- .debug_abbrev  0x00000000000011af      0x14e ./system/src/cmsis/system_stm32f0xx.o
- .debug_abbrev  0x00000000000012fd       0x9a ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_abbrev  0x0000000000001397      0x301 ./src/Timer.o
- .debug_abbrev  0x0000000000001698      0x2ae ./src/bbuffer.o
- .debug_abbrev  0x0000000000001946      0x21b ./src/buffer.o
- .debug_abbrev  0x0000000000001b61      0x176 ./src/conditions.o
- .debug_abbrev  0x0000000000001cd7      0x4ee ./src/dht22.o
- .debug_abbrev  0x00000000000021c5      0x485 ./src/dmachan.o
- .debug_abbrev  0x000000000000264a      0x1df ./src/dtostrf.o
- .debug_abbrev  0x0000000000002829      0x5bd ./src/flood.o
- .debug_abbrev  0x0000000000002de6      0x4cd ./src/hcsr04.o
- .debug_abbrev  0x00000000000032b3      0x228 ./src/intchain.o
- .debug_abbrev  0x00000000000034db      0x4fb ./src/main.o
- .debug_abbrev  0x00000000000039d6      0x47f ./src/serial.o
+ .debug_abbrev  0x00000000000011af      0x160 ./system/src/cmsis/system_stm32f0xx.o
+ .debug_abbrev  0x000000000000130f       0x9a ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_abbrev  0x00000000000013a9      0x323 ./src/Timer.o
+ .debug_abbrev  0x00000000000016cc      0x2ae ./src/bbuffer.o
+ .debug_abbrev  0x000000000000197a      0x21b ./src/buffer.o
+ .debug_abbrev  0x0000000000001b95      0x176 ./src/conditions.o
+ .debug_abbrev  0x0000000000001d0b      0x4db ./src/dht22.o
+ .debug_abbrev  0x00000000000021e6      0x485 ./src/dmachan.o
+ .debug_abbrev  0x000000000000266b      0x1df ./src/dtostrf.o
+ .debug_abbrev  0x000000000000284a      0x5aa ./src/flood.o
+ .debug_abbrev  0x0000000000002df4      0x4ba ./src/hcsr04.o
+ .debug_abbrev  0x00000000000032ae      0x228 ./src/intchain.o
+ .debug_abbrev  0x00000000000034d6      0x4e8 ./src/main.o
+ .debug_abbrev  0x00000000000039be      0x47f ./src/serial.o
 
-.debug_line     0x0000000000000000     0x3306
+.debug_line     0x0000000000000000     0x3366
  *(.debug_line)
  .debug_line    0x0000000000000000      0x208 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_line    0x0000000000000208      0x1ad ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2689,22 +2696,22 @@ END GROUP
  .debug_line    0x0000000000001692       0xa0 ./system/src/cortexm/_initialize_hardware.o
  .debug_line    0x0000000000001732       0xda ./system/src/cortexm/_reset_hardware.o
  .debug_line    0x000000000000180c      0x126 ./system/src/cortexm/exception_handlers.o
- .debug_line    0x0000000000001932      0x114 ./system/src/cmsis/system_stm32f0xx.o
- .debug_line    0x0000000000001a46       0x5d ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_line    0x0000000000001aa3      0x1c2 ./src/Timer.o
- .debug_line    0x0000000000001c65      0x1c1 ./src/bbuffer.o
- .debug_line    0x0000000000001e26      0x131 ./src/buffer.o
- .debug_line    0x0000000000001f57       0xd2 ./src/conditions.o
- .debug_line    0x0000000000002029      0x2b4 ./src/dht22.o
- .debug_line    0x00000000000022dd      0x243 ./src/dmachan.o
- .debug_line    0x0000000000002520      0x302 ./src/dtostrf.o
- .debug_line    0x0000000000002822      0x2c9 ./src/flood.o
- .debug_line    0x0000000000002aeb      0x26e ./src/hcsr04.o
- .debug_line    0x0000000000002d59      0x130 ./src/intchain.o
- .debug_line    0x0000000000002e89      0x1d3 ./src/main.o
- .debug_line    0x000000000000305c      0x2aa ./src/serial.o
+ .debug_line    0x0000000000001932      0x185 ./system/src/cmsis/system_stm32f0xx.o
+ .debug_line    0x0000000000001ab7       0x5d ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_line    0x0000000000001b14      0x1ab ./src/Timer.o
+ .debug_line    0x0000000000001cbf      0x1c1 ./src/bbuffer.o
+ .debug_line    0x0000000000001e80      0x131 ./src/buffer.o
+ .debug_line    0x0000000000001fb1       0xd2 ./src/conditions.o
+ .debug_line    0x0000000000002083      0x2b4 ./src/dht22.o
+ .debug_line    0x0000000000002337      0x243 ./src/dmachan.o
+ .debug_line    0x000000000000257a      0x302 ./src/dtostrf.o
+ .debug_line    0x000000000000287c      0x2c9 ./src/flood.o
+ .debug_line    0x0000000000002b45      0x26e ./src/hcsr04.o
+ .debug_line    0x0000000000002db3      0x130 ./src/intchain.o
+ .debug_line    0x0000000000002ee3      0x1d9 ./src/main.o
+ .debug_line    0x00000000000030bc      0x2aa ./src/serial.o
 
-.debug_frame    0x0000000000000000     0x16ac
+.debug_frame    0x0000000000000000     0x16cc
  *(.debug_frame)
  .debug_frame   0x0000000000000000       0xc8 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_frame   0x00000000000000c8       0x98 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2720,33 +2727,33 @@ END GROUP
  .debug_frame   0x0000000000000aa0       0x40 ./system/src/cortexm/_initialize_hardware.o
  .debug_frame   0x0000000000000ae0       0x20 ./system/src/cortexm/_reset_hardware.o
  .debug_frame   0x0000000000000b00       0x80 ./system/src/cortexm/exception_handlers.o
- .debug_frame   0x0000000000000b80       0x40 ./system/src/cmsis/system_stm32f0xx.o
- .debug_frame   0x0000000000000bc0       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_frame   0x0000000000000be0       0xc0 ./src/Timer.o
- .debug_frame   0x0000000000000ca0       0x9c ./src/bbuffer.o
- .debug_frame   0x0000000000000d3c       0x78 ./src/buffer.o
- .debug_frame   0x0000000000000db4       0x40 ./src/conditions.o
- .debug_frame   0x0000000000000df4       0xe4 ./src/dht22.o
- .debug_frame   0x0000000000000ed8      0x134 ./src/dmachan.o
- .debug_frame   0x000000000000100c       0xd0 ./src/dtostrf.o
- .debug_frame   0x00000000000010dc       0xc8 ./src/flood.o
- .debug_frame   0x00000000000011a4       0xc8 ./src/hcsr04.o
- .debug_frame   0x000000000000126c       0x90 ./src/intchain.o
- .debug_frame   0x00000000000012fc       0x60 ./src/main.o
- .debug_frame   0x000000000000135c      0x134 ./src/serial.o
- .debug_frame   0x0000000000001490       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a(del_op.o)
- .debug_frame   0x00000000000014b8       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
- .debug_frame   0x00000000000014d8       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
- .debug_frame   0x00000000000014f8       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_muldi3.o)
- .debug_frame   0x000000000000152c       0x50 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(bpabi.o)
- .debug_frame   0x000000000000157c       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
- .debug_frame   0x00000000000015b8       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
- .debug_frame   0x00000000000015f4       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-malloc.o)
- .debug_frame   0x0000000000001634       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-freer.o)
- .debug_frame   0x0000000000001660       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-mallocr.o)
- .debug_frame   0x000000000000168c       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-strlen.o)
+ .debug_frame   0x0000000000000b80       0x60 ./system/src/cmsis/system_stm32f0xx.o
+ .debug_frame   0x0000000000000be0       0x20 ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_frame   0x0000000000000c00       0xbc ./src/Timer.o
+ .debug_frame   0x0000000000000cbc       0x9c ./src/bbuffer.o
+ .debug_frame   0x0000000000000d58       0x78 ./src/buffer.o
+ .debug_frame   0x0000000000000dd0       0x40 ./src/conditions.o
+ .debug_frame   0x0000000000000e10       0xe4 ./src/dht22.o
+ .debug_frame   0x0000000000000ef4      0x134 ./src/dmachan.o
+ .debug_frame   0x0000000000001028       0xd0 ./src/dtostrf.o
+ .debug_frame   0x00000000000010f8       0xc8 ./src/flood.o
+ .debug_frame   0x00000000000011c0       0xc8 ./src/hcsr04.o
+ .debug_frame   0x0000000000001288       0x90 ./src/intchain.o
+ .debug_frame   0x0000000000001318       0x64 ./src/main.o
+ .debug_frame   0x000000000000137c      0x134 ./src/serial.o
+ .debug_frame   0x00000000000014b0       0x28 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a(del_op.o)
+ .debug_frame   0x00000000000014d8       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+ .debug_frame   0x00000000000014f8       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+ .debug_frame   0x0000000000001518       0x34 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_muldi3.o)
+ .debug_frame   0x000000000000154c       0x50 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(bpabi.o)
+ .debug_frame   0x000000000000159c       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
+ .debug_frame   0x00000000000015d8       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
+ .debug_frame   0x0000000000001614       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-malloc.o)
+ .debug_frame   0x0000000000001654       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-freer.o)
+ .debug_frame   0x0000000000001680       0x2c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-mallocr.o)
+ .debug_frame   0x00000000000016ac       0x20 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-strlen.o)
 
-.debug_str      0x0000000000000000     0x324f
+.debug_str      0x0000000000000000     0x3268
  *(.debug_str)
  .debug_str     0x0000000000000000      0x360 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
                                         0x3e4 (size before relaxing)
@@ -2776,36 +2783,36 @@ END GROUP
                                         0x20a (size before relaxing)
  .debug_str     0x0000000000001987       0xbb ./system/src/cortexm/exception_handlers.o
                                         0x252 (size before relaxing)
- .debug_str     0x0000000000001a42       0x5e ./system/src/cmsis/system_stm32f0xx.o
-                                        0x2c4 (size before relaxing)
- .debug_str     0x0000000000001aa0       0x56 ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_str     0x0000000000001a42       0x6e ./system/src/cmsis/system_stm32f0xx.o
+                                        0x2d1 (size before relaxing)
+ .debug_str     0x0000000000001ab0       0x56 ./system/src/cmsis/vectors_stm32f0xx.o
                                         0x1d3 (size before relaxing)
- .debug_str     0x0000000000001af6      0x50c ./src/Timer.o
-                                        0x6a0 (size before relaxing)
- .debug_str     0x0000000000002002      0x388 ./src/bbuffer.o
+ .debug_str     0x0000000000001b06      0x512 ./src/Timer.o
+                                        0x6e1 (size before relaxing)
+ .debug_str     0x0000000000002018      0x383 ./src/bbuffer.o
                                         0x5a9 (size before relaxing)
- .debug_str     0x000000000000238a       0x6e ./src/buffer.o
+ .debug_str     0x000000000000239b       0x6e ./src/buffer.o
                                         0x417 (size before relaxing)
- .debug_str     0x00000000000023f8       0x16 ./src/conditions.o
+ .debug_str     0x0000000000002409       0x16 ./src/conditions.o
                                         0x2ca (size before relaxing)
- .debug_str     0x000000000000240e      0x35e ./src/dht22.o
-                                        0xaf5 (size before relaxing)
- .debug_str     0x000000000000276c      0x362 ./src/dmachan.o
+ .debug_str     0x000000000000241f      0x35e ./src/dht22.o
+                                        0xaf6 (size before relaxing)
+ .debug_str     0x000000000000277d      0x362 ./src/dmachan.o
                                         0x958 (size before relaxing)
- .debug_str     0x0000000000002ace      0x104 ./src/dtostrf.o
+ .debug_str     0x0000000000002adf      0x104 ./src/dtostrf.o
                                         0x33e (size before relaxing)
- .debug_str     0x0000000000002bd2      0x461 ./src/flood.o
-                                       0x1026 (size before relaxing)
- .debug_str     0x0000000000003033       0x86 ./src/hcsr04.o
-                                        0xb9c (size before relaxing)
- .debug_str     0x00000000000030b9       0x76 ./src/intchain.o
+ .debug_str     0x0000000000002be3      0x461 ./src/flood.o
+                                       0x1027 (size before relaxing)
+ .debug_str     0x0000000000003044       0x86 ./src/hcsr04.o
+                                        0xb9d (size before relaxing)
+ .debug_str     0x00000000000030ca       0x76 ./src/intchain.o
                                         0x3b0 (size before relaxing)
- .debug_str     0x000000000000312f       0x83 ./src/main.o
-                                        0xcbe (size before relaxing)
- .debug_str     0x00000000000031b2       0x9d ./src/serial.o
+ .debug_str     0x0000000000003140       0x8b ./src/main.o
+                                        0xcce (size before relaxing)
+ .debug_str     0x00000000000031cb       0x9d ./src/serial.o
                                         0xd40 (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x41e8
+.debug_loc      0x0000000000000000     0x430d
  *(.debug_loc)
  .debug_loc     0x0000000000000000      0x19e ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_loc     0x000000000000019e      0x149 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2818,19 +2825,19 @@ END GROUP
  .debug_loc     0x00000000000019a7      0x236 ./system/src/newlib/_startup.o
  .debug_loc     0x0000000000001bdd       0x63 ./system/src/newlib/_syscalls.o
  .debug_loc     0x0000000000001c40       0x84 ./system/src/newlib/assert.o
- .debug_loc     0x0000000000001cc4       0xe7 ./system/src/cmsis/system_stm32f0xx.o
- .debug_loc     0x0000000000001dab      0x164 ./src/Timer.o
- .debug_loc     0x0000000000001f0f      0x422 ./src/bbuffer.o
- .debug_loc     0x0000000000002331      0x24c ./src/buffer.o
- .debug_loc     0x000000000000257d       0xb6 ./src/conditions.o
- .debug_loc     0x0000000000002633      0x3a7 ./src/dht22.o
- .debug_loc     0x00000000000029da      0x191 ./src/dmachan.o
- .debug_loc     0x0000000000002b6b      0xba2 ./src/dtostrf.o
- .debug_loc     0x000000000000370d      0x384 ./src/flood.o
- .debug_loc     0x0000000000003a91      0x29f ./src/hcsr04.o
- .debug_loc     0x0000000000003d30       0x1e ./src/intchain.o
- .debug_loc     0x0000000000003d4e       0x61 ./src/main.o
- .debug_loc     0x0000000000003daf      0x439 ./src/serial.o
+ .debug_loc     0x0000000000001cc4      0x18d ./system/src/cmsis/system_stm32f0xx.o
+ .debug_loc     0x0000000000001e51      0x1cb ./src/Timer.o
+ .debug_loc     0x000000000000201c      0x422 ./src/bbuffer.o
+ .debug_loc     0x000000000000243e      0x24c ./src/buffer.o
+ .debug_loc     0x000000000000268a       0xb6 ./src/conditions.o
+ .debug_loc     0x0000000000002740      0x3a7 ./src/dht22.o
+ .debug_loc     0x0000000000002ae7      0x191 ./src/dmachan.o
+ .debug_loc     0x0000000000002c78      0xba2 ./src/dtostrf.o
+ .debug_loc     0x000000000000381a      0x384 ./src/flood.o
+ .debug_loc     0x0000000000003b9e      0x29f ./src/hcsr04.o
+ .debug_loc     0x0000000000003e3d       0x1e ./src/intchain.o
+ .debug_loc     0x0000000000003e5b       0x79 ./src/main.o
+ .debug_loc     0x0000000000003ed4      0x439 ./src/serial.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -2848,7 +2855,7 @@ END GROUP
  *(.debug_varnames)
 OUTPUT(micro.elf elf32-littlearm)
 
-.debug_ranges   0x0000000000000000      0xd70
+.debug_ranges   0x0000000000000000      0xd38
  .debug_ranges  0x0000000000000000       0x60 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_ranges  0x0000000000000060       0x48 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
  .debug_ranges  0x00000000000000a8       0x70 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
@@ -2863,17 +2870,17 @@ OUTPUT(micro.elf elf32-littlearm)
  .debug_ranges  0x00000000000004f0       0x18 ./system/src/cortexm/_initialize_hardware.o
  .debug_ranges  0x0000000000000508       0x10 ./system/src/cortexm/_reset_hardware.o
  .debug_ranges  0x0000000000000518       0x40 ./system/src/cortexm/exception_handlers.o
- .debug_ranges  0x0000000000000558       0x30 ./system/src/cmsis/system_stm32f0xx.o
- .debug_ranges  0x0000000000000588       0x10 ./system/src/cmsis/vectors_stm32f0xx.o
- .debug_ranges  0x0000000000000598       0xb8 ./src/Timer.o
- .debug_ranges  0x0000000000000650       0xe0 ./src/bbuffer.o
- .debug_ranges  0x0000000000000730       0x60 ./src/buffer.o
- .debug_ranges  0x0000000000000790       0x20 ./src/conditions.o
- .debug_ranges  0x00000000000007b0      0x138 ./src/dht22.o
- .debug_ranges  0x00000000000008e8       0xa0 ./src/dmachan.o
- .debug_ranges  0x0000000000000988       0xb0 ./src/dtostrf.o
- .debug_ranges  0x0000000000000a38      0x120 ./src/flood.o
- .debug_ranges  0x0000000000000b58       0xf8 ./src/hcsr04.o
- .debug_ranges  0x0000000000000c50       0x38 ./src/intchain.o
- .debug_ranges  0x0000000000000c88       0x50 ./src/main.o
- .debug_ranges  0x0000000000000cd8       0x98 ./src/serial.o
+ .debug_ranges  0x0000000000000558       0x20 ./system/src/cmsis/system_stm32f0xx.o
+ .debug_ranges  0x0000000000000578       0x10 ./system/src/cmsis/vectors_stm32f0xx.o
+ .debug_ranges  0x0000000000000588       0x90 ./src/Timer.o
+ .debug_ranges  0x0000000000000618       0xe0 ./src/bbuffer.o
+ .debug_ranges  0x00000000000006f8       0x60 ./src/buffer.o
+ .debug_ranges  0x0000000000000758       0x20 ./src/conditions.o
+ .debug_ranges  0x0000000000000778      0x138 ./src/dht22.o
+ .debug_ranges  0x00000000000008b0       0xa0 ./src/dmachan.o
+ .debug_ranges  0x0000000000000950       0xb0 ./src/dtostrf.o
+ .debug_ranges  0x0000000000000a00      0x120 ./src/flood.o
+ .debug_ranges  0x0000000000000b20       0xf8 ./src/hcsr04.o
+ .debug_ranges  0x0000000000000c18       0x38 ./src/intchain.o
+ .debug_ranges  0x0000000000000c50       0x50 ./src/main.o
+ .debug_ranges  0x0000000000000ca0       0x98 ./src/serial.o

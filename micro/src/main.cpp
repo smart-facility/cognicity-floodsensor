@@ -43,30 +43,37 @@
 char txtbuf[128];
 FloodSensor flood;
 
+uint32_t PERIOD=60000;
+uint32_t PERDUMP=60;
+
 int
 main(int argc, char* argv[])
 {
-  Timer::setup();
-  flood.setup();
+  Timer::setup(false, true);
+  flood.setup();  // UART configured to work with PLL on
 
-  uint64_t t0=Timer::millis()+1000;
+  uint64_t t0=Timer::millis();
   uint32_t count=0;
 
   flood.setSensorPower(true);
 
   while(true){
-	Timer::msleepUntil(t0);
+	  flood.getSerial().print(".");
+	  flood.observe();
 
-	flood.getSerial().print(".");
-	flood.observe();
+	  // hourly dumps
+	  if((count % PERDUMP) == 0){
+		  flood.getSerial().println("");
+		  flood.dump();
+	  }
 
-	if((count & 7) == 0){
-		flood.getSerial().println("");
-		flood.dump();
-	}
+	  // one-minute period
+	  ++count;
+	  t0+=PERIOD;
 
-	t0+=1000;
-	++count;
+	  Timer::setup(false, false);   // slow the clock!
+	  Timer::msleepUntil(t0);
+	  Timer::setup(false, true);	// back up to speed
   }
 }
 

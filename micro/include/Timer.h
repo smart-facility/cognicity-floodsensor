@@ -38,7 +38,14 @@ public:
 
 	static constexpr int SYSTICK_PRIORITY=14;
 
-	static void setup(void);
+	/**
+	 * Reconfigure system-clock to run at a new speed, and
+	 * reprogram SysTick to run at the correct rate.
+	 * @param use_hse true for HSE (xtal), false for HSI (RC)
+	 * @param use_pll true to enable PLL
+	 * @return new system clock speed, Hz
+	 */
+	static uint32_t setup(bool use_hse=true, bool use_pll=true);
 
 	/// add a handler that will be called INSIDE the tick interrupt
 	/// @param tf pointer to the new handler which will be called

@@ -128,7 +128,7 @@
 /** @addtogroup STM32F0xx_System_Private_Variables
   * @{
   */
-uint32_t SystemCoreClock    = 48000000;
+uint32_t SystemCoreClock    = 8000000;
 __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 
 /**
@@ -139,7 +139,7 @@ __I uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9}
   * @{
   */
 
-static void SetSysClock(void);
+void SetSysClock(uint16_t use_hse, uint16_t use_pll);
 
 /**
   * @}
@@ -191,7 +191,8 @@ void SystemInit (void)
   RCC->CIR = 0x00000000;
 
   /* Configure the System clock frequency, AHB/APBx prescalers and Flash settings */
-  SetSysClock();
+  /* come up on HSI with PLL by default: fast but no hardware dependencies */
+  SetSysClock(0, 1);
 }
 
 /**
@@ -278,69 +279,159 @@ void SystemCoreClockUpdate (void)
   *         settings.
   * @note   This function should be called only once the RCC clock configuration
   *         is reset to the default reset state (done in SystemInit() function).
-  * @param  None
+  *         Modifications to select HSE/HSI and PLL on/off by William Brodie-Tyrrell.
+  * @param  use_hse select HSE (1) or HSI (0)
+  * @param  use_pll enable PLL.  48MHz (1) or HS[EI] (0)
+  *
   * @retval None
   */
-static void SetSysClock(void)
+void SetSysClock(uint16_t use_hse, uint16_t use_pll)
 {
-  __IO uint32_t StartUpCounter = 0, HSEStatus = 0;
+  __IO uint32_t StartUpCounter = 0, Status = 0;
   
-  /* SYSCLK, HCLK, PCLK configuration ----------------------------------------*/
-  /* Enable HSE */    
-  RCC->CR |= ((uint32_t)RCC_CR_HSEON);
- 
-  /* Wait till HSE is ready and if Time out is reached exit */
-  do
-  {
-    HSEStatus = RCC->CR & RCC_CR_HSERDY;
-    StartUpCounter++;  
-  } while((HSEStatus == 0) && (StartUpCounter != HSE_STARTUP_TIMEOUT));
+  if(use_hse != RESET){
 
-  if ((RCC->CR & RCC_CR_HSERDY) != RESET)
-  {
-    HSEStatus = (uint32_t)0x01;
+	  /* SYSCLK, HCLK, PCLK configuration ----------------------------------------*/
+	  /* Enable HSE */
+	  RCC->CR |= ((uint32_t)RCC_CR_HSEON);
+
+	  /* Wait till HSE is ready and if Time out is reached exit */
+	  do
+	  {
+		Status = RCC->CR & RCC_CR_HSERDY;
+		StartUpCounter++;
+	  } while((Status == 0) && (StartUpCounter != HSE_STARTUP_TIMEOUT));
+
+	  if ((RCC->CR & RCC_CR_HSERDY) != RESET)
+	  {
+		Status = (uint32_t)0x01;
+	  }
+	  else
+	  {
+		Status = (uint32_t)0x00;
+	  }
+
+	  if (Status == (uint32_t)0x01)
+	  {
+		/* Enable Prefetch Buffer and set Flash Latency */
+		FLASH->ACR = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY;
+
+		/* HCLK = SYSCLK */
+		RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
+
+		/* PCLK = HCLK */
+		RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE_DIV1;
+
+		if(use_pll != RESET){
+			/* PLL configuration = HSE * 6 = 48 MHz */
+			RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMULL));
+			RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL6);
+
+			/* Enable PLL */
+			RCC->CR |= RCC_CR_PLLON;
+
+			/* Wait till PLL is ready */
+			while((RCC->CR & RCC_CR_PLLRDY) == 0)
+			{
+			}
+
+			/* Select PLL as system clock source */
+			RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_SW));
+			RCC->CFGR |= (uint32_t)RCC_CFGR_SW_PLL;
+
+			/* Wait till PLL is used as system clock source */
+			while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)RCC_CFGR_SWS_PLL)
+			{
+			}
+		}
+		else{
+			/* select HSE as clock source */
+			RCC->CFGR = ((RCC->CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_HSE);
+
+			/* wait until HSE is selected as clock source */
+			while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSE)
+			{
+			}
+
+			/* disable PLL */
+			RCC->CR &= (uint32_t) ~RCC_CR_PLLON;
+		}
+	  }
   }
-  else
-  {
-    HSEStatus = (uint32_t)0x00;
-  }  
+  else{
+	  /* no HSE, use HSI */
 
-  if (HSEStatus == (uint32_t)0x01)
-  {
-    /* Enable Prefetch Buffer and set Flash Latency */
-    FLASH->ACR = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY;
- 
-    /* HCLK = SYSCLK */
-    RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
-      
-    /* PCLK = HCLK */
-    RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE_DIV1;
+	  /* SYSCLK, HCLK, PCLK configuration ----------------------------------------*/
+	  /* Enable HSI */
+	  RCC->CR |= RCC_CR_HSION;
 
-    /* PLL configuration = HSE * 6 = 48 MHz */
-    RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMULL));
-    RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_PREDIV1 | RCC_CFGR_PLLXTPRE_PREDIV1 | RCC_CFGR_PLLMULL6);
-            
-    /* Enable PLL */
-    RCC->CR |= RCC_CR_PLLON;
+	  /* Wait till HSI is ready and if Time out is reached exit */
+	  do
+	  {
+		Status = RCC->CR & RCC_CR_HSIRDY;
+		StartUpCounter++;
+	  } while((Status == 0) && (StartUpCounter != HSE_STARTUP_TIMEOUT));
 
-    /* Wait till PLL is ready */
-    while((RCC->CR & RCC_CR_PLLRDY) == 0)
-    {
-    }
+	  if ((RCC->CR & RCC_CR_HSIRDY) != RESET)
+	  {
+		Status = (uint32_t)0x01;
+	  }
+	  else
+	  {
+		Status = (uint32_t)0x00;
+	  }
 
-    /* Select PLL as system clock source */
-    RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_SW));
-    RCC->CFGR |= (uint32_t)RCC_CFGR_SW_PLL;    
+	  if (Status == (uint32_t)0x01)
+	  {
+		/* Enable Prefetch Buffer and set Flash Latency */
+		/* TBD: probably don't need this unless PLL is on? */
+		FLASH->ACR = FLASH_ACR_PRFTBE | FLASH_ACR_LATENCY;
 
-    /* Wait till PLL is used as system clock source */
-    while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)RCC_CFGR_SWS_PLL)
-    {
-    }
+		/* HCLK = SYSCLK */
+		RCC->CFGR |= (uint32_t)RCC_CFGR_HPRE_DIV1;
+
+		/* PCLK = HCLK */
+		RCC->CFGR |= (uint32_t)RCC_CFGR_PPRE_DIV1;
+
+		if(use_pll != RESET){
+			/* PLL configuration = HSI/2 * 12 = 48 MHz */
+			RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMULL));
+			RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSI_DIV2 | RCC_CFGR_PLLMULL12);
+
+			/* Enable PLL */
+			RCC->CR |= RCC_CR_PLLON;
+
+			/* Wait till PLL is ready */
+			while((RCC->CR & RCC_CR_PLLRDY) == 0)
+			{
+			}
+
+			/* Select PLL as system clock source */
+			RCC->CFGR &= (uint32_t)((uint32_t)~(RCC_CFGR_SW));
+			RCC->CFGR |= (uint32_t)RCC_CFGR_SW_PLL;
+
+			/* Wait till PLL is used as system clock source */
+			while ((RCC->CFGR & (uint32_t)RCC_CFGR_SWS) != (uint32_t)RCC_CFGR_SWS_PLL)
+			{
+			}
+		}
+		else{
+			/* select HSI as clock source */
+			RCC->CFGR = ((RCC->CFGR & ~RCC_CFGR_SW) | RCC_CFGR_SW_HSI);
+
+			/* wait until HSI is selected as clock source */
+			while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_HSI)
+			{
+			}
+
+			/* disable PLL */
+			RCC->CR &= (uint32_t) ~RCC_CR_PLLON;
+		}
+
+		/* disable HSE */
+		RCC->CR &= ~RCC_CR_HSEON;
+	  }
   }
-  else
-  { /* If HSE fails to start-up, the application will have wrong clock 
-         configuration. User can add here some code to deal with this error */
-  }  
 }
 
 /**

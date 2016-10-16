@@ -26,6 +26,7 @@
 #define _DTOSTRF_H
 
 #include "cmsis_device.h"
+#include "buffer.h"
 
 /// convert an int to a string
 /// @param i the integer to convert
@@ -35,7 +36,7 @@
 /// @param buf where to store the string; must contain width+1 bytes of space
 /// @return the string so created
 /// @bug will not work properly for most-negative-number
-char *itostr(int32_t i, unsigned base, unsigned width, char fill, char *buf);
+char *itostr(int64_t i, unsigned base, unsigned width, char fill, char *buf);
 
 /// convert an unsigned to a string
 /// @param i the integer to convert
@@ -44,7 +45,7 @@ char *itostr(int32_t i, unsigned base, unsigned width, char fill, char *buf);
 /// @param fill the pre-fill character
 /// @param buf where to store the string; must contain width+1 bytes of space
 /// @return the string so created
-char *utostr(uint32_t i, unsigned base, unsigned width, char fill, char *buf);
+char *utostr(uint64_t i, unsigned base, unsigned width, char fill, char *buf);
 
 /// convert fixed-point to a string
 /// @param i the integer to convert
@@ -55,7 +56,7 @@ char *utostr(uint32_t i, unsigned base, unsigned width, char fill, char *buf);
 /// @param fill the pre-fill character
 /// @param buf where to store the string; must contain width+1 bytes of space
 /// @return the string so created
-char *dtostrx(int32_t i, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf);
+char *dtostrx(int64_t i, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf);
 
 /// convert unsigned fixed-point to a string
 /// @param i the integer to convert
@@ -66,7 +67,7 @@ char *dtostrx(int32_t i, unsigned point, unsigned base, unsigned width, unsigned
 /// @param fill the pre-fill character
 /// @param buf where to store the string; must contain width+1 bytes of space
 /// @return the string so created
-char *dtostrux(uint32_t i, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf);
+char *dtostrux(uint64_t i, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf);
 
 /// format a float as a string in fixed-width
 /// @param x the value to convert
@@ -81,5 +82,11 @@ char *dtostrf(float x, unsigned width, unsigned prec, char fill, char *buf);
 /// @param i the exponent, base 10
 /// @return 10.0 ^^ i
 float pow10fi(int i);
+
+/// parse an unsigned integer
+/// @param b the buffer to parse from
+/// @param radix can be up to 36
+/// @return the number so parsed, or 0 on failure.
+uint64_t strtoul(const buffer &b, unsigned radix);
 
 #endif

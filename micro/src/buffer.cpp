@@ -78,3 +78,16 @@ uint32_t buffer::strncpy(const buffer &src, uint32_t maxlen)
 
 	return sz;
 }
+
+
+uint32_t buffer::common_prefix(const buffer &b) const
+{
+	uint32_t maxlen=min(length(), b.length());
+
+	for(uint32_t i=0;i<maxlen;++i){
+		if(ptr[i] != b[i]){
+			return i;
+		}
+	}
+	return maxlen;
+}

@@ -27,6 +27,17 @@
 #include "sort.h"
 #include "dtostrf.h"
 
+const FloodSensor::command_t FloodSensor::COMMANDS[TOTAL_CMDS]={
+		{ "OK", &FloodSensor::cmd_OK },
+		{ "TIME", &FloodSensor::cmd_TIME },
+		{ "DUMP", &FloodSensor::cmd_DUMP },
+		{ "OBSERVE", &FloodSensor::cmd_OBSERVE },
+		{ "STATUS", &FloodSensor::cmd_STATUS },
+		{ "PERIOD", &FloodSensor::cmd_PERIOD },
+		{ "COUNT", &FloodSensor::cmd_COUNT },
+		{ "OFF", &FloodSensor::cmd_OFF }
+	};
+
 FloodSensor::FloodSensor()
 : serial_rx(serbuf),
   serial(USART1, &serial_rx),
@@ -35,6 +46,9 @@ FloodSensor::FloodSensor()
 {
 	stored=0;
 	pi_on=sens_on=false;
+	cmd_valid=0;
+	period=PERIOD_DEFAULT;
+	perdump=PERDUMP_DEFAULT;
 }
 
 void FloodSensor::setup()
@@ -82,7 +96,7 @@ void FloodSensor::observe()
 		Timer::msleep(1000);	// let the DHT22 wake up
 	}
 
-	observation &obs=store[stored++];
+	observation_t &obs=store[stored++];
 	uint16_t dists[SENSOR_RETRIES];
 	unsigned dcount=0;
 
@@ -127,18 +141,15 @@ void FloodSensor::observe()
 	selection_sort(&dists[0], dcount);
 	obs.distance=dists[dcount>>1];
 
-	if(!was_on){
-		setSensorPower(false);
-	}
+	setSensorPower(was_on);
 }
 
 void FloodSensor::dump()
 {
 	char txtbuf[16];
 
-	serial.println("DUMPING");
 	for(uint16_t i=0;i<stored;++i){
-		const observation &obs=store[i];
+		const observation_t &obs=store[i];
 
 		serial.print(itostr(obs.when, 10, 10, '0', txtbuf));
 		serial.print(",");
@@ -150,5 +161,146 @@ void FloodSensor::dump()
 		serial.println("%");
 	}
 	stored=0;
-	serial.println("DUMPED");
+}
+
+bool FloodSensor::needUpload()
+{
+	return stored > 9*STORE_SIZE/10 || stored >= perdump;
+}
+
+bool FloodSensor::haveCommand()
+{
+	bool got=false;
+
+	while(serial_rx.data() > 0){
+
+		if(cmd_valid >= command.length()-2){
+			cmd_valid=0;
+			serial.println("ERROR: over-long line");
+		}
+
+		// copy next byte into the command buffer
+		buffer tmp(command, cmd_valid, 1);
+		serial_rx.retrieve(tmp);
+		char c=(char) (tmp[0]);
+
+		switch(c){
+		case '\r':
+		case '\n':
+			// newline => NUL-terminate and process
+		{
+			tmp[0]='\0';
+			buffer cmd(command, 0, cmd_valid);
+			processCommand(cmd);
+			cmd_valid=0;
+			got=true;
+		}
+			break;
+		case 0x08:
+			// backspace
+			if(cmd_valid > 0){
+				--cmd_valid;
+			}
+			break;
+		default:
+			// normal char; keep it
+			++cmd_valid;
+		}
+	}
+
+	return got;
+}
+
+void FloodSensor::processCommand(const buffer &b)
+{
+	if(b.length() == 0){
+		return;
+	}
+
+	// super-inefficient search for matching commands,
+	// but it doesn't matter.
+	for(int i=0;i<TOTAL_CMDS;++i){
+		int l=strlen(COMMANDS[i].cmd_str);
+
+		if(b.common_prefix(buffer((char *) COMMANDS[i].cmd_str)) == l){
+			(this->*COMMANDS[i].cmd_func)(buffer(b, l, b.length()));
+			return;
+		}
+	}
+
+	serial.print("ERROR: '");
+	serial.transmit(b);
+	serial.println("' not recognised");
+}
+
+void FloodSensor::cmd_OK(const buffer &args)
+{
+}
+
+void FloodSensor::cmd_TIME(const buffer &args)
+{
+	uint64_t now=Timer::millis();
+	utostr(uint32_t(now & 0xFFFFFFFF), 10, 10, '0', txt);
+	serial.println(txt);
+}
+
+void FloodSensor::cmd_DUMP(const buffer &args)
+{
+	dump();
+	serial.println("OK");
+}
+
+void FloodSensor::cmd_OBSERVE(const buffer &args)
+{
+	observe();
+	serial.println("OK");
+}
+
+void FloodSensor::cmd_STATUS(const buffer &args)
+{
+	serial.print("Stored ");
+	utostr(stored, 10, 3, '0', txt);
+	serial.print(txt);
+	serial.print(" of ");
+	utostr(STORE_SIZE, 10, 3, '0', txt);
+	serial.print(txt);
+	serial.println(" observations");
+	serial.print("Period is ");
+	utostr(period, 10, 4, '0', txt);
+	serial.print(txt);
+	serial.print(", ");
+	utostr(perdump, 10, 3, '0', txt);
+	serial.print(txt);
+	serial.println(" observations/reboot");
+}
+
+void FloodSensor::cmd_PERIOD(const buffer &args)
+{
+	uint64_t newp=strtoul(args, 10);
+
+	if(args.length() >= 2 && newp >= PERIOD_MIN && newp <= PERIOD_MAX){
+		period=newp;
+	}
+	serial.print("PERIOD is ");
+	utostr(period, 10, 4, '0', txt);
+	serial.print(txt);
+	serial.println(" s");
+}
+
+void FloodSensor::cmd_COUNT(const buffer &args)
+{
+	uint64_t newp=strtoul(args, 10);
+
+	if(args.length() >= 2 && newp >= PERDUMP_MIN && newp <= PERDUMP_MAX){
+		perdump=newp;
+	}
+	serial.print("COUNT is ");
+	utostr(perdump, 10, 4, '0', txt);
+	serial.print(txt);
+	serial.println(" observations/reboot");
+}
+
+void FloodSensor::cmd_OFF(const buffer &args)
+{
+	setPiPower(false);
 }

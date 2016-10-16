@@ -74,12 +74,17 @@ public:
 		assign(o, off, sublen);
 	}
 
+	/// make a buffer from a NUL-terminated string (not incl NUL)
+	explicit buffer(char *p)
+		: ptr((uint8_t *) p), len(strlen(p))
+	{}
+
 	/// make a reference to an internal portion of another buffer.
 	/// ensures that it doesn't go outside bounds of the source.
 	void assign(const buffer &o, uint32_t off =0UL, uint32_t sublen=0xFFFFFFFF);
 
-	inline operator uint8_t *() { return ptr; }
-	inline operator const uint8_t *() const { return ptr; }
+	inline explicit operator uint8_t *() { return ptr; }
+	inline explicit operator const uint8_t *() const { return ptr; }
 	inline uint32_t length() const { return len; }
 	inline uint8_t& operator[](uint32_t i) { if(i >= len) return canary; return ptr[i]; }
 	inline const uint8_t& operator[](uint32_t i) const { if(i >= len) return canary; return ptr[i]; }
@@ -105,6 +110,10 @@ public:
 	/// @param length of resulting string
 	uint32_t strncpy(const buffer &src, uint32_t maxlen=0xFFFFFFFF);
 
+	/// determine the number of bytes that the buffers have in common
+	/// at their start
+	uint32_t common_prefix(const buffer &b) const;
+
 private:
 
 	uint8_t *ptr;
@@ -114,6 +123,7 @@ private:
 
 	static uint8_t canary;
 };
+
 
 /**
  * A buffer object that allocates and owns the memory that it refers to.

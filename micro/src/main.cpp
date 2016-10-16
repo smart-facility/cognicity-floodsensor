@@ -40,40 +40,149 @@
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wreturn-type"
 
-char txtbuf[128];
+char txtbuf[32];
 FloodSensor flood;
 
-uint32_t PERIOD=60000;
-uint32_t PERDUMP=60;
+/// function-pointer type to implement state-machine
+typedef void (*voidfunc_t)();
 
-int
-main(int argc, char* argv[])
+/// step the state-machine
+void change_state(uint8_t st);
+
+
+/**
+ * State-machine states.
+ */
+enum {
+	SM_WAITING,		///< waiting for next observation, at low power
+	SM_OBSERVING,	///< performing an observation, Pi is off
+	SM_BOOTING,		///< waiting for Pi to come up
+	SM_CONNECTED,	///< Pi is up and in communication
+
+	SM_COUNT		///< number of states
+};
+
+/// current state
+uint8_t state;
+
+/// time of next observation
+uint64_t next_obs;
+
+
+/**
+ * State-machine functions
+ */
+
+void enter_waiting()
+{
+	flood.setPiPower(false);
+	flood.setSensorPower(false);
+}
+
+void enter_observing()
+{
+	// nothing.
+}
+
+void enter_booting()
+{
+	flood.setPiPower(true);
+	flood.setSensorPower(true);
+}
+
+void enter_connected()
+{
+	flood.getSerial().println("CONNECTED");
+}
+
+void poll_waiting()
+{
+	Timer::setup(false, false);   // slow the clock!
+	Timer::msleepUntil(next_obs);
+	Timer::setup(false, true);	  // back up to speed
+
+	change_state(SM_OBSERVING);
+}
+
+void poll_observing()
+{
+	flood.observe();
+	next_obs+=flood.getPeriod()*1000LL;
+
+	if(flood.needUpload()){
+		change_state(SM_BOOTING);
+	}
+	else{
+		change_state(SM_WAITING);
+	}
+}
+
+void poll_booting()
+{
+	if(Timer::millis() >= next_obs){
+		flood.observe();
+		next_obs+=flood.getPeriod()*1000LL;
+	}
+
+	if(flood.haveCommand()){
+		change_state(SM_CONNECTED);
+	}
+	else{
+		flood.getSerial().println("PING");
+		Timer::msleep(1000);
+	}
+}
+
+void poll_connected()
+{
+	if(Timer::millis() >= next_obs){
+		flood.observe();
+		next_obs+=flood.getPeriod()*1000LL;
+	}
+
+	flood.haveCommand();
+	if(!flood.getPiPower()){
+		change_state(SM_WAITING);
+	}
+}
+
+/// functions executed on entering a state
+constexpr voidfunc_t enter[SM_COUNT]={
+		enter_waiting,
+		enter_observing,
+		enter_booting,
+		enter_connected
+};
+/// functions executed while polling within a state
+constexpr voidfunc_t poll[SM_COUNT]={
+		poll_waiting,
+		poll_observing,
+		poll_booting,
+		poll_connected
+};
+
+void change_state(uint8_t st)
+{
+	(enter[st])();
+	state=st;
+}
+
+
+int main(int argc, char* argv[])
 {
   Timer::setup(false, true);
+
   flood.setup();  // UART configured to work with PLL on
+  flood.setSensorPower(false);
 
-  uint64_t t0=Timer::millis();
-  uint32_t count=0;
+  // start out doing nothing, observe a second later
+  next_obs=Timer::millis()+1000;
+  // try to boot the Pi, first thing
+  change_state(SM_BOOTING);
 
-  flood.setSensorPower(true);
-
+  // do stuff forever
   while(true){
-	  flood.getSerial().print(".");
-	  flood.observe();
-
-	  // hourly dumps
-	  if((count % PERDUMP) == 0){
-		  flood.getSerial().println("");
-		  flood.dump();
-	  }
-
-	  // one-minute period
-	  ++count;
-	  t0+=PERIOD;
-
-	  Timer::setup(false, false);   // slow the clock!
-	  Timer::msleepUntil(t0);
-	  Timer::setup(false, true);	// back up to speed
+	  (poll[state])();
   }
 }
 

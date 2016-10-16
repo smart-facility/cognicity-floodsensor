@@ -150,8 +150,8 @@ void Serial::setup(USART_InitTypeDef *mode)
 	GPIO_InitTypeDef gpio;
 	gpio.GPIO_Pin=in_pins;
 	gpio.GPIO_OType = GPIO_OType_PP;
-	gpio.GPIO_PuPd = GPIO_PuPd_UP;
-	gpio.GPIO_Mode=GPIO_Mode_IN;
+	gpio.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	gpio.GPIO_Mode=GPIO_Mode_AF;
 	gpio.GPIO_Speed=GPIO_Speed_2MHz;
 	GPIO_Init(gpiodev, &gpio);
 	gpio.GPIO_Pin=out_pins;

@@ -25,10 +25,36 @@
 #include "dtostrf.h"
 #include <math.h>
 #include <assert.h>
+#include <ctype.h>
 
-static constexpr const char *HEXCHARS="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+/// convert a single digit to ASCII
+static char hexchar(unsigned i)
+{
+	assert(i < 36);
+	return (i < 10 ? '0' : ('A'-10))+i;
+}
 
-char *itostr(int32_t i, unsigned base, unsigned width, char fill, char *buf)
+/// convert a single ASCII digit to a number
+/// @return -1 on failure.
+static int fromdigit(char c)
+{
+	c=toupper(c);
+	if(c > 'Z'){
+		return -1;
+	}
+	if(c >= 'A'){
+		return c-'A'+10;
+	}
+	if(c > '9'){
+		return -1;
+	}
+	if(c >= '0'){
+		return c-'0';
+	}
+	return -1;
+}
+
+char *itostr(int64_t i, unsigned base, unsigned width, char fill, char *buf)
 {
 	assert(base > 1 && base <= 36);
 	assert(width >= 2);
@@ -44,7 +70,7 @@ char *itostr(int32_t i, unsigned base, unsigned width, char fill, char *buf)
 	int p0=width-1;
 	int p=p0;
 	for(;p >= stopat && (i != 0 || p >= p0); --p, i /= base){
-		buf[p]=HEXCHARS[i % base];
+		buf[p]=hexchar(i % base);
 	}
 	for(;p >= stopat; --p){
 		buf[p]=fill;
@@ -53,7 +79,7 @@ char *itostr(int32_t i, unsigned base, unsigned width, char fill, char *buf)
 	return buf;
 }
 
-char *utostr(uint32_t i, unsigned base, unsigned width, char fill, char *buf)
+char *utostr(uint64_t i, unsigned base, unsigned width, char fill, char *buf)
 {
 	assert(base > 1 && base <= 36);
 	assert(width >= 1);
@@ -63,7 +89,7 @@ char *utostr(uint32_t i, unsigned base, unsigned width, char fill, char *buf)
 	int p0=width-1;
 	int p=p0;
 	for(;p >= 0 && (i != 0 || p >= p0); --p, i /= base){
-		buf[p]=HEXCHARS[i % base];
+		buf[p]=hexchar(i % base);
 	}
 	for(;p >= 0; --p){
 		buf[p]=fill;
@@ -72,7 +98,7 @@ char *utostr(uint32_t i, unsigned base, unsigned width, char fill, char *buf)
 	return buf;
 }
 
-char *dtostrx(int32_t x, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf)
+char *dtostrx(int64_t x, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf)
 {
 	assert((prec > 0 && width >= prec+3) || (prec == 0 && width >= 2));
 	assert(buf != 0);
@@ -97,7 +123,7 @@ char *dtostrx(int32_t x, unsigned point, unsigned base, unsigned width, unsigned
 	return buf;
 }
 
-char *dtostrux(uint32_t x, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf)
+char *dtostrux(uint64_t x, unsigned point, unsigned base, unsigned width, unsigned prec, char fill, char *buf)
 {
 	assert((prec > 0 && width >= prec+2) || (prec == 0 && width >= 1));
 	assert(buf != 0);
@@ -157,4 +183,23 @@ char *dtostrf(float x, unsigned width, unsigned prec, char fill, char *buf)
 	return buf;
 }
 
+uint64_t strtoul(const buffer &b, unsigned radix)
+{
+	assert(radix <= 36);
 
+	uint64_t result=0;
+	bool started=false;
+
+	for(uint32_t i=0;i<b.length();++i){
+		if(!started && isspace(b[i])){
+			continue;
+		}
+		int d=fromdigit(b[i]);
+		if(d < 0 || d >= radix){
+			break;
+		}
+		result=result*radix+d;
+		started=true;
+	}
+	return result;
+}

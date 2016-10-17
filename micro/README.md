@@ -23,7 +23,7 @@ When power is first applied to the micro, it will immediately attempt to power-u
 
 After powering up the Pi, the micro will send the line `PING` at 1s intervals until a line is received in reply, e.g. `OK`.  Once a reply is received, the micro will send `CONNECTED`.
 
-After CONNECTED, the micro does not initiate communications; it only responds to commands from the Pi.
+After `CONNECTED`, the micro does not initiate communications; it only responds to commands from the Pi.
 
 ### Pi to Micro
 
@@ -130,7 +130,7 @@ The Pi was woken because the distance measurement suddenly diverged.  The Pi mak
 
 ### Time Synchronisation
 
-Time within the micro is derived from an internal RC oscillator which has approximately 1% accuracy.  While the timebase is relatively stable over the course of an hour or two, it will not match realtime in rate (1% error) or offset (zero is when it was powered-on).
+Time within the micro is derived from an internal RC oscillator which has approximately 1% accuracy.  While the timebase is relatively stable over the course of an hour or two, it will not match realtime in rate (1% error) or epoch (zero is when it was powered-on).
 
 The Pi must therefore use linear interpolation to convert the micro's stated observation times to UTC.  Every time the Pi requests a `DUMP`, it should also request the `TIME` from the micro, and store the reported time along with an accurate (e.g. from NTP) global time.
 
@@ -186,7 +186,7 @@ It has the following connections:
 
 The microcontroller is expected to be programmed through the SWD port, which is available on a header.
 
-No external crystal is used; those pins are reserved on the PCB for a low-speed external LSE (32768Hz) oscillator in anticipation of possibly changing to an STM32L031F4 in future.  The F030 does not contain LSE hardware.
+No external crystal is used; those pins are reserved on the PCB for a low-speed external (LSE; 32768Hz) oscillator in anticipation of possibly changing to an STM32L031F4 in future.  The F030 does not contain LSE hardware.
 
 ### Power Consumption
 

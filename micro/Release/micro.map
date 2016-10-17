@@ -2088,221 +2088,222 @@ END GROUP
                 0x0000000008001390                FloodSensor::cmd_OK(buffer const&)
  *fill*         0x0000000008001392        0x2 
  .text._ZN11FloodSensor8cmd_TIMEERK6buffer
-                0x0000000008001394       0x38 ./src/flood.o
+                0x0000000008001394       0x34 ./src/flood.o
                 0x0000000008001394                FloodSensor::cmd_TIME(buffer const&)
  .text._ZN11FloodSensor10cmd_PERIODERK6buffer
-                0x00000000080013cc       0x70 ./src/flood.o
-                0x00000000080013cc                FloodSensor::cmd_PERIOD(buffer const&)
+                0x00000000080013c8       0x70 ./src/flood.o
+                0x00000000080013c8                FloodSensor::cmd_PERIOD(buffer const&)
  .text._ZN11FloodSensor9cmd_COUNTERK6buffer
-                0x000000000800143c       0x68 ./src/flood.o
-                0x000000000800143c                FloodSensor::cmd_COUNT(buffer const&)
+                0x0000000008001438       0x68 ./src/flood.o
+                0x0000000008001438                FloodSensor::cmd_COUNT(buffer const&)
  .text._ZN11FloodSensor11cmd_MAXDISTERK6buffer
-                0x00000000080014a4       0x70 ./src/flood.o
-                0x00000000080014a4                FloodSensor::cmd_MAXDIST(buffer const&)
+                0x00000000080014a0       0x70 ./src/flood.o
+                0x00000000080014a0                FloodSensor::cmd_MAXDIST(buffer const&)
  .text._ZN11FloodSensor11cmd_MAXTEMPERK6buffer
-                0x0000000008001514       0x80 ./src/flood.o
-                0x0000000008001514                FloodSensor::cmd_MAXTEMP(buffer const&)
+                0x0000000008001510       0x80 ./src/flood.o
+                0x0000000008001510                FloodSensor::cmd_MAXTEMP(buffer const&)
  .text._ZN11FloodSensor12cmd_MAXHUMIDERK6buffer
-                0x0000000008001594       0x80 ./src/flood.o
-                0x0000000008001594                FloodSensor::cmd_MAXHUMID(buffer const&)
+                0x0000000008001590       0x80 ./src/flood.o
+                0x0000000008001590                FloodSensor::cmd_MAXHUMID(buffer const&)
  .text._ZN11FloodSensor10cmd_STATUSERK6buffer
-                0x0000000008001614       0xb8 ./src/flood.o
-                0x0000000008001614                FloodSensor::cmd_STATUS(buffer const&)
+                0x0000000008001610       0xb8 ./src/flood.o
+                0x0000000008001610                FloodSensor::cmd_STATUS(buffer const&)
  .text._ZN11FloodSensorC2Ev
-                0x00000000080016cc       0xdc ./src/flood.o
-                0x00000000080016cc                FloodSensor::FloodSensor()
-                0x00000000080016cc                FloodSensor::FloodSensor()
+                0x00000000080016c8       0xdc ./src/flood.o
+                0x00000000080016c8                FloodSensor::FloodSensor()
+                0x00000000080016c8                FloodSensor::FloodSensor()
  .text._ZN11FloodSensor14setSensorPowerEb
-                0x00000000080017a8       0x1c ./src/flood.o
-                0x00000000080017a8                FloodSensor::setSensorPower(bool)
+                0x00000000080017a4       0x1c ./src/flood.o
+                0x00000000080017a4                FloodSensor::setSensorPower(bool)
  .text._ZN11FloodSensor10setPiPowerEb
-                0x00000000080017c4       0x1c ./src/flood.o
-                0x00000000080017c4                FloodSensor::setPiPower(bool)
+                0x00000000080017c0       0x1c ./src/flood.o
+                0x00000000080017c0                FloodSensor::setPiPower(bool)
  .text._ZN11FloodSensor5setupEv
-                0x00000000080017e0       0x5c ./src/flood.o
-                0x00000000080017e0                FloodSensor::setup()
+                0x00000000080017dc       0x5c ./src/flood.o
+                0x00000000080017dc                FloodSensor::setup()
  .text._ZN11FloodSensor7cmd_OFFERK6buffer
-                0x000000000800183c        0xa ./src/flood.o
-                0x000000000800183c                FloodSensor::cmd_OFF(buffer const&)
- *fill*         0x0000000008001846        0x2 
+                0x0000000008001838        0xa ./src/flood.o
+                0x0000000008001838                FloodSensor::cmd_OFF(buffer const&)
+ *fill*         0x0000000008001842        0x2 
  .text._ZN11FloodSensor7observeEv
-                0x0000000008001848      0x164 ./src/flood.o
-                0x0000000008001848                FloodSensor::observe()
+                0x0000000008001844      0x164 ./src/flood.o
+                0x0000000008001844                FloodSensor::observe()
  .text._ZN11FloodSensor11cmd_OBSERVEERK6buffer
-                0x00000000080019ac       0x1c ./src/flood.o
-                0x00000000080019ac                FloodSensor::cmd_OBSERVE(buffer const&)
+                0x00000000080019a8       0x1c ./src/flood.o
+                0x00000000080019a8                FloodSensor::cmd_OBSERVE(buffer const&)
  .text._ZN11FloodSensor4dumpEv
-                0x00000000080019c8       0xf0 ./src/flood.o
-                0x00000000080019c8                FloodSensor::dump()
+                0x00000000080019c4       0xf0 ./src/flood.o
+                0x00000000080019c4                FloodSensor::dump()
  .text._ZN11FloodSensor8cmd_DUMPERK6buffer
-                0x0000000008001ab8       0x1c ./src/flood.o
-                0x0000000008001ab8                FloodSensor::cmd_DUMP(buffer const&)
+                0x0000000008001ab4       0x1c ./src/flood.o
+                0x0000000008001ab4                FloodSensor::cmd_DUMP(buffer const&)
  .text._ZN11FloodSensor10needUploadEv
-                0x0000000008001ad4      0x108 ./src/flood.o
-                0x0000000008001ad4                FloodSensor::needUpload()
+                0x0000000008001ad0      0x108 ./src/flood.o
+                0x0000000008001ad0                FloodSensor::needUpload()
  .text._ZN11FloodSensor14processCommandERK6buffer
-                0x0000000008001bdc       0xa0 ./src/flood.o
-                0x0000000008001bdc                FloodSensor::processCommand(buffer const&)
+                0x0000000008001bd8       0xa0 ./src/flood.o
+                0x0000000008001bd8                FloodSensor::processCommand(buffer const&)
  .text._ZN11FloodSensor11haveCommandEv
-                0x0000000008001c7c       0xc4 ./src/flood.o
-                0x0000000008001c7c                FloodSensor::haveCommand()
+                0x0000000008001c78       0xc4 ./src/flood.o
+                0x0000000008001c78                FloodSensor::haveCommand()
  .text._ZN6HCSR04D2Ev
-                0x0000000008001d40        0x2 ./src/hcsr04.o
-                0x0000000008001d40                HCSR04::~HCSR04()
-                0x0000000008001d40                HCSR04::~HCSR04()
- *fill*         0x0000000008001d42        0x2 
+                0x0000000008001d3c        0x2 ./src/hcsr04.o
+                0x0000000008001d3c                HCSR04::~HCSR04()
+                0x0000000008001d3c                HCSR04::~HCSR04()
+ *fill*         0x0000000008001d3e        0x2 
  .text._ZN6HCSR045onIRQEv
-                0x0000000008001d44       0x90 ./src/hcsr04.o
-                0x0000000008001d44                HCSR04::onIRQ()
+                0x0000000008001d40       0x90 ./src/hcsr04.o
+                0x0000000008001d40                HCSR04::onIRQ()
  .text._ZN6HCSR04D0Ev
-                0x0000000008001dd4        0xc ./src/hcsr04.o
-                0x0000000008001dd4                HCSR04::~HCSR04()
+                0x0000000008001dd0        0xc ./src/hcsr04.o
+                0x0000000008001dd0                HCSR04::~HCSR04()
  .text._ZN6HCSR04C2EP12GPIO_TypeDefhhhPP8IntChain
-                0x0000000008001de0       0x38 ./src/hcsr04.o
-                0x0000000008001de0                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
-                0x0000000008001de0                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
+                0x0000000008001ddc       0x38 ./src/hcsr04.o
+                0x0000000008001ddc                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
+                0x0000000008001ddc                HCSR04::HCSR04(GPIO_TypeDef*, unsigned char, unsigned char, unsigned char, IntChain**)
  .text._ZN6HCSR045setupEv
-                0x0000000008001e18       0xb8 ./src/hcsr04.o
-                0x0000000008001e18                HCSR04::setup()
+                0x0000000008001e14       0xb8 ./src/hcsr04.o
+                0x0000000008001e14                HCSR04::setup()
  .text._ZN6HCSR049startReadEv
-                0x0000000008001ed0       0x30 ./src/hcsr04.o
-                0x0000000008001ed0                HCSR04::startRead()
+                0x0000000008001ecc       0x30 ./src/hcsr04.o
+                0x0000000008001ecc                HCSR04::startRead()
  .text._ZN6HCSR048getRangeEv
-                0x0000000008001f00       0x14 ./src/hcsr04.o
-                0x0000000008001f00                HCSR04::getRange()
+                0x0000000008001efc       0x14 ./src/hcsr04.o
+                0x0000000008001efc                HCSR04::getRange()
  .text._ZN8IntChain7executeEPS_
-                0x0000000008001f14       0x16 ./src/intchain.o
-                0x0000000008001f14                IntChain::execute(IntChain*)
+                0x0000000008001f10       0x16 ./src/intchain.o
+                0x0000000008001f10                IntChain::execute(IntChain*)
  .text._ZN8IntChain7installEPPS_
-                0x0000000008001f2a        0x8 ./src/intchain.o
-                0x0000000008001f2a                IntChain::install(IntChain**)
- *fill*         0x0000000008001f32        0x2 
+                0x0000000008001f26        0x8 ./src/intchain.o
+                0x0000000008001f26                IntChain::install(IntChain**)
+ *fill*         0x0000000008001f2e        0x2 
  .text.EXTI0_1_IRQHandler
-                0x0000000008001f34       0x10 ./src/intchain.o
-                0x0000000008001f34                EXTI0_1_IRQHandler
+                0x0000000008001f30       0x10 ./src/intchain.o
+                0x0000000008001f30                EXTI0_1_IRQHandler
  .text.EXTI2_3_IRQHandler
-                0x0000000008001f44       0x10 ./src/intchain.o
-                0x0000000008001f44                EXTI2_3_IRQHandler
+                0x0000000008001f40       0x10 ./src/intchain.o
+                0x0000000008001f40                EXTI2_3_IRQHandler
  .text.EXTI4_15_IRQHandler
-                0x0000000008001f54       0x10 ./src/intchain.o
-                0x0000000008001f54                EXTI4_15_IRQHandler
+                0x0000000008001f50       0x10 ./src/intchain.o
+                0x0000000008001f50                EXTI4_15_IRQHandler
  .text._Z15enter_observingv
-                0x0000000008001f64        0x2 ./src/main.o
-                0x0000000008001f64                enter_observing()
- *fill*         0x0000000008001f66        0x2 
+                0x0000000008001f60        0x2 ./src/main.o
+                0x0000000008001f60                enter_observing()
+ *fill*         0x0000000008001f62        0x2 
  .text._Z13enter_waitingv
-                0x0000000008001f68       0x1c ./src/main.o
-                0x0000000008001f68                enter_waiting()
+                0x0000000008001f64       0x1c ./src/main.o
+                0x0000000008001f64                enter_waiting()
  .text._Z13enter_bootingv
-                0x0000000008001f84       0x1c ./src/main.o
-                0x0000000008001f84                enter_booting()
+                0x0000000008001f80       0x1c ./src/main.o
+                0x0000000008001f80                enter_booting()
  .text._Z15enter_connectedv
-                0x0000000008001fa0       0x1c ./src/main.o
-                0x0000000008001fa0                enter_connected()
+                0x0000000008001f9c       0x1c ./src/main.o
+                0x0000000008001f9c                enter_connected()
  .text._Z12change_stateh
-                0x0000000008001fbc       0x1c ./src/main.o
-                0x0000000008001fbc                change_state(unsigned char)
+                0x0000000008001fb8       0x1c ./src/main.o
+                0x0000000008001fb8                change_state(unsigned char)
  .text._Z12poll_waitingv
-                0x0000000008001fd8       0x28 ./src/main.o
-                0x0000000008001fd8                poll_waiting()
+                0x0000000008001fd4       0x28 ./src/main.o
+                0x0000000008001fd4                poll_waiting()
  .text._Z14poll_observingv
-                0x0000000008002000       0x48 ./src/main.o
-                0x0000000008002000                poll_observing()
+                0x0000000008001ffc       0x48 ./src/main.o
+                0x0000000008001ffc                poll_observing()
  .text._Z12poll_bootingv
-                0x0000000008002048       0x7c ./src/main.o
-                0x0000000008002048                poll_booting()
+                0x0000000008002044       0x7c ./src/main.o
+                0x0000000008002044                poll_booting()
  .text._Z14poll_connectedv
-                0x00000000080020c4       0x64 ./src/main.o
-                0x00000000080020c4                poll_connected()
+                0x00000000080020c0       0x64 ./src/main.o
+                0x00000000080020c0                poll_connected()
  .text.startup.main
-                0x0000000008002128       0x58 ./src/main.o
-                0x0000000008002128                main
+                0x0000000008002124       0x58 ./src/main.o
+                0x0000000008002124                main
  .text.startup._GLOBAL__sub_I_txtbuf
-                0x0000000008002180       0x10 ./src/main.o
+                0x000000000800217c       0x10 ./src/main.o
  .text.exit._GLOBAL__sub_D_txtbuf
-                0x0000000008002190       0x18 ./src/main.o
+                0x000000000800218c       0x18 ./src/main.o
  .text._ZN6Serial8transmitEmPKh.part.2
-                0x00000000080021a8       0x32 ./src/serial.o
- *fill*         0x00000000080021da        0x2 
+                0x00000000080021a4       0x32 ./src/serial.o
+ *fill*         0x00000000080021d6        0x2 
  .text._ZN6SerialC2EP13USART_TypeDefP14bounded_buffer
-                0x00000000080021dc       0x38 ./src/serial.o
-                0x00000000080021dc                Serial::Serial(USART_TypeDef*, bounded_buffer*)
-                0x00000000080021dc                Serial::Serial(USART_TypeDef*, bounded_buffer*)
+                0x00000000080021d8       0x38 ./src/serial.o
+                0x00000000080021d8                Serial::Serial(USART_TypeDef*, bounded_buffer*)
+                0x00000000080021d8                Serial::Serial(USART_TypeDef*, bounded_buffer*)
  .text._ZN6SerialD2Ev
-                0x0000000008002214       0x20 ./src/serial.o
-                0x0000000008002214                Serial::~Serial()
-                0x0000000008002214                Serial::~Serial()
+                0x0000000008002210       0x20 ./src/serial.o
+                0x0000000008002210                Serial::~Serial()
+                0x0000000008002210                Serial::~Serial()
  .text._ZN6Serial5setupEP17USART_InitTypeDef
-                0x0000000008002234       0xcc ./src/serial.o
-                0x0000000008002234                Serial::setup(USART_InitTypeDef*)
+                0x0000000008002230       0xcc ./src/serial.o
+                0x0000000008002230                Serial::setup(USART_InitTypeDef*)
  .text._ZN6Serial5setupEm
-                0x0000000008002300       0x1c ./src/serial.o
-                0x0000000008002300                Serial::setup(unsigned long)
+                0x00000000080022fc       0x1c ./src/serial.o
+                0x00000000080022fc                Serial::setup(unsigned long)
  .text._ZN6Serial8transmitEmPKh
-                0x000000000800231c        0xc ./src/serial.o
-                0x000000000800231c                Serial::transmit(unsigned long, unsigned char const*)
+                0x0000000008002318        0xc ./src/serial.o
+                0x0000000008002318                Serial::transmit(unsigned long, unsigned char const*)
  .text._ZN6Serial8transmitERK6buffer
-                0x0000000008002328        0xe ./src/serial.o
-                0x0000000008002328                Serial::transmit(buffer const&)
+                0x0000000008002324        0xe ./src/serial.o
+                0x0000000008002324                Serial::transmit(buffer const&)
  .text._ZN6Serial5printEPKc
-                0x0000000008002336       0x18 ./src/serial.o
-                0x0000000008002336                Serial::print(char const*)
- *fill*         0x000000000800234e        0x2 
+                0x0000000008002332       0x18 ./src/serial.o
+                0x0000000008002332                Serial::print(char const*)
+ *fill*         0x000000000800234a        0x2 
  .text._ZN6Serial7printlnEPKc
-                0x0000000008002350       0x18 ./src/serial.o
-                0x0000000008002350                Serial::println(char const*)
+                0x000000000800234c       0x18 ./src/serial.o
+                0x000000000800234c                Serial::println(char const*)
  .text._ZN6Serial11onInterruptEv
-                0x0000000008002368       0x2a ./src/serial.o
-                0x0000000008002368                Serial::onInterrupt()
- *fill*         0x0000000008002392        0x2 
+                0x0000000008002364       0x2a ./src/serial.o
+                0x0000000008002364                Serial::onInterrupt()
+ *fill*         0x000000000800238e        0x2 
  .text.USART1_IRQHandler
-                0x0000000008002394       0x14 ./src/serial.o
-                0x0000000008002394                USART1_IRQHandler
- .text._ZdlPv   0x00000000080023a8        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a(del_op.o)
-                0x00000000080023a8                operator delete(void*)
- .text          0x00000000080023b0       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
-                0x00000000080023b0                __gnu_thumb1_case_uqi
- .text          0x00000000080023c4      0x120 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
-                0x00000000080023c4                __udivsi3
-                0x00000000080023c4                __aeabi_uidiv
-                0x00000000080024d0                __aeabi_uidivmod
- .text          0x00000000080024e4      0x1e0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
-                0x00000000080024e4                __aeabi_idiv
-                0x00000000080024e4                __divsi3
-                0x00000000080026b0                __aeabi_idivmod
- .text          0x00000000080026c4        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
-                0x00000000080026c4                __aeabi_ldiv0
-                0x00000000080026c4                __aeabi_idiv0
- .text          0x00000000080026c8       0x48 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_aeabi_ldivmod.o)
-                0x00000000080026c8                __aeabi_ldivmod
- .text          0x0000000008002710       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_aeabi_uldivmod.o)
-                0x0000000008002710                __aeabi_uldivmod
- .text          0x0000000008002750       0x54 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_muldi3.o)
-                0x0000000008002750                __aeabi_lmul
-                0x0000000008002750                __muldi3
- .text          0x00000000080027a4       0x6c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(bpabi.o)
-                0x00000000080027a4                __gnu_ldivmod_helper
-                0x00000000080027dc                __gnu_uldivmod_helper
- .text          0x0000000008002810       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzsi2.o)
-                0x0000000008002810                __clzsi2
- .text          0x000000000800284c      0x1f0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
-                0x000000000800284c                __divdi3
- .text          0x0000000008002a3c      0x158 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
-                0x0000000008002a3c                __udivdi3
- .text          0x0000000008002b94       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzdi2.o)
-                0x0000000008002b94                __clzdi2
- .text.isspace  0x0000000008002bac       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-isspace.o)
-                0x0000000008002bac                isspace
- .text.free     0x0000000008002bc0       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-malloc.o)
-                0x0000000008002bc0                free
- .text._free_r  0x0000000008002bd4       0x8c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-freer.o)
-                0x0000000008002bd4                _free_r
- .text.strlen   0x0000000008002c60        0xe /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-strlen.o)
-                0x0000000008002c60                strlen
- *fill*         0x0000000008002c6e        0x2 
- .text.toupper  0x0000000008002c70       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-toupper.o)
-                0x0000000008002c70                toupper
+                0x0000000008002390       0x14 ./src/serial.o
+                0x0000000008002390                USART1_IRQHandler
+ .text._ZdlPv   0x00000000080023a4        0x8 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libstdc++_nano.a(del_op.o)
+                0x00000000080023a4                operator delete(void*)
+ .text          0x00000000080023ac       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
+                0x00000000080023ac                __gnu_thumb1_case_uqi
+ .text          0x00000000080023c0      0x120 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivsi3.o)
+                0x00000000080023c0                __udivsi3
+                0x00000000080023c0                __aeabi_uidiv
+                0x00000000080024cc                __aeabi_uidivmod
+ .text          0x00000000080024e0      0x1e0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+                0x00000000080024e0                __aeabi_idiv
+                0x00000000080024e0                __divsi3
+                0x00000000080026ac                __aeabi_idivmod
+ .text          0x00000000080026c0        0x4 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x00000000080026c0                __aeabi_ldiv0
+                0x00000000080026c0                __aeabi_idiv0
+ .text          0x00000000080026c4       0x48 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_aeabi_ldivmod.o)
+                0x00000000080026c4                __aeabi_ldivmod
+ .text          0x000000000800270c       0x40 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_aeabi_uldivmod.o)
+                0x000000000800270c                __aeabi_uldivmod
+ .text          0x000000000800274c       0x54 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_muldi3.o)
+                0x000000000800274c                __aeabi_lmul
+                0x000000000800274c                __muldi3
+ .text          0x00000000080027a0       0x6c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(bpabi.o)
+                0x00000000080027a0                __gnu_ldivmod_helper
+                0x00000000080027d8                __gnu_uldivmod_helper
+ .text          0x000000000800280c       0x3c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzsi2.o)
+                0x000000000800280c                __clzsi2
+ .text          0x0000000008002848      0x1f0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divdi3.o)
+                0x0000000008002848                __divdi3
+ .text          0x0000000008002a38      0x158 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_udivdi3.o)
+                0x0000000008002a38                __udivdi3
+ .text          0x0000000008002b90       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_clzdi2.o)
+                0x0000000008002b90                __clzdi2
+ .text.isspace  0x0000000008002ba8       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-isspace.o)
+                0x0000000008002ba8                isspace
+ .text.free     0x0000000008002bbc       0x14 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-malloc.o)
+                0x0000000008002bbc                free
+ .text._free_r  0x0000000008002bd0       0x8c /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-nano-freer.o)
+                0x0000000008002bd0                _free_r
+ .text.strlen   0x0000000008002c5c        0xe /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-strlen.o)
+                0x0000000008002c5c                strlen
+ *fill*         0x0000000008002c6a        0x2 
+ .text.toupper  0x0000000008002c6c       0x18 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv6-m/libg_nano.a(lib_a-toupper.o)
+                0x0000000008002c6c                toupper
  *(.rodata .rodata.* .constdata .constdata.*)
+ *fill*         0x0000000008002c84        0x4 
  .rodata._ZTV5DHT22
                 0x0000000008002c88       0x14 ./src/dht22.o
                 0x0000000008002c88                vtable for DHT22
@@ -2752,7 +2753,7 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x0000000000000000     0xe7c0
+.debug_info     0x0000000000000000     0xe7bc
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x0000000000000000      0x413 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_info    0x0000000000000413      0x308 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2777,11 +2778,11 @@ END GROUP
  .debug_info    0x000000000000570e      0xe94 ./src/dht22.o
  .debug_info    0x00000000000065a2      0xb85 ./src/dmachan.o
  .debug_info    0x0000000000007127      0xd5a ./src/dtostrf.o
- .debug_info    0x0000000000007e81     0x2c45 ./src/flood.o
- .debug_info    0x000000000000aac6      0xe22 ./src/hcsr04.o
- .debug_info    0x000000000000b8e8      0x321 ./src/intchain.o
- .debug_info    0x000000000000bc09     0x1819 ./src/main.o
- .debug_info    0x000000000000d422     0x139e ./src/serial.o
+ .debug_info    0x0000000000007e81     0x2c41 ./src/flood.o
+ .debug_info    0x000000000000aac2      0xe22 ./src/hcsr04.o
+ .debug_info    0x000000000000b8e4      0x321 ./src/intchain.o
+ .debug_info    0x000000000000bc05     0x1819 ./src/main.o
+ .debug_info    0x000000000000d41e     0x139e ./src/serial.o
 
 .debug_abbrev   0x0000000000000000     0x42fd
  *(.debug_abbrev)
@@ -2814,7 +2815,7 @@ END GROUP
  .debug_abbrev  0x0000000000003861      0x5e9 ./src/main.o
  .debug_abbrev  0x0000000000003e4a      0x4b3 ./src/serial.o
 
-.debug_line     0x0000000000000000     0x37b1
+.debug_line     0x0000000000000000     0x37b3
  *(.debug_line)
  .debug_line    0x0000000000000000      0x208 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_line    0x0000000000000208      0x1ad ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
@@ -2839,11 +2840,11 @@ END GROUP
  .debug_line    0x00000000000020a2      0x2b4 ./src/dht22.o
  .debug_line    0x0000000000002356      0x243 ./src/dmachan.o
  .debug_line    0x0000000000002599      0x354 ./src/dtostrf.o
- .debug_line    0x00000000000028ed      0x570 ./src/flood.o
- .debug_line    0x0000000000002e5d      0x26e ./src/hcsr04.o
- .debug_line    0x00000000000030cb      0x130 ./src/intchain.o
- .debug_line    0x00000000000031fb      0x30a ./src/main.o
- .debug_line    0x0000000000003505      0x2ac ./src/serial.o
+ .debug_line    0x00000000000028ed      0x572 ./src/flood.o
+ .debug_line    0x0000000000002e5f      0x26e ./src/hcsr04.o
+ .debug_line    0x00000000000030cd      0x130 ./src/intchain.o
+ .debug_line    0x00000000000031fd      0x30a ./src/main.o
+ .debug_line    0x0000000000003507      0x2ac ./src/serial.o
 
 .debug_frame    0x0000000000000000     0x19d0
  *(.debug_frame)
@@ -2991,7 +2992,7 @@ END GROUP
  *(.debug_varnames)
 OUTPUT(micro.elf elf32-littlearm)
 
-.debug_ranges   0x0000000000000000      0xfa8
+.debug_ranges   0x0000000000000000      0xfc0
  .debug_ranges  0x0000000000000000       0x60 ./system/src/stm32f0-stdperiph/stm32f0xx_dma.o
  .debug_ranges  0x0000000000000060       0x48 ./system/src/stm32f0-stdperiph/stm32f0xx_exti.o
  .debug_ranges  0x00000000000000a8       0x70 ./system/src/stm32f0-stdperiph/stm32f0xx_gpio.o
@@ -3015,8 +3016,8 @@ OUTPUT(micro.elf elf32-littlearm)
  .debug_ranges  0x0000000000000780      0x138 ./src/dht22.o
  .debug_ranges  0x00000000000008b8       0xa0 ./src/dmachan.o
  .debug_ranges  0x0000000000000958      0x108 ./src/dtostrf.o
- .debug_ranges  0x0000000000000a60      0x2b8 ./src/flood.o
- .debug_ranges  0x0000000000000d18       0xf8 ./src/hcsr04.o
- .debug_ranges  0x0000000000000e10       0x38 ./src/intchain.o
- .debug_ranges  0x0000000000000e48       0xc8 ./src/main.o
- .debug_ranges  0x0000000000000f10       0x98 ./src/serial.o
+ .debug_ranges  0x0000000000000a60      0x2d0 ./src/flood.o
+ .debug_ranges  0x0000000000000d30       0xf8 ./src/hcsr04.o
+ .debug_ranges  0x0000000000000e28       0x38 ./src/intchain.o
+ .debug_ranges  0x0000000000000e60       0xc8 ./src/main.o
+ .debug_ranges  0x0000000000000f28       0x98 ./src/serial.o

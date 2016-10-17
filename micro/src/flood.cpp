@@ -271,7 +271,7 @@ void FloodSensor::cmd_OK(const buffer &args)
 void FloodSensor::cmd_TIME(const buffer &args)
 {
 	uint64_t now=Timer::millis();
-	utostr(uint32_t(now & 0xFFFFFFFF), 10, 10, '0', txt);
+	utostr(now, 10, 12, '0', txt);
 	serial.println(txt);
 }
 

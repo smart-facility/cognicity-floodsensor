@@ -83,7 +83,7 @@ private:
 
 	/// one observation
 	typedef struct {
-		uint32_t when;			///< approx seconds since boot
+		uint64_t when;			///< approx ms since boot
 		uint16_t distance;		///< mm
 		int16_t temperature;	///< 0.1C resolution
 		int16_t humidity;		///< 0.1% resolution; relative
@@ -128,7 +128,7 @@ private:
 	};
 
 	/// keep observations in-memory until they can be transmitted
-	static constexpr unsigned STORE_SIZE=200;
+	static constexpr unsigned STORE_SIZE=180;
 
 	/// command-name/function pairings
 	static const command_t COMMANDS[TOTAL_CMDS];

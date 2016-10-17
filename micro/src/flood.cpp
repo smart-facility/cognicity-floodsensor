@@ -106,7 +106,7 @@ void FloodSensor::observe()
 	uint16_t dists[SENSOR_RETRIES];
 	unsigned dcount=0;
 
-	obs.when=uint32_t(Timer::millis()/1000);
+	obs.when=Timer::millis();
 	obs.distance=0;
 	obs.temperature=0;
 	obs.humidity=0;
@@ -155,11 +155,12 @@ void FloodSensor::dump()
 	for(uint16_t i=0;i<stored;++i){
 		const observation_t &obs=store[i];
 
-		serial.print(itostr(obs.when, 10, 10, '0', txt));
+		// enough for about a decade of runtime
+		serial.print(utostr(obs.when, 10, 12, '0', txt));
 		serial.print(",");
 		serial.print(utostr(obs.distance, 10, 5, '0', txt));
 		serial.print("mm,");
-		serial.print(dtostrx(obs.temperature, 10, 10, 5, 1, '0', txt));
+		serial.print(dtostrx(obs.temperature, 10, 10, 4, 1, '0', txt));
 		serial.print("C,");
 		serial.print(dtostrx(obs.humidity, 10, 10, 5, 1, '0', txt));
 		serial.println("%");
@@ -317,7 +318,7 @@ void FloodSensor::cmd_COUNT(const buffer &args)
 	uint64_t newp=strtoul(args, 10);
 
 	if(args.length() >= 2 && newp >= PERDUMP_MIN && newp <= PERDUMP_MAX){
-		perdump=(uint32_t) newp;
+		perdump=(uint16_t) newp;
 	}
 	serial.print("COUNT=");
 	serial.println(utostr(perdump, 10, 4, '0', txt));

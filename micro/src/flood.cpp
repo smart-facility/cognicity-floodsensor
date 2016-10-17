@@ -35,7 +35,10 @@ const FloodSensor::command_t FloodSensor::COMMANDS[TOTAL_CMDS]={
 		{ "STATUS", &FloodSensor::cmd_STATUS },
 		{ "PERIOD", &FloodSensor::cmd_PERIOD },
 		{ "COUNT", &FloodSensor::cmd_COUNT },
-		{ "OFF", &FloodSensor::cmd_OFF }
+		{ "OFF", &FloodSensor::cmd_OFF },
+		{ "MAXDIST", &FloodSensor::cmd_MAXDIST },
+		{ "MAXTEMP", &FloodSensor::cmd_MAXTEMP },
+		{ "MAXHUMID", &FloodSensor::cmd_MAXHUMID }
 	};
 
 FloodSensor::FloodSensor()
@@ -49,6 +52,9 @@ FloodSensor::FloodSensor()
 	cmd_valid=0;
 	period=PERIOD_DEFAULT;
 	perdump=PERDUMP_DEFAULT;
+	thr_dist=THRDIST_DEFAULT;
+	thr_temp=THRTEMP_DEFAULT;
+	thr_humid=THRHUMID_DEFAULT;
 }
 
 void FloodSensor::setup()
@@ -146,18 +152,16 @@ void FloodSensor::observe()
 
 void FloodSensor::dump()
 {
-	char txtbuf[16];
-
 	for(uint16_t i=0;i<stored;++i){
 		const observation_t &obs=store[i];
 
-		serial.print(itostr(obs.when, 10, 10, '0', txtbuf));
+		serial.print(itostr(obs.when, 10, 10, '0', txt));
 		serial.print(",");
-		serial.print(utostr(obs.distance, 10, 5, '0', txtbuf));
+		serial.print(utostr(obs.distance, 10, 5, '0', txt));
 		serial.print("mm,");
-		serial.print(dtostrx(obs.temperature, 10, 10, 4, 1, '0', txtbuf));
+		serial.print(dtostrx(obs.temperature, 10, 10, 5, 1, '0', txt));
 		serial.print("C,");
-		serial.print(dtostrx(obs.humidity, 10, 10, 4, 1, '0', txtbuf));
+		serial.print(dtostrx(obs.humidity, 10, 10, 5, 1, '0', txt));
 		serial.println("%");
 	}
 	stored=0;
@@ -165,7 +169,33 @@ void FloodSensor::dump()
 
 bool FloodSensor::needUpload()
 {
-	return stored > 9*STORE_SIZE/10 || stored >= perdump;
+	// got too many?
+	if(stored > 9*STORE_SIZE/10 || stored >= perdump){
+		return true;
+	}
+
+	// got nothing
+	if(stored == 0){
+		return false;
+	}
+
+	// got too much variation?
+	int16_t t_min=10000, t_max=-1000, h_min=1000, h_max=0;
+	uint16_t d_min=0xFFFF, d_max=0;
+	for(uint16_t i=0;i<stored;++i){
+		const observation_t &obs=store[i];
+		t_min=min(t_min, obs.temperature);
+		t_max=max(t_max, obs.temperature);
+		h_min=min(h_min, obs.humidity);
+		h_max=max(h_max, obs.humidity);
+		d_min=min(d_min, obs.distance);
+		d_max=max(d_max, obs.distance);
+	}
+
+
+	return    ((t_max - t_min > thr_temp)
+			|| (d_max - d_min > thr_dist)
+			|| (h_max - h_min > thr_humid));
 }
 
 bool FloodSensor::haveCommand()
@@ -218,7 +248,7 @@ void FloodSensor::processCommand(const buffer &b)
 	}
 
 	// super-inefficient search for matching commands,
-	// but it doesn't matter.
+	// but it uses no allocator and is small and obvious => good.
 	for(int i=0;i<TOTAL_CMDS;++i){
 		int l=strlen(COMMANDS[i].cmd_str);
 
@@ -259,19 +289,15 @@ void FloodSensor::cmd_OBSERVE(const buffer &args)
 void FloodSensor::cmd_STATUS(const buffer &args)
 {
 	serial.print("Stored ");
-	utostr(stored, 10, 3, '0', txt);
-	serial.print(txt);
+	serial.print(utostr(stored, 10, 3, '0', txt));
 	serial.print(" of ");
-	utostr(STORE_SIZE, 10, 3, '0', txt);
-	serial.print(txt);
+	serial.print(utostr(STORE_SIZE, 10, 3, '0', txt));
 	serial.println(" observations");
-	serial.print("Period is ");
-	utostr(period, 10, 4, '0', txt);
-	serial.print(txt);
-	serial.print(", ");
-	utostr(perdump, 10, 3, '0', txt);
-	serial.print(txt);
-	serial.println(" observations/reboot");
+	cmd_PERIOD(buffer());
+	cmd_COUNT(buffer());
+	cmd_MAXDIST(buffer());
+	cmd_MAXTEMP(buffer());
+	cmd_MAXHUMID(buffer());
 }
 
 void FloodSensor::cmd_PERIOD(const buffer &args)
@@ -279,12 +305,11 @@ void FloodSensor::cmd_PERIOD(const buffer &args)
 	uint64_t newp=strtoul(args, 10);
 
 	if(args.length() >= 2 && newp >= PERIOD_MIN && newp <= PERIOD_MAX){
-		period=newp;
+		period=(uint32_t) newp;
 	}
-	serial.print("PERIOD is ");
-	utostr(period, 10, 4, '0', txt);
-	serial.print(txt);
-	serial.println(" s");
+
+	serial.print("PERIOD=");
+	serial.println(utostr(period, 10, 4, '0', txt));
 }
 
 void FloodSensor::cmd_COUNT(const buffer &args)
@@ -292,15 +317,46 @@ void FloodSensor::cmd_COUNT(const buffer &args)
 	uint64_t newp=strtoul(args, 10);
 
 	if(args.length() >= 2 && newp >= PERDUMP_MIN && newp <= PERDUMP_MAX){
-		perdump=newp;
+		perdump=(uint32_t) newp;
 	}
-	serial.print("COUNT is ");
-	utostr(perdump, 10, 4, '0', txt);
-	serial.print(txt);
-	serial.println(" observations/reboot");
+	serial.print("COUNT=");
+	serial.println(utostr(perdump, 10, 4, '0', txt));
 }
 
 void FloodSensor::cmd_OFF(const buffer &args)
 {
 	setPiPower(false);
+}
+
+void FloodSensor::cmd_MAXDIST(const buffer &args)
+{
+	uint64_t newp=strtoul(args, 10);
+
+	if(args.length() >= 2 && newp >= THRDIST_MIN && newp <= THRDIST_MAX){
+		thr_dist=(uint16_t) newp;
+	}
+	serial.print("MAXDIST=");
+	serial.println(utostr(thr_dist, 10, 5, '0', txt));
+}
+
+void FloodSensor::cmd_MAXTEMP(const buffer &args)
+{
+	uint64_t newp=10*strtoul(args, 10);
+
+	if(args.length() >= 2 && newp >= THRTEMP_MIN && newp <= THRTEMP_MAX){
+		thr_temp=(uint16_t) newp;
+	}
+	serial.print("MAXTEMP=");
+	serial.println(dtostrx(thr_temp, 10, 10, 4, 1, '0', txt));
+}
+
+void FloodSensor::cmd_MAXHUMID(const buffer &args)
+{
+	uint64_t newp=10*strtoul(args, 10);
+
+	if(args.length() >= 2 && newp >= THRHUMID_MIN && newp <= THRHUMID_MAX){
+		thr_humid=(uint16_t) newp;
+	}
+	serial.print("MAXHUMID=");
+	serial.println(dtostrx(thr_humid, 10, 10, 5, 1, '0', txt));
 }

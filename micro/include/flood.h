@@ -97,6 +97,9 @@ private:
 	void cmd_PERIOD(const buffer &);
 	void cmd_COUNT(const buffer &);
 	void cmd_OFF(const buffer &);
+	void cmd_MAXDIST(const buffer &);
+	void cmd_MAXTEMP(const buffer &);
+	void cmd_MAXHUMID(const buffer &);
 
 	/// member-function-pointer for handling serial commands
 	typedef void (FloodSensor::* cmd_ptr_t)(const buffer &);
@@ -117,6 +120,9 @@ private:
 		CMD_PERIOD,		///< "PERIOD xxx", set observation period, seconds
 		CMD_COUNT,		///< "COUNT xxx", set reboot period, observations
 		CMD_OFF,		///< "OFF", cut power to the Pi
+		CMD_MAXDIST,	///< "MAXDIST xxx", threshold distance change to boot Pi
+		CMD_MAXTEMP,	///< "MAXTEMP xxx", threshold temperature change to boot Pi
+		CMD_MAXHUMID,	///< "MAXHUMID xxx", threshold humidity change to boot Pi
 
 		TOTAL_CMDS
 	};
@@ -146,20 +152,31 @@ private:
 	static constexpr uint32_t PERIOD_DEFAULT=60;
 	static constexpr uint32_t PERIOD_MIN=5;
 	static constexpr uint32_t PERIOD_MAX=7200;
-	static constexpr uint32_t PERDUMP_DEFAULT=60;
-	static constexpr uint32_t PERDUMP_MIN=1;
-	static constexpr uint32_t PERDUMP_MAX=STORE_SIZE;
+	static constexpr uint16_t PERDUMP_DEFAULT=60;
+	static constexpr uint16_t PERDUMP_MIN=1;
+	static constexpr uint16_t PERDUMP_MAX=STORE_SIZE;
+	static constexpr uint16_t THRDIST_DEFAULT=30;	// 30mm
+	static constexpr uint16_t THRDIST_MIN=10;		// 10mm
+	static constexpr uint16_t THRDIST_MAX=30000;	// 30m
+	static constexpr uint16_t THRTEMP_DEFAULT=30;	// 3C
+	static constexpr uint16_t THRTEMP_MIN=10;		// 1C
+	static constexpr uint16_t THRTEMP_MAX=10000;	// 1000C
+	static constexpr uint16_t THRHUMID_DEFAULT=30;		// 3%
+	static constexpr uint16_t THRHUMID_MIN=10;		// 1%
+	static constexpr uint16_t THRHUMID_MAX=1000;	// 100%
 
 	observation_t store[STORE_SIZE];
 	allocated_buffer<MAX_CMD> serbuf;			///< circular buffer for serial driver
 	bounded_buffer serial_rx;
 	allocated_buffer<MAX_CMD> command;			///< received-command buffer
-	uint32_t period, perdump;
-	uint16_t cmd_valid;
 	Serial serial;
 	DHT22 dht;
 	HCSR04 usonic;
+	uint32_t period;
+	uint16_t perdump;
+	uint16_t cmd_valid;
 	uint16_t stored;
+	uint16_t thr_dist, thr_temp, thr_humid;  ///< thresholds for booting Pi
 	char txt[16];
 	bool pi_on, sens_on;
 };

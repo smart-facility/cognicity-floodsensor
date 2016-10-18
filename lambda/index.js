@@ -45,9 +45,8 @@ exports.handler = function(event, context) {
       context.done(null,'finished successfully');
     });
   } else {
-      client.end();
-      context.done(null,'finished successfully');
+      var jsonString = JSON.stringify(event);
+      var jsonObj = JSON.parse(jsonString);
+      context.done(null,'finished successfully (filtered)');
   }
-
-
 };

@@ -66,6 +66,7 @@ micro/Release/src/*
 
 # kicad backups
 *.bak
+*.kicad_pcb-bak
 
 # emacs backups
 *~

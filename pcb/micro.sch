@@ -206,17 +206,6 @@ $EndComp
 Text Label 2050 1200 2    60   ~ 0
 5V
 $Comp
-L CRYSTAL_SMD X1
-U 1 1 57B3A725
-P 4300 3850
-F 0 "X1" H 4300 3940 50  0000 C CNN
-F 1 "32768Hz" V 4650 3700 50  0000 L CNN
-F 2 "Crystals:Crystal_Round_Horizontal_3mm" H 4300 3850 50  0001 C CNN
-F 3 "" H 4300 3850 50  0000 C CNN
-	1    4300 3850
-	0    1    1    0   
-$EndComp
-$Comp
 L C C7
 U 1 1 57B3A8F5
 P 3950 3600
@@ -338,10 +327,10 @@ Wire Wire Line
 Wire Wire Line
 	4100 3600 4500 3600
 Wire Wire Line
-	4300 3650 4300 3600
+	4300 3600 4300 3700
 Connection ~ 4300 3600
 Wire Wire Line
-	4300 4050 4300 4100
+	4300 4000 4300 4100
 Wire Wire Line
 	4100 4100 4500 4100
 Connection ~ 4300 4100
@@ -457,41 +446,60 @@ Wire Wire Line
 	7300 4200 7300 4600
 Connection ~ 7800 4100
 Connection ~ 7300 4200
-$Comp
-L CONN_01X06 P10
-U 1 1 57FB93DC
-P 2350 7150
-F 0 "P10" H 2350 7500 50  0000 C CNN
-F 1 "CONN_01X06" V 2450 7150 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x06" H 2350 7150 50  0001 C CNN
-F 3 "" H 2350 7150 50  0000 C CNN
-	1    2350 7150
-	-1   0    0    1   
-$EndComp
 Wire Wire Line
-	2550 7400 3100 7400
+	2150 7050 2700 7050
 Wire Wire Line
-	2550 7300 3100 7300
+	2150 6950 2700 6950
 Wire Wire Line
-	2550 7200 3100 7200
+	3200 7250 3750 7250
 Wire Wire Line
-	2550 7100 3100 7100
+	3200 7150 3750 7150
 Wire Wire Line
-	2550 7000 3100 7000
+	3200 7050 3750 7050
 Wire Wire Line
-	2550 6900 3100 6900
-Text Label 2750 6900 0    60   ~ 0
+	3200 6950 3750 6950
+Text Label 3400 7250 0    60   ~ 0
 PA7
-Text Label 2750 7000 0    60   ~ 0
+Text Label 3400 7150 0    60   ~ 0
 PA6
-Text Label 2750 7100 0    60   ~ 0
+Text Label 3400 7050 0    60   ~ 0
 PA5
-Text Label 2750 7200 0    60   ~ 0
+Text Label 3400 6950 0    60   ~ 0
 PA4
-Text Label 2600 7300 0    60   ~ 0
+Text Label 2200 6950 0    60   ~ 0
 VCCmicro
-Text Label 2600 7400 0    60   ~ 0
+Text Label 2200 7150 0    60   ~ 0
 GND
 Text Notes 2050 7150 2    60   ~ 0
 Breakout Port
+$Comp
+L CONN_02X04 P10
+U 1 1 580898BB
+P 2950 7100
+F 0 "P10" H 2950 7350 50  0000 C CNN
+F 1 "CONN_02X04" H 2950 6850 50  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x04" H 2950 5900 50  0000 C CNN
+F 3 "" H 2950 5900 50  0000 C CNN
+	1    2950 7100
+	1    0    0    -1  
+$EndComp
+Text Label 2200 7250 0    60   ~ 0
+GND
+Wire Wire Line
+	2150 7250 2700 7250
+Wire Wire Line
+	2150 7150 2700 7150
+Text Label 2200 7050 0    60   ~ 0
+VCCmicro
+$Comp
+L Crystal X1
+U 1 1 5808A4B3
+P 4300 3850
+F 0 "X1" H 4300 4000 50  0000 C CNN
+F 1 "32768" H 4300 3700 50  0000 C CNN
+F 2 "Crystals:Crystal_Round_Horizontal_3mm" H 4300 3850 50  0001 C CNN
+F 3 "" H 4300 3850 50  0000 C CNN
+	1    4300 3850
+	0    1    -1   0   
+$EndComp
 $EndSCHEMATC

@@ -213,4 +213,9 @@ Wire Wire Line
 	4900 4900 8000 4900
 Text Label 6050 4900 0    60   ~ 0
 GND
+Wire Wire Line
+	4400 3100 4550 3100
+Wire Wire Line
+	4550 3100 4550 3200
+Connection ~ 4550 3200
 $EndSCHEMATC

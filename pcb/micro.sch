@@ -174,11 +174,11 @@ F 3 "" H 2350 6450 50  0000 C CNN
 $EndComp
 Text Label 2050 1800 2    60   ~ 0
 GND
-Text Label 2950 6600 2    60   ~ 0
-GND
-Text Label 2950 6500 2    60   ~ 0
-SWCLK
 Text Label 2950 6400 2    60   ~ 0
+GND
+Text Label 2950 6600 2    60   ~ 0
+SWCLK
+Text Label 2950 6500 2    60   ~ 0
 SWDIO
 Text Notes 2050 6450 2    60   ~ 0
 Debug Port

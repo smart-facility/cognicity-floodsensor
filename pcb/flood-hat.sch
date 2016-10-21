@@ -100,9 +100,6 @@ Wire Wire Line
 Wire Wire Line
 	7300 2300 7300 2600
 Wire Wire Line
-	7200 2600 7200 2300
-Connection ~ 7200 2300
-Wire Wire Line
 	7600 2600 7600 2300
 Connection ~ 7700 2300
 $Sheet

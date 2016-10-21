@@ -466,9 +466,9 @@ Text Label 3400 7050 0    60   ~ 0
 PA5
 Text Label 3400 6950 0    60   ~ 0
 PA4
-Text Label 2200 6950 0    60   ~ 0
-VCCmicro
 Text Label 2200 7150 0    60   ~ 0
+VCCmicro
+Text Label 2200 6950 0    60   ~ 0
 GND
 Text Notes 2050 7150 2    60   ~ 0
 Breakout Port
@@ -483,13 +483,13 @@ F 3 "" H 2950 5900 50  0000 C CNN
 	1    2950 7100
 	1    0    0    -1  
 $EndComp
-Text Label 2200 7250 0    60   ~ 0
+Text Label 2200 7050 0    60   ~ 0
 GND
 Wire Wire Line
 	2150 7250 2700 7250
 Wire Wire Line
 	2150 7150 2700 7150
-Text Label 2200 7050 0    60   ~ 0
+Text Label 2200 7250 0    60   ~ 0
 VCCmicro
 $Comp
 L Crystal X1

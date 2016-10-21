@@ -296,6 +296,14 @@ Wire Wire Line
 Wire Wire Line
 	8300 3500 8300 3850
 Connection ~ 8300 3850
+Connection ~ 5100 3500
+Connection ~ 5800 3850
+Wire Wire Line
+	5800 3500 5800 3850
+Wire Wire Line
+	5700 3500 5800 3500
+Wire Wire Line
+	5100 3500 5600 3500
 $Comp
 L CONN_01X02 P11
 U 1 1 5808B7C5
@@ -307,12 +315,4 @@ F 3 "" H 5650 3300 50  0000 C CNN
 	1    5650 3300
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	5100 3500 5600 3500
-Connection ~ 5100 3500
-Wire Wire Line
-	5700 3500 5800 3500
-Wire Wire Line
-	5800 3500 5800 3850
-Connection ~ 5800 3850
 $EndSCHEMATC

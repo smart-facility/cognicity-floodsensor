@@ -130,6 +130,7 @@ F2 "TRIG" I R 3900 6600 60
 F3 "ECHO" I R 3900 7000 60 
 F4 "DHT" I R 3900 6200 60 
 F5 "5Vsensor" I L 2750 6200 60 
+F6 "PiVCC" I L 2750 6300 60 
 $EndSheet
 Wire Wire Line
 	3900 6200 4400 6200
@@ -295,4 +296,8 @@ Text Label 4150 1200 0    60   ~ 0
 5Vsensor
 Text Notes 4900 6650 0    60   ~ 0
 Solder Bridges
+Wire Wire Line
+	2750 6300 2150 6300
+Text Label 2200 6300 0    60   ~ 0
+PIVCC
 $EndSCHEMATC

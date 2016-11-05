@@ -159,11 +159,10 @@ void FloodSensor::dump()
 		serial.print(utostr(obs.when, 10, 12, '0', txt));
 		serial.print(",");
 		serial.print(utostr(obs.distance, 10, 5, '0', txt));
-		serial.print("mm,");
+		serial.print(",");
 		serial.print(dtostrx(obs.temperature, 10, 10, 4, 1, '0', txt));
-		serial.print("C,");
-		serial.print(dtostrx(obs.humidity, 10, 10, 5, 1, '0', txt));
-		serial.println("%");
+		serial.print(",");
+		serial.println(dtostrx(obs.humidity, 10, 10, 5, 1, '0', txt));
 	}
 	stored=0;
 }
@@ -278,7 +277,7 @@ void FloodSensor::cmd_TIME(const buffer &args)
 void FloodSensor::cmd_DUMP(const buffer &args)
 {
 	dump();
-	serial.println("OK");
+	serial.println("FINISHED");
 }
 
 void FloodSensor::cmd_OBSERVE(const buffer &args)

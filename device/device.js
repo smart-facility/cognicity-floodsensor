@@ -1,12 +1,12 @@
-var config = require('./config.js');
-var awsIot = require('aws-iot-device-sdk');
-var usonic = require('r-pi-usonic');
-var dht_sensor_lib = require('node-dht-sensor');
-var logger = require('winston');
-var fs = require('fs');
-var path = require('path');
+let config = require('./config.js');
+let awsIoT = require('aws-iot-device-sdk');
+let logger = require('winston');
+let fs = require('fs');
+let path = require('path');
+let SerialPort = require('serialport');
+let exec = require('child_process').exec;
 
-var device = awsIot.device({
+let device = awsIot.device({
    keyPath: './awsCerts/private.pem.key',
   certPath: './awsCerts/certificate.pem.crt',
     caPath: './rootCA.pem',
@@ -15,7 +15,7 @@ var device = awsIot.device({
 });
 
 // Set up logging to log files
-var logPath = ( config.logger.logDirectory ? config.logger.logDirectory : __dirname );
+let logPath = ( config.logger.logDirectory ? config.logger.logDirectory : __dirname );
 // Check that log file directory can be written to
 try {
 	fs.accessSync(logPath, fs.W_OK);
@@ -36,40 +36,48 @@ logger
 	// Console transport is no use to us when running as a daemon
 	.remove(logger.transports.Console);
 
+let port = new SerialPort(
+  '/dev/ttyS0',
+  {
+    baudRate: 115200,
+    dataBits: 8,
+    parity: 'none',
+    stopBits: 1,
+    parser: SerialPort.parsers.readline('\n')
+  }
+);
+
+port.on('open', function() {
+  logger.info('serial port open');
+}
+
+let dataJSON = {};
+
+let processData = function(data) {
+  arrayOfData = data.split(',');
+
+  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId}, time: new Date()).valueOf - Number(arrayOfData[0]), distance: Number(arrayOfData[1])/100, temperature: Number(arrayOfData[2]), humidity: Number(arrayOfData[3]));
+
+}
 
 device
   .on('connect', function() {
-    logger.info('connect');
-    usonic.init(function (error) { // initialise the sensor
-        if (error) {
-            logger.error('Error initialising ultrasound sensor.');
-        } else {
-          var ultrasound_sensor = usonic.createSensor(24, 23, config.usonic_timeout);
-          if (config.hasDHT) {
-            dht_sensor_lib.initialize(22,4);
-          }
-          setInterval( function() {
-            var average = 0;
-            var count = 0;
-            var averagingInterval = setInterval( function() {
-              if (count < 5) {
-                count++;
-                average += ultrasound_sensor();
-              } else {
-                var ultrasound_sensor_reading = (average/5).toFixed(2);
-                // publish reading
-                if (config.hasDHT) {
-                  var dht_readout = dht_sensor_lib.read();
-                  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
-                  logger.info('published '+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
-                } else {
-                  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
-                  logger.info('published '+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
-                }
-                clearInterval(averagingInterval);
-              }
-            }, 1000);
-          }, config.interval*1000);
-        }
-      });
-  });
+    port.on('data', function(data) {
+      switch(data) {
+        case 'PING':
+          port.write('OK\n');
+          break;
+        case 'CONNECTED':
+          port.write('DUMP\n');
+          break;
+        case 'FINISHED':
+          //exec('/sbin/shutdown -h now', function (msg) {
+          //  logger.info(msg) }
+          //);
+          break;
+        default:
+          processData(data);
+      }
+    }
+  }
+});

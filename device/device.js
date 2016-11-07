@@ -78,6 +78,5 @@ device
         default:
           processData(data);
       }
-    }
-  }
-});
+    });
+  });

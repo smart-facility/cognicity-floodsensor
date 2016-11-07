@@ -56,7 +56,7 @@ let dataJSON = {};
 let processData = function(data) {
   arrayOfData = data.split(',');
 
-  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: new Date()).valueOf - Number(arrayOfData[0]), distance: Number(arrayOfData[1])/100, temperature: Number(arrayOfData[2]), humidity: Number(arrayOfData[3])});
+  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: new Date().valueOf - Number(arrayOfData[0]), distance: Number(arrayOfData[1])/100, temperature: Number(arrayOfData[2]), humidity: Number(arrayOfData[3])}));
 
 }
 

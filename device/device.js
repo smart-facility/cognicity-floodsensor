@@ -49,7 +49,7 @@ let port = new SerialPort(
 
 port.on('open', function() {
   logger.info('serial port open');
-}
+});
 
 let dataJSON = {};
 

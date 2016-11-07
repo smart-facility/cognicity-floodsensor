@@ -6,7 +6,7 @@ let path = require('path');
 let SerialPort = require('serialport');
 let exec = require('child_process').exec;
 
-let device = awsIot.device({
+let device = awsIoT.device({
    keyPath: './awsCerts/private.pem.key',
   certPath: './awsCerts/certificate.pem.crt',
     caPath: './rootCA.pem',

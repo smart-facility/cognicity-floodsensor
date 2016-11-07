@@ -179,8 +179,8 @@ The target microprocessor is an STM32F030F4P6.  It is designed to be installed o
 
 It has the following connections:
 - USART1 (PA9, PA10) is connected to the Pi's serial port
-- PB0 is connected to the DHT22 temperature/humidity sensor
-- PA2 and PA3 are connected to the ultrasonic ranging sensor
+- PB1 is connected to the DHT22 temperature/humidity sensor
+- PA2 (echo) and PA3 (trigger) are connected to the ultrasonic ranging sensor
 - PA0 and PA1 are used to control the supply of power to the sensors and Raspberry Pi
 - PA4-PA7 are broken out to a header for future-expansion purposes
 

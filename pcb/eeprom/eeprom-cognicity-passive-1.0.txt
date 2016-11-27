@@ -62,5 +62,6 @@ back_power 1
 
 #         GPIO  FUNCTION  PULL
 #         ----  --------  ----
-# setgpio  14     OUTPUT    NONE
-# setgpio  15     INPUT     NONE
+setgpio  23     OUTPUT    NONE
+setgpio  24     INPUT     NONE
+setgpio  4      INPUT     NONE

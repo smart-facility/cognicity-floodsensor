@@ -63,7 +63,7 @@ let processData = function(data) {
 device
   .on('connect', function() {
     port.on('data', function(data) {
-      switch(data) {
+      switch(data.slice(0,-1)) {
         case 'PING':
           port.write('OK\n');
           break;
@@ -71,9 +71,8 @@ device
           port.write('DUMP\n');
           break;
         case 'FINISHED':
-          //exec('/sbin/shutdown -h now', function (msg) {
-          //  logger.info(msg) }
-          //);
+          exec('/sbin/shutdown -h now', function (msg) {
+            logger.info(msg) });
           break;
         default:
           processData(data);

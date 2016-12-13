@@ -152,7 +152,7 @@ The code is flashed into the micro using a combination of OpenOCD 0.8.0 and an S
 - connect the ST-Link to the target micro (GND, 3.3V, SWCLK and SWDIO)
 - connect the ST-Link to a host USB port
 - in one terminal window
-  - `openocd -f interface/stlink-v2.cfg -f target/stm32f0x_stlink.cfg`
+  - `openocd -f interface/stlink-v2.cfg -f target/stm32f0x.cfg`
 - in a second terminal window, while the first is still running
   - get into the `micro` directory
   - `telnet localhost 4444`

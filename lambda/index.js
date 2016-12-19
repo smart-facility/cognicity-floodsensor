@@ -6,7 +6,7 @@ exports.handler = function(event, context) {
   console.log(JSON.stringify(event, null, '  '));
 
   // do stuff to store in pg
-  var conn = config.pg.conString; // Could set via config stored in S3 or in Lambda
+  var conn = 'postgres://' + process.env.DB_USERNAME + ':' + process.env.DB_PASSWORD + '@' + process.env.DB_HOSTNAME + '/cognicity?ssl=true';
 
   if (Number(event.distance) < 450 && Number(event.temperature) > 0) {
 

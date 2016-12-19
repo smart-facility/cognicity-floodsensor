@@ -1,6 +1,6 @@
 {
   "name": "cognicity-floodsensor",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "cognicity floodsensor example",
   "main": "device.js",
   "scripts": {
@@ -22,9 +22,8 @@
   },
   "homepage": "https://github.com/smart-facility/cognicity-floodsensor#readme",
   "dependencies": {
-    "aws-iot-device-sdk": "^1.0.12",
-    "r-pi-usonic": "^2.5.0",
-    "node-dht-sensor": "^0.0.12",
-    "winston": "^2.2.0"
+    "aws-iot-device-sdk": "^1.0.13",
+    "winston": "^2.3.0",
+    "serialport": "^4.0.5"
   }
 }

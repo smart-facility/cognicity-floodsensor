@@ -15,4 +15,8 @@ config.logger.maxFiles = 10; // Max number of log files kept
 config.logger.logDirectory = '/home/pi/cognicity-floodsensor/logs'; // Set this to a full path to a directory - if not set logs will be written to the application directory.
 config.logger.logFileName = 'cognicity-floodsensor.log'
 
+// postgresql connection string
+config.pg = {};
+config.pg.ConString = "postgres://username:password@hostname:5432/database?ssl=true"
+
 module.exports = config;

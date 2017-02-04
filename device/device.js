@@ -4,15 +4,8 @@ var usonic = require('r-pi-usonic');
 var dht_sensor_lib = require('node-dht-sensor');
 var logger = require('winston');
 var fs = require('fs');
+var pg = require('pg');
 var path = require('path');
-
-var device = awsIot.device({
-   keyPath: './awsCerts/private.pem.key',
-  certPath: './awsCerts/certificate.pem.crt',
-    caPath: './rootCA.pem',
-  clientId: 'sensor' + config.clientId.toString(),
-    region: config.aws.region
-});
 
 // Set up logging to log files
 var logPath = ( config.logger.logDirectory ? config.logger.logDirectory : __dirname );
@@ -37,6 +30,55 @@ logger
 	.remove(logger.transports.Console);
 
 
+
+var publish = function(message) {
+
+
+  var conn = config.pg.conString; // Could set via config stored in S3 or in Lambda
+
+  if (Number(event.distance) < 450 && Number(event.temperature) > 0) {
+
+    var client = new pg.Client(conn);
+    client.connect();
+
+    var query = client.query(
+      {
+        text: "INSERT INTO sensor_data (sensor_id, measurement_time, distance, temperature, humidity)" +
+        "VALUES (" +
+        "$1, " +
+        "to_timestamp($2), " +
+        "$3," +
+        "$4," +
+        "$5" +
+        ");",
+        values: [
+          event.id,
+          event.time/1000,
+          event.distance,
+          event.temperature,
+          event.humidity
+        ]
+      }
+    );
+
+    query.on("row", function (row, result) {
+      result.addRow(row);
+    });
+
+    query.on("end", function (result) {
+      var jsonString = JSON.stringify(result.rows);
+      var jsonObj = JSON.parse(jsonString);
+      client.end();
+      context.succeed(jsonObj);
+      context.done(null,'finished successfully');
+    });
+  } else {
+      var jsonString = JSON.stringify(event);
+      var jsonObj = JSON.parse(jsonString);
+      logger.info('finished successfully (filtered)');
+  }
+}
+
 device
   .on('connect', function() {
     logger.info('connect');
@@ -60,10 +102,10 @@ device
                 // publish reading
                 if (config.hasDHT) {
                   var dht_readout = dht_sensor_lib.read();
-                  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
+                  publish(JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
                   logger.info('published '+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
                 } else {
-                  device.publish('topic/floodsensor', JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
+                  publish(JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
                   logger.info('published '+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
                 }
                 clearInterval(averagingInterval);

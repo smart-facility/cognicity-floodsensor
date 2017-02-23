@@ -68,8 +68,6 @@ var publish = function(event) {
 			var jsonString = JSON.stringify(result.rows);
 			var jsonObj = JSON.parse(jsonString);
 			client.end();
-			context.succeed(jsonObj);
-			context.done(null,'finished successfully');
 		});
 	} else {
 		var jsonString = JSON.stringify(event);

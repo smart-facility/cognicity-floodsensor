@@ -17,6 +17,6 @@ config.logger.logFileName = 'cognicity-floodsensor.log'
 
 // postgresql connection string
 config.pg = {};
-config.pg.ConString = "postgres://username:password@hostname:5432/database?ssl=true"
+config.pg.conString = "postgres://username:password@hostname:5432/database?ssl=true"
 
 module.exports = config;

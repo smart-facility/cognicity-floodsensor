@@ -30,7 +30,7 @@ logger
 
 
 
-var publish = function(message) {
+var publish = function(event) {
 
 
 	var conn = config.pg.conString; // Could set via config stored in S3 or in Lambda
@@ -100,10 +100,12 @@ usonic.init(function (error) { // initialise the sensor
 					// publish reading
 					if (config.hasDHT) {
 						var dht_readout = dht_sensor_lib.read();
-						publish(JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
+						var event = {distance: ultrasound_sensor_reading, id: config.clientId, time: new Date().valueOf(), temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)};
+						publish(event);
 						logger.info('published '+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading, temperature: dht_readout.temperature.toFixed(2), humidity: dht_readout.humidity.toFixed(2)}));
 					} else {
-						publish(JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
+						var event = {distance: ultrasound_sensor_reading, id: config.clientId, time: new Date().valueOf()};
+						publish(event);
 						logger.info('published '+JSON.stringify({id: config.clientId, time: (new Date()).valueOf(), distance: ultrasound_sensor_reading}));
 					}
 					clearInterval(averagingInterval);

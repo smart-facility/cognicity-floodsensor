@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/smart-facility/cognicity-floodsensor#readme",
   "dependencies": {
-    "aws-iot-device-sdk": "^1.0.12",
+    "aws-iot-device-sdk": "^1.0.14",
     "r-pi-usonic": "^2.5.0",
-    "node-dht-sensor": "^0.0.12",
-    "winston": "^2.2.0"
+    "node-dht-sensor": "^0.0.32",
+    "winston": "^2.3.1"
   }
 }

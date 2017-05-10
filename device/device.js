@@ -1,6 +1,6 @@
 var config = require('./config.js');
 var awsIot = require('aws-iot-device-sdk');
-var usonic = require('r-pi-usonic');
+var usonic = require('mmm-usonic');
 var dht_sensor_lib = require('node-dht-sensor');
 var logger = require('winston');
 var fs = require('fs');

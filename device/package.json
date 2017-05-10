@@ -24,7 +24,7 @@
   "dependencies": {
     "aws-iot-device-sdk": "^1.0.14",
     "mmm-usonic": "^2.5.3",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
     "node-dht-sensor": "^0.0.32",
     "winston": "^2.3.1"
   }

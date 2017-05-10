@@ -1,7 +1,7 @@
 // Just the sensing code, and gives raw distance from the sensor, not a height.
 
 
-var usonic = require('r-pi-usonic');
+var usonic = require('mmm-usonic');
 
     usonic.init(function (error) {
         if (error) {
